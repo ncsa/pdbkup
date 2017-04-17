@@ -1,0 +1,2323 @@
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/0
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0232.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0232.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/1
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0296.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0296.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/2
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0050.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0050.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/3
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0120.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0120.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/4
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0275.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0275.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/5
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0162.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0162.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/6
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0171.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0171.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/7
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0325.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0325.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/8
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0163.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0163.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/9
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0077.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0077.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/10
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0066.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0066.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/11
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0184.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0184.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/12
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0213.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0213.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/13
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0206.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0206.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/14
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0042.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0042.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/15
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0114.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0114.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/16
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0298.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0298.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/17
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0247.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0247.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/18
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0062.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0062.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/19
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0132.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0132.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/20
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0239.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0239.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/21
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0063.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0063.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/22
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0188.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0188.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/23
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0048.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0048.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/24
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0264.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0264.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/25
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0198.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0198.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/26
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0207.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0207.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/27
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0223.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0223.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/28
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0248.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0248.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/29
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0306.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0306.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/30
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0257.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0257.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/31
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0089.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0089.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/32
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0272.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0272.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/33
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0167.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0167.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/34
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0312.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0312.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/35
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0084.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0084.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/36
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0133.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0133.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/37
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0059.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0059.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/38
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0186.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0186.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/39
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0222.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0222.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/40
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0119.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0119.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/41
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0271.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0271.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/42
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0134.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0134.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/43
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0245.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0245.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/44
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0193.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0193.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/45
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0055.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0055.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/46
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0240.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0240.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/47
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0031.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0031.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/48
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0237.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0237.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/49
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0180.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0180.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/50
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0106.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0106.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/51
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0037.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0037.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/52
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0166.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0166.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/53
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0329.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0329.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/54
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0029.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0029.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/55
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0243.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0243.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/56
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0102.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0102.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/57
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0140.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0140.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/58
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0279.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0279.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/59
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0219.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0219.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/60
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0146.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0146.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/61
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0311.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0311.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/62
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0040.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0040.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/63
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0299.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0299.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/64
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0208.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0208.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/65
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0175.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0175.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/66
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0168.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0168.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/67
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0070.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0070.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/68
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0228.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0228.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/69
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0209.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0209.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/70
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0155.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0155.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/71
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0326.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0326.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/72
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0002.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0002.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/73
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0276.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0276.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/74
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0149.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0149.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/75
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0287.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0287.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/76
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0314.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0314.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/77
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0060.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0060.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/78
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0141.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0141.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/79
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0273.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0273.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/80
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0270.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0270.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/81
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0109.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0109.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/82
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0123.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0123.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/83
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0043.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0043.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/84
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0322.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0322.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/85
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0034.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0034.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/86
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0177.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0177.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/87
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0080.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0080.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/88
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0061.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0061.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/89
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0251.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0251.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/90
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0078.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0078.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/91
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0266.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0266.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/92
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0319.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0319.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/93
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0307.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0307.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/94
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0111.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0111.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/95
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0098.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0098.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/96
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0300.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0300.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/97
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0099.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0099.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/98
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0262.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0262.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/99
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0202.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0202.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/100
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0284.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0284.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/101
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0082.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0082.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/102
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0269.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0269.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/103
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0214.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0214.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/104
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0030.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0030.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/105
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0041.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0041.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/106
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0026.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0026.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/107
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0249.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0249.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/108
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0313.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0313.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/109
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0065.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0065.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/110
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0332.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0332.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/111
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0192.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0192.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/112
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0091.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0091.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/113
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0158.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0158.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/114
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0138.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0138.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/115
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0283.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0283.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/116
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0097.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0097.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/117
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0142.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0142.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/118
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0095.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0095.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/119
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0092.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0092.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/120
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0170.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0170.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/121
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0116.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0116.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/122
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0101.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0101.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/123
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0143.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0143.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/124
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0259.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0259.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/125
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0135.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0135.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/126
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0094.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0094.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/127
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0233.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0233.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/128
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0154.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0154.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/129
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0136.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0136.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/130
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0244.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0244.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/131
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0265.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0265.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/132
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0113.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0113.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/133
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0039.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0039.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/134
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0227.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0227.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/135
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0216.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0216.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/136
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0318.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0318.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/137
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0218.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0218.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/138
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0071.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0071.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/139
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0121.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0121.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/140
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0197.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0197.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/141
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0238.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0238.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/142
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0183.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0183.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/143
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0018.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0018.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/144
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0127.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0127.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/145
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0297.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0297.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/146
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0261.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0261.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/147
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0253.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0253.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/148
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0075.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0075.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/149
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0173.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0173.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/150
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0277.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0277.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/151
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0234.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0234.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/152
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0105.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0105.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/153
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0013.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0013.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/154
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0025.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0025.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/155
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0067.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0067.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/156
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0087.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0087.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/157
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0035.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0035.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/158
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0190.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0190.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/159
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0017.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0017.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/160
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0172.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0172.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/161
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0148.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0148.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/162
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0083.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0083.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/163
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0144.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0144.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/164
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0022.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0022.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/165
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0321.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0321.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/166
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0174.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0174.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/167
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0112.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0112.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/168
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0185.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0185.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/169
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0156.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0156.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/170
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0033.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0033.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/171
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0045.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0045.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/172
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0221.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0221.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/173
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0001.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0001.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/174
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0130.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0130.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/175
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0182.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0182.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/176
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0278.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0278.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/177
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0230.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0230.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/178
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0019.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0019.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/179
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0085.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0085.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/180
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0235.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0235.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/181
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0317.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0317.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/182
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0032.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0032.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/183
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0256.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0256.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/184
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0316.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0316.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/185
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0014.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0014.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/186
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0324.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0324.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/187
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0236.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0236.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/188
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0049.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0049.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/189
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0254.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0254.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/190
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0056.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0056.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/191
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0196.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0196.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/192
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0147.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0147.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/193
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0021.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0021.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/194
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0226.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0226.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/195
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0044.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0044.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/196
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0178.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0178.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/197
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0165.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0165.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/198
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0310.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0310.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/199
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0252.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0252.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/200
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0051.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0051.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/201
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0242.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0242.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/202
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0028.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0028.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/203
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0108.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0108.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/204
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0129.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0129.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/205
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0199.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0199.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/206
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0074.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0074.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/207
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0191.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0191.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/208
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0072.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0072.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/209
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0128.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0128.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/210
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0281.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0281.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/211
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0137.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0137.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/212
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0073.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0073.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/213
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0057.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0057.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/214
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0126.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0126.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/215
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0093.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0093.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/216
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0004.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0004.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/217
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0204.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0204.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/218
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0088.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0088.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/219
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0320.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0320.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/220
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0327.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0327.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/221
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0047.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0047.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/222
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0241.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0241.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/223
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0015.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0015.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/224
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0215.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0215.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/225
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0189.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0189.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/226
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0122.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0122.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/227
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0009.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0009.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/228
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0005.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0005.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/229
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0152.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0152.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/230
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0169.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0169.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/231
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0100.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0100.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/232
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0139.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0139.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/233
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0212.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0212.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/234
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0069.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0069.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/235
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0285.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0285.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/236
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0330.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0330.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/237
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0052.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0052.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/238
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0012.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0012.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/239
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0231.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0231.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/240
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0036.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0036.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/241
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0260.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0260.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/242
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0150.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0150.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/243
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0011.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0011.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/244
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0038.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0038.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/245
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0331.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0331.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/246
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0016.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0016.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/247
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0058.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0058.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/248
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0118.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0118.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/249
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0110.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0110.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/250
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0024.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0024.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/251
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0255.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0255.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/252
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0008.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0008.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/253
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0076.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0076.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/254
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0201.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0201.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/255
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0220.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0220.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/256
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0010.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0010.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/257
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0195.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0195.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/258
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0309.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0309.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/259
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0125.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0125.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/260
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0286.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0286.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/261
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0305.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0305.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/262
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0303.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0303.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/263
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0315.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0315.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/264
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0046.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0046.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/265
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0124.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0124.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/266
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0020.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0020.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/267
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0291.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0291.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/268
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0103.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0103.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/269
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0282.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0282.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/270
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0176.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0176.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/271
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0246.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0246.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/272
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0023.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0023.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/273
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0068.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0068.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/274
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0224.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0224.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/275
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0104.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0104.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/276
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0294.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0294.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/277
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0086.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0086.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/278
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0210.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0210.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/279
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0301.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0301.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/280
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0081.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0081.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/281
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0274.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0274.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/282
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0090.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0090.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/283
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0181.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0181.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/284
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0267.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0267.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/285
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0293.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0293.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/286
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0053.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0053.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/287
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0115.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0115.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/288
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0161.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0161.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/289
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0006.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0006.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/290
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0295.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0295.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/291
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0268.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0268.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/292
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0225.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0225.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/293
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0164.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0164.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/294
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0323.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0323.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/295
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0153.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0153.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/296
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0027.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0027.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/297
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0308.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0308.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/298
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0263.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0263.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/299
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0131.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0131.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/300
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0328.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0328.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/301
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0007.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0007.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/302
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0157.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0157.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/303
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0292.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0292.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/304
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0194.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0194.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/305
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0117.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0117.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/306
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0288.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0288.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/307
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0290.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0290.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/308
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0280.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0280.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/309
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0151.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0151.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/310
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0187.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0187.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/311
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0211.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0211.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/312
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0304.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0304.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/313
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0096.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0096.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/314
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0159.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0159.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/315
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0145.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0145.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/316
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0205.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0205.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/317
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0250.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0250.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/318
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0107.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0107.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/319
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0160.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0160.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/320
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0229.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0229.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/321
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0289.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0289.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/322
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0054.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0054.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/323
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0179.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0179.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/324
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0302.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0302.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/325
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0217.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0217.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/326
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0258.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0258.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/327
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0203.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0203.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/328
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0003.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0003.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/329
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0064.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0064.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/330
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0200.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0200.dar.1.dar
+Faults          : n/a
+
+Task ID         : f09fa01e-f3cc-11e6-ba5b-22000b9a448b/xfer/331
+Task Type       : FILE_COPY
+Completion Code : SUCCEEDED
+Source File     : //gpfs/fs0/DR/DATA/31_Outbound_Txfr_In_Progress/1485763200_DATASETS_FULL_0079.dar.1.dar
+Destination File: //projects/sciteam/jrw/DR/DATASETS/1485763200/1485763200_DATASETS_FULL_0079.dar.1.dar
+Faults          : n/a

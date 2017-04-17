@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+TARGETS=( "aloftus@usher.ncsa.illinois.edu:working/lsst/DR/" \
+          "/gpfs/fs0/backups/lsst-backup01/root/DR/"
+)
+
+for tgt in "${TARGETS[@]}"; do
+  set -x
+  rsync -rvltp /gpfs/fs0/DR/bin "$tgt"
+  rsync -rvltp /gpfs/fs0/DR/conf "$tgt"
+  rsync -rvltp /gpfs/fs0/DR/lib "$tgt"
+  rsync -rvltp /gpfs/fs0/DR/test "$tgt"
+  rsync -rvltp /gpfs/fs0/DR/samples "$tgt"
+  set +x
+done

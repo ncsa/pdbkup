@@ -1,0 +1,11 @@
+#!/bin/bash
+
+[[ $# -eq 1 ]] || { echo "Must specify bkup dir"; exit 1
+}
+
+count=$( find $1 -name '*.ini' | wc -l )
+[[ $count -gt 0 ]] || { echo "No ini files found."; exit 2
+}
+
+find $1 -name '*.ini' \
+| awk '{split($0,parts,"_"); split(parts[4],a,"."); printf("[GENERAL]\nSEQUENCE_NUM=%s\n",a[1])>>$0}'

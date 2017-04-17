@@ -1,0 +1,70 @@
+#!/bin/bash
+
+DEBUG=$BKUP_DEBUG
+VERBOSE=$BKUP_VERBOSE
+[[ $DEBUG -gt 0 ]] && set -x
+
+source lib/funcs.sh
+#source lib/read_ini.sh
+#read_ini conf/settings.ini
+#dump_ini
+
+[[ $# -ne 1 ]] && die "Must specify absolute path to bkup info dir."
+ARGS_BKUPINFODIR=$1
+
+
+function get_data() {
+    local dir=$1
+    local outfn=$2
+    find $dir -name '*.ini' \
+    | xargs -n1 awk '
+/SEQUENCE_NUM/ { num=split($NF,parts,"=");seq=parts[num]; next }
+/ELAPSED/ { runtime=$NF; next }
+/FILELIST/ { 
+    "wc -l " $NF | getline cmdout
+    split( cmdout, parts );
+    filecount=parts[1]
+    next 
+    }
+END {
+  printok=1
+  if ( length( seq ) == 0 ) { 
+    dsize=split( FILENAME, dparts, "/" )
+    fsize=split( dparts[dsize], fparts, "_" )
+    tsize=split( fparts[fsize], tparts, "." )
+    seq=tparts[1]
+  }
+  if ( length( runtime ) == 0 ) { printok=0 }
+  if ( length( filecount ) == 0 ) { printok=0 }
+  if ( printok == 1 ) {
+    print seq,runtime,filecount
+  }
+}
+' > $outfn
+
+}
+
+outfn=$ARGS_BKUPINFODIR/gnuplot.png
+datafn=$ARGS_BKUPINFODIR/gnuplot.data
+
+#if [[ ! -f $datafn ]]; then
+    get_data $ARGS_BKUPINFODIR $datafn
+#fi
+
+if [[ -s $datafn ]]; then
+gnuplot <<ENDHERE
+set terminal dumb
+set key above
+set xtics out nomirror
+set xlabel "Filecount (thousands)"
+set ylabel "Runtime (hours)"
+#set logscale y
+plot "$datafn" using (\$3/1000):(\$2/3600) with points
+set terminal png size 1000,1000
+set key autotitle
+set output "$outfn"
+replot
+ENDHERE
+echo "PNG file = $outfn"
+fi
+

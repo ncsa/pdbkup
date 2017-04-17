@@ -1,0 +1,8 @@
+set terminal dumb
+set xtics out nomirror
+set xlabel "Filecount"
+set ylabel "Runtime"
+plot "c.sorted.filecount" using 2:3 with lines
+set terminal png size 600,400
+set output "c.sorted.filecount.png"
+replot

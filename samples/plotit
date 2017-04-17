@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [[ $# -lt 1 ]]; then
+    echo "Missing input filename"
+    exit 1
+fi
+
+fn=$1
+outfn="${fn}.png"
+
+gnuplot <<ENDHERE
+set terminal dumb
+set xtics out nomirror
+set xlabel "Filecount (thousands)"
+set ylabel "Runtime (hours)"
+#set logscale y
+plot "$fn" using (\$3/1000):(\$2/3600) with points
+set terminal png size 1000,1000
+set output "$outfn"
+replot
+ENDHERE
+
+echo "Output PNG in $outfn"

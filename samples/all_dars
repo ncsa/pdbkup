@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+DATADIR=/gpfs/fs0/DR/DATA
+
+(
+echo "SIZE FILENAME"
+
+find $DATADIR -name '*.dar' -printf '%C@ %s %p\n' \
+| sort \
+| cut -d' ' -f2,3
+) | column -t

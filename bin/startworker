@@ -1,0 +1,24 @@
+#!/bin/bash
+
+[[ $BKUP_DEBUG -gt 0 ]] && set -x
+
+source lib/funcs.sh
+source lib/read_ini.sh
+
+read_ini conf/settings.ini
+[[ $BKUP_DEBUG -gt 0 ]] && dump_ini
+
+# Dont continue if active parallel or dar processes
+parcount=$( pgrep -f parallel | wc -l )
+[[ $parcount -ne 0 ]] && die "Existing parallel processes found, exiting."
+darcount=$( pgrep -f dar | wc -l )
+[[ $darcount -ne 0 ]] && die "Existing dar processes found, exiting."
+
+# Get a sqlworker cmdfile
+cmdfile=$( next_worker_cmdfile )
+echo "CMDFILE: $cmdfile"
+if [[ "${#cmdfile}" -gt 0 ]] ; then
+    echo "bash $cmdfile" | at now
+else
+    warn "Nothing to do"
+fi

@@ -1,0 +1,46 @@
+#!/bin/bash
+
+URL=https://software.xsede.org/security/xsede-certs.tar.gz
+TGZ=/root/certs.tgz
+CERTDIR=/etc/grid-security/certificates
+
+
+function clean() {
+    find "$CERTDIR" -name 'xsede-ca-certificates*' -delete
+    find -P "$CERTDIR" -type l -xtype l -delete
+}
+#clean && exit
+
+set -x
+
+rm -f "$TGZ" 2>/dev/null
+curl -s -o "$TGZ" "$URL" \
+&& \
+tar -zxk -C /etc/grid-security -f "$TGZ" && \
+&& \
+chown -R root:root "$CERTDIR" \
+&& \
+chown -R root:root "$CERTDIR/" \
+&& \
+chmod -R 0444 "$CERTDIR/"
+
+#subdir=$( tar -ztf "$TGZ" | head -1 | xargs -n1 basename )
+#
+#if [[ $subdir != xsede-ca-certificates* ]] ; then
+#    echo "Error getting subdir name from certs.tgz"
+#    exit 1
+#fi
+#
+#cd "$CERTDIR" \
+#&& \
+#tar -zxkf "$TGZ" \
+#&& \
+#chown -R root:root "$CERTDIR" \
+#&& \
+#chmod -R 0444 "$CERTDIR" \
+#&& \
+#find "$subdir" -mindepth 1 -type f -o -type l -exec ln -s {} \; \
+#&& \
+#cd -
+#
+#rm -f "$TGZ" 2>/dev/null

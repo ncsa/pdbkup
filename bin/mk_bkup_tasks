@@ -1,0 +1,254 @@
+#!/bin/bash
+
+[[ $BKUP_DEBUG -gt 0 ]] && set -x
+
+# Allow for an existing backup info dir to be passed on cmdline
+ARGS_BKUPINFODIR=$1
+
+source lib/funcs.sh
+source lib/read_ini.sh
+
+read_ini conf/settings.ini
+dump_ini
+
+# VERIFY DAR COMMAND
+DAR=$INI__DAR__CMD
+[[ -z "$DAR" ]] && DAR=$(which dar)
+[[ -f "$DAR" ]] || die "dar cmd '$DAR' does not exist"
+[[ -x "$DAR" ]] || die "dar cmd '$DAR' is not executable"
+
+# VERIFY PARALLEL COMMAND
+PARALLEL=$INI__PARALLEL__CMD
+[[ -z "$PARALLEL" ]] && PARALLEL=$(which parallel)
+[[ -f "$PARALLEL" ]] || die "parallel cmd '$PARALLEL' does not exist"
+[[ -x "$PARALLEL" ]] || die "parallel cmd '$PARALLEL' is not executable"
+
+# GET DIRECTORY BACKUP KEYS (essentially, unique key for each dir to be backed up)
+if [[ -n "$ARGS_BKUPINFODIR" ]] ; then
+    bkupinfodir_parts=( $( bkupinfodir2key_ts <<< "$ARGS_BKUPINFODIR"  ) )
+    dirkeys=( ${bkupinfodir_parts[0]} )
+else
+    dirkeys=( $( get_all_vars_matching_prefix INI__DIRS__ 1 ) )
+fi
+
+# MAKE COMMON DIRECTORIES
+mkdir -p "$INI__GENERAL__DATADIR" || die "Unable to made datadir_base '$INI__GENERAL__DATADIR'"
+mk_datadirs "$INI__GENERAL__DATADIR"
+dar_workdir="$INI__GENERAL__DATADIR/$INI__DAR__WORKDIR"
+dar_enddir="$INI__GENERAL__DATADIR/$INI__DAR__ENDDIR"
+dar_errdir="$INI__GENERAL__DATADIR/$INI__DAR__ERRDIR"
+
+# LOOP OVER EACH key-path PAIR
+for key in "${dirkeys[@]}"; do
+    # DETERMINE PATHS AND FILENAMES
+    pathvar=INI__DIRS__$key
+    path=${!pathvar}
+    [[ "${path:0:1}" != "/" ]] && die "Backup dir path '$path' must be an absolute path"
+    # Get most recent snap
+    # if "$ARGS_BKUPINFODIR" was given, use custom value
+    if [[ -n "$ARGS_BKUPINFODIR" ]] ; then
+        timestamp=${bkupinfodir_parts[1]}
+        snapdir=$( timestamp2snapdir $key $timestamp )
+    else
+        snapdir=$( get_last_snapdir $key )
+        timestamp=$( snapdir2timestamp "$snapdir" )
+    fi
+    dumpvars key path snapdir timestamp dar_workdir
+    [[ -z "$snapdir" ]] && die "Cant find snapdir for key='$key'"
+    [[ -z "$timestamp" ]] && die "Cant create timestamp from snapdir='$snapdir'"
+
+    # Get last backup info
+    prev_bkupdir=$( get_last_bkupdir $key )
+    dumpvars prev_bkupdir
+
+    # Create new backup info dir
+    infodir="$INI__GENERAL__INFODIR/${key}/$timestamp"
+    [[ -d $infodir ]] || mkdir -p $infodir
+
+    # Create backup filelist
+    allfileslist=$infodir/allfileslist
+    dumpvars infodir allfileslist
+
+    # If prev == current, then unset prev
+    [[ "$prev_bkupdir" == "$infodir" ]] && unset prev_bkupdir
+
+    ###
+    #
+    # DEBUG - unset prev_bkupdir to force a full
+    #
+    unset prev_bkupdir
+    #
+    #
+    ###
+
+    if [[ -n "$prev_bkupdir" ]]; then
+        # There was a previous backup, do incremental
+        
+        # Get snap diff filelist
+        die "****NOT IMPLEMENTED YET get_snapdiff"
+        bkuptype="INCR"
+
+    else
+        # This is the first backup, do a full
+        bkuptype="FULL"
+        # Don't recreate filelist if it already exists
+        [[ -s $allfileslist ]] || {
+            log "Starting scandir $snapdir $infodir"
+            bin/scandir.bash $snapdir $infodir
+        }
+    fi
+
+    # Split allfileslist into smaller filelists
+    filelist_count=$( find "$infodir" -mindepth 1 -maxdepth 1 -type f \
+        -name '*.filelist' \
+        | wc -l )
+    # don't attempt to split if there are already filelists
+    if [[ $filelist_count -eq 0 ]] ; then
+        log "Starting split of filelist"
+        maxsize=${INI__DEFAULTS__ARCHIVE_MAX_SIZE}
+        refname="INI__${key}__ARCHIVE_MAX_SIZE"
+        [[ -n "${!refname}" ]] && maxsize="${!refname}"
+        maxfiles=${INI__DEFAULTS__ARCHIVE_MAX_FILES}
+        refname="INI__${key}__ARCHIVE_MAX_FILES"
+        [[ -n "${!refname}" ]] && maxfiles="${!refname}"
+        pydebug=
+        pyverbose=
+        [[ $BKUP_DEBUG -gt 0 ]] && pydebug='-d'
+        [[ $BKUP_VERBOSE -gt 0 ]] && pyverbose='-v'
+        python3 bin/split_filelist.py \
+            --size_max $maxsize \
+            --numfiles_max $maxfiles \
+            --outdir $infodir \
+            --with_summary \
+            -0 \
+            $pydebug \
+            $pyverbose \
+            $allfileslist \
+        | tee "$infodir/runtime.02.binpack" \
+        || die "Error during split filelist"
+    fi
+
+    # CYCLE THROUGH CHILD FILELISTS
+    parallel_workdir="$INI__GENERAL__DATADIR/$INI__PARALLEL__WORKDIR"
+    parallel_pfx="${key}_${timestamp}"
+    parallel_joblist="$parallel_workdir/${parallel_pfx}.joblist"
+    parallel_sqlworker_cmdfile="$parallel_workdir/${parallel_pfx}.sqlworker.cmd"
+    # Allow for existing cmd files in iteration numbering
+    iter=$( find "$infodir" -mindepth 1 -maxdepth 1 -type f -name '*.cmd' \
+            | wc -l )
+    # Unprocessed child filelists are named as UUID.filelist, rename them
+    # to something more useful
+    find "$infodir" -mindepth 1 -maxdepth 1 -type f \
+        -name '????????-????-????-????-????????????.filelist' \
+    | while read; do
+        # sequence number
+        let "iter = $iter + 1"
+        num=$( printf "%04d" $iter )
+
+        # dar naming scheme
+        #fn_base="${timestamp}_${key}_${bkuptype}_${num}"
+        fn_base="${key}_${timestamp}_${bkuptype}_${num}"
+
+        # rename input filelist to match dar naming scheme
+        in_fn_base=$( basename $REPLY ".filelist" )
+        input_file=$infodir/${fn_base}.filelist
+        mv $REPLY $input_file
+
+        darbase="$dar_workdir/${fn_base}.dar"
+        darfile="$darbase.1.dar"
+        catbase="$dar_workdir/${fn_base}.cat"
+        catfile="$catbase.1.dar"
+        optfile="$infodir/${fn_base}.dcf"
+        infofile="$infodir/${fn_base}.ini"
+        logfile="$infodir/${fn_base}.log"
+        errfile="$infodir/${fn_base}.err"
+        dumpvars darbase darfile catbase catfile optfile infofile logfile errfile
+
+        # CREATE DAR OPTIONS FILE
+        cat <<ENDOPTS >"$optfile"
+--create "$darbase"
+--fs-root "$snapdir"
+--on-fly-isolate "$catbase"
+--include-from-file "$input_file"
+--no-mount-points
+--verbose
+ENDOPTS
+
+        # CREATE BASH SCRIPT FOR DAR TASK
+        cmdfile="$infodir/${fn_base}.cmd"
+        (
+            echo '### FUNCTIONS'
+            echo -n 'function '; declare -f die
+            echo -n 'function '; declare -f update_ini
+            echo '### RESET IF PREVIOUSLY STARTED'
+            echo "if [[ -f \"$infofile\" ]] ; then"
+            echo "  rm -f \"$infofile\" &>/dev/null"
+            echo "  rm -f \"$darfile\" &>/dev/null"
+            echo "  rm -f \"$catfile\" &>/dev/null"
+            echo "  rm -f \"$logfile\" &>/dev/null"
+            echo "  rm -f \"$errfile\" &>/dev/null"
+            echo 'fi'
+            echo '### SAVE METADATA'
+            echo "update_ini \"$infofile\" 'GENERAL' 'SEQUENCE_NUM' \"$num\""
+            echo "update_ini \"$infofile\" 'DAR' 'HOSTNAME' \"\$(hostname)\""
+            echo "update_ini \"$infofile\" 'DAR' 'DARBASE' \"$darbase\""
+            echo "update_ini \"$infofile\" 'DAR' 'DARFILE' \"$darfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'CATBASE' \"$catbase\""
+            echo "update_ini \"$infofile\" 'DAR' 'CATFILE' \"$catfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'OPTFILE' \"$optfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'LOGFILE' \"$logfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'ERRFILE' \"$errfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'CMDFILE' \"$cmdfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'FILELIST' \"$input_file\""
+            echo '### START DAR'
+            echo 'start_time=$( date "+%s" )'
+            echo "update_ini \"$infofile\" 'DAR' 'START' \$start_time"
+            echo "$DAR -Q -B \"$optfile\" 1>\"$logfile\" 2>\"$errfile\""
+            echo 'dar_exitcode=$?'
+            echo '### SAVE STATS'
+            echo 'elapsed_secs=$SECONDS'
+            echo 'end_time=$( bc <<< "$start_time + $elapsed_secs" )'
+            echo "update_ini \"$infofile\" 'DAR' 'END' \$end_time"
+            echo "update_ini \"$infofile\" 'DAR' 'ELAPSED' \$elapsed_secs"
+            echo "update_ini \"$infofile\" 'DAR' 'EXITCODE' \$dar_exitcode"
+            echo 'if [[ $dar_exitcode -eq 0 ]] ; then'
+            echo "  mv \"$darfile\" \"$dar_enddir\""
+            echo "  mv \"$catfile\" \"$infodir\""
+            echo 'else'
+            echo "  mv \"$darfile\" \"$dar_errdir\""
+            echo "  rm -f \"$catfile\""
+            echo 'fi'
+            echo 'exit $dar_exitcode'
+        ) >$cmdfile
+
+        # Add cmdfile to joblist so later can be added to the work queue
+        echo "$cmdfile" >> "$parallel_joblist"
+
+    done #END | while read; do
+
+    #ADD CMD FILES TO WORK QUEUE (ie: PARALLEL SQLMASTER DB)
+    dburl=$( mk_dburl "$parallel_pfx" )
+    dburltable="${dburl}/$INI__PARALLEL__DB_TABLE"
+    if [[ -s "$parallel_joblist" ]]; then
+        $PARALLEL -a "$parallel_joblist" --sqlmaster "$dburltable" bash
+        log "JOB QUEUE DB $dburl"
+
+        # MAKE BASH SCRIPT FOR RUNNING IN SQLWORKER MODE
+        cat <<ENDHERE >$parallel_sqlworker_cmdfile
+pver=\$($PARALLEL --version | awk '/^GNU parallel [0-9]+/ {print \$3}')
+[[ \$pver -ge $INI__PARALLEL__MIN_VERSION ]] || { 
+    echo Missing parallel or version too old
+    exit
+}
+QNAME="${dburl}"
+DBURLTABLE="${dburltable}"
+$PARALLEL -j $INI__PARALLEL__MAX_PROCS --sqlworker "\$DBURLTABLE" bash
+ENDHERE
+
+        log "SQLWORKER CMD FILE $parallel_sqlworker_cmdfile"
+
+    fi
+    rm -f "$parallel_joblist"
+
+done #END for key in "${dirkeys[@]}"; do
+

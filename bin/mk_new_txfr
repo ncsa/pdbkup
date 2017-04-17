@@ -1,0 +1,59 @@
+#!/bin/bash
+
+DEBUG=$BKUP_DEBUG
+VERBOSE=$BKUP_VERBOSE
+[[ $DEBUG -gt 0 ]] && set -x
+
+source lib/funcs.sh
+source lib/read_ini.sh
+
+read_ini conf/settings.ini
+dump_ini
+
+
+# CHECK FOR FILES TO BE TRANSFERRED
+srcdir=${INI__GENERAL__DATADIR}/${INI__TXFR__SRCDIR_OUTBOUND}
+numfiles=$( find "$srcdir" -mindepth 1 | wc -l )
+if [[ $numfiles -lt 1 ]] ; then
+    log "No files ready to transfer"
+    exit 0
+fi
+
+
+# GENERATE TASKID
+taskid=$( gossh transfer --generate-id )
+grep -v '[0-9a-zA-Z-]' <<< "$taskid" \
+&& die "Invalid taskid: '$taskid'"
+
+
+# BUILD FILELIST
+workdir=${INI__GENERAL__DATADIR}/${INI__TXFR__WORKDIR_OUTBOUND}
+fn_filelist=$workdir/${taskid}.filelist
+debug "WORKDIR: $workdir"
+debug "FN_FILELIST: $fn_filelist"
+:>| $fn_filelist #create empty file or truncate existing file
+go_srcdir=${INI__GLOBUS__BASEDIR_LOCAL}/${INI__TXFR__WORKDIR_OUTBOUND}
+go_tgtdir=${INI__GLOBUS__BASEDIR_REMOTE}
+find $srcdir -mindepth 1 -maxdepth 1 -type f -print \
+| while read; do
+    src_fn=$( basename $REPLY )
+    read dir_key ts <<< "$( filename2key_ts '$src_fn' )"
+    read dir_key ts <<< $( filename2key_ts $src_fn )
+    go_src=$( urlencode "$go_srcdir/$src_fn" )
+    go_tgt=$( urlencode "$go_tgtdir/$dir_key/$ts/$src_fn" )
+    echo "${INI__GLOBUS__ENDPOINT_LOCAL}/$go_src \
+          ${INI__GLOBUS__ENDPOINT_REMOTE}/$go_tgt" >> $fn_filelist
+   mv "$srcdir/$src_fn" "$workdir/."
+done
+log "GO Filelist = $fn_filelist"
+
+# INITIATE TRANSFER
+endpoint_activate "${INI__GLOBUS__ENDPOINT_LOCAL}"
+endpoint_activate "${INI__GLOBUS__ENDPOINT_REMOTE}"
+gossh transfer --taskid=$taskid <$fn_filelist
+
+# ADD LABEL TO THE TRANSFER
+go_label=$( echo "$fn_filelist" | tr tr -c 'A-Za-z0-9 _,-' '_' )
+gossh modify --label "$go_label" $taskid
+
+gossh details
