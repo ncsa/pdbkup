@@ -25,7 +25,7 @@ the authors of those projects.
 # Configuration
 All configuration is managed through the single file `config/settings.ini`.
 Below is a description of each section and related settings.
-## General
+## GENERAL
 * DATADIR
   * A directory structure will be created here inside of which will be stored
     all the temporary DAR archive files (before they transfer to long term
@@ -37,7 +37,7 @@ the data that will be backed up.
     permanent information about each backup.  Everything below here defines
 state or status of each backup as well as information necessary for restores.
 
-## Globus
+## GLOBUS
 * ENDPOINT_LOCAL
   * Name or UUID of local endpoint
   * local endpoint should have access to the `DATADIR` from the `General` section
