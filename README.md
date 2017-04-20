@@ -2,8 +2,8 @@
 Parallel Distributed Backup
 
 # Dependencies
-* [GNU Parallel] https://www.gnu.org/software/parallel/
-* [DAR] http://dar.linux.free.fr/
+* [GNU Parallel](https://www.gnu.org/software/parallel/)
+* [DAR]( http://dar.linux.free.fr/)
 * Requires that the filesystem to be backed up implements snapshots and that
   snapshots are actively being produced.
 ### Automatically included dependencies
@@ -20,6 +20,7 @@ the authors of those projects.
 1. Review settings in `conf/settings.ini` (see the Configuration section below)
 
 # Usage
+**TODO**
 
 # Configuration
 All configuration is managed through the single file `config/settings.ini`.
@@ -51,25 +52,16 @@ state or status of each backup as well as information necessary for restores.
 * USERNAME
   * Access globus as this user
 
-##PARALLEL
+## PARALLEL
 GNU Parallel uses a database for a task queue.  This section defines how to
-interact with the database.  For more information and for a list of supported
-vendors, see:
-
-[GNU Parallel option --sqlmaster](https://www.gnu.org/software/parallel/man.html)
-
-and
-
-[Saving to an SQL base (advanced)](https://www.gnu.org/software/parallel/parallel_tutorial.html#Saving-to-an-SQL-base-advanced)
-
-Not all fields will be used; leave blank any irrelevant fields.  For instance,
+interact with the database. Not all fields will be used; leave blank any irrelevant fields.  For instance,
 if using sqlite3, then user, pass, host, port will be empty (likewise for csv).
 
 * DB_VENDOR
-* DB_USER = 
-* DB_PASS =
-* DB_HOST =
-* DB_PORT =
+* DB_USER
+* DB_PASS
+* DB_HOST
+* DB_PORT
 * DB_DBNAME
 * DB_TABLE
 * WORKDIR
@@ -83,21 +75,26 @@ if using sqlite3, then user, pass, host, port will be empty (likewise for csv).
   * Options `--sqlmaster` and `--sqlworker` are relatively new and don't work 
     well before Jan 2017.  Change this only at your own risk.
 
-##DAR
+For more information and for a list of valid strings for DB_VENDOR, see:
+* [GNU Parallel option --sqlmaster](https://www.gnu.org/software/parallel/man.html)
+* [Saving to an SQL base (advanced)](https://www.gnu.org/software/parallel/parallel_tutorial.html#Saving-to-an-SQL-base-advanced)
+
+
+## DAR
 * CMD
   * Path to dar binary/executable
 No need to change anything else in this section.
 
-##PAR
+## PAR
 Unused for now. Possible future enhancement.
 
-##TXFR
+## TXFR
 No need to change anything in this section.
 
-##PURGE
+## PURGE
 No need to change anything in this section.
 
-##DEFAULTS
+## DEFAULTS
 These are defaults that apply to the DIRS that will be backed up. Most often,
 all the dirs to be backed up are all part of the same filesystem or same type
 of filesystem, so it suffices to set relevant settings in one place.
@@ -119,7 +116,7 @@ Any of these defaults can be overridden on a per DIR basis by creating
 a section matching the name of the KEY in the `DIRS` section and then put the
 new setting and value in that section.  It will apply only to that DIRKEY
 
-##DIRS
+## DIRS
 * Create a unique "key" for each filesystem that needs to be backed up
 * The value for each "key" is the absolute path to the mountpoint
 
