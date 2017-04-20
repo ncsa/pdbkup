@@ -2,9 +2,6 @@
 
 [[ $BKUP_DEBUG -gt 0 ]] && set -x
 
-# Allow for an existing backup info dir to be passed on cmdline
-ARGS_BKUPINFODIR=$1
-
 source lib/funcs.sh
 source lib/read_ini.sh
 
@@ -24,12 +21,23 @@ PARALLEL=$INI__PARALLEL__CMD
 [[ -x "$PARALLEL" ]] || die "parallel cmd '$PARALLEL' is not executable"
 
 # GET DIRECTORY BACKUP KEYS (essentially, unique key for each dir to be backed up)
-if [[ -n "$ARGS_BKUPINFODIR" ]] ; then
-    bkupinfodir_parts=( $( bkupinfodir2key_ts <<< "$ARGS_BKUPINFODIR"  ) )
-    dirkeys=( ${bkupinfodir_parts[0]} )
+if [[ -n "$1" ]] ; then #allow for cmdline parameter
+    if [[ -d "$1" ]] ; then # cmdline ARG is a bkupinfodir path 
+        arg_bkupinfodir="$1"
+        bkupinfodir_parts=( $( bkupinfodir2key_ts <<< "$arg_bkupinfodir"  ) )
+        dirkeys=( ${bkupinfodir_parts[0]} )
+    else # ARG must a DIRKEY, check to ensure it is a valid DIRKEY
+        varname="INI__DIRS__$1"
+        if [[ " ${INI__ALL_VARS[@]} " =~ " ${varname} " ]] ; then
+            dirkeys=( "$1" )
+        else
+            die "cmdline arg '$1' is neither a bkup_info_dir nor a valid DIRKEY"
+        fi
+    fi
 else
     dirkeys=( $( get_all_vars_matching_prefix INI__DIRS__ 1 ) )
 fi
+
 
 # MAKE COMMON DIRECTORIES
 mkdir -p "$INI__GENERAL__DATADIR" || die "Unable to made datadir_base '$INI__GENERAL__DATADIR'"
@@ -45,8 +53,8 @@ for key in "${dirkeys[@]}"; do
     path=${!pathvar}
     [[ "${path:0:1}" != "/" ]] && die "Backup dir path '$path' must be an absolute path"
     # Get most recent snap
-    # if "$ARGS_BKUPINFODIR" was given, use custom value
-    if [[ -n "$ARGS_BKUPINFODIR" ]] ; then
+    # if BKUPINFODIR was passed on cmdline, use existing value from that dir
+    if [[ -n "$arg_bkupinfodir" ]] ; then
         timestamp=${bkupinfodir_parts[1]}
         snapdir=$( timestamp2snapdir $key $timestamp )
     else
@@ -243,6 +251,8 @@ pver=\$($PARALLEL --version | awk '/^GNU parallel [0-9]+/ {print \$3}')
 QNAME="${dburl}"
 DBURLTABLE="${dburltable}"
 $PARALLEL -j $INI__PARALLEL__MAX_PROCS --sqlworker "\$DBURLTABLE" bash
+sleep 2
+echo "bash $cmdfile" | at now
 ENDHERE
 
         log "SQLWORKER CMD FILE $parallel_sqlworker_cmdfile"
