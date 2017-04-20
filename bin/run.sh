@@ -83,7 +83,8 @@ Usage: $1 <CMD>
     purge       - Purge all files from old, completed processes (includes txfrs)
     stop        - Stop the parallel process (allow subprocesses to complete)
     kill        - Stop ALL backup processes
-    sanitize    - *caution* delete all files from latest backup
+    sanitize    - *caution* delete all files from specified backup
+                  (use to allow init to rerun on a dir without re-scanning filesystem)
     reset       - *caution* delete entire backup tree
 
 ENDHERE
