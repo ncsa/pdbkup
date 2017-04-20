@@ -1,0 +1,6 @@
+[submodule "lib/bash_ini_parser"]
+	path = lib/bash_ini_parser
+	url = https://github.com/rudimeier/bash_ini_parser.git
+[submodule "lib/pixeldb"]
+	path = lib/pixeldb
+	url = https://github.com/pixelb/crudini.git
