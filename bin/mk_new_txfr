@@ -52,7 +52,7 @@ endpoint_activate "${INI__GLOBUS__ENDPOINT_REMOTE}"
 gossh transfer --taskid=$taskid <$fn_filelist
 
 # ADD LABEL TO THE TRANSFER
-go_label=$( echo "$fn_filelist" | tr tr -c 'A-Za-z0-9 _,-' '_' )
+go_label=$( echo "$fn_filelist" | sed -e 's/[^a-zA-Z0-9_,-]/__/g' )
 gossh modify --label "$go_label" $taskid
 
 gossh details
