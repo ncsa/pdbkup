@@ -53,7 +53,7 @@ function sanitize() {
     key=${parts[0]}
     ts=${parts[1]}
     set -x
-    find /gpfs/fs0/DR/DATA -name "*$ts*" -delete
+    find "$INI__GENERAL__DATADIR" -name "*$ts*" -delete
     find $infodir -type f ! -name 'allfileslist' -delete
     set +x
 }
@@ -105,11 +105,11 @@ case $action in
         sanitize $*
         ;;
     reset) 
-        read -p "Delete ALL under /gpfs/fs0/DR/{DATA,INFO} trees? "
+        read -p "Delete ALL under $INI__GENERAL__DATADIR and $INI__GENERAL__INFODIR trees? "
         if [[ "$REPLY" == "Y" ]]; then
             set -x
-            find /gpfs/fs0/DR/DATA -mindepth 1 -delete
-            find /gpfs/fs0/DR/INFO -mindepth 1 -delete
+            find "$INI__GENERAL__DATADIR" -mindepth 1 -delete
+            find "$INI__GENERAL__INFODIR" -mindepth 1 -delete
             set +x
         else
             die "Declined, exiting without making changes."
@@ -189,7 +189,8 @@ case $action in
         d=$1
         [[ $# -lt 1 ]] && d=$( latest_bkupdir )
         parts=( $( bkupinfodir2key_ts <<< "$d" ) )
-        find /gpfs/fs0/DR -name "*${parts[1]}*"
+        find "${INI__GENERAL__DATADIR}" -name "*${parts[1]}*"
+        find "${INI__GENERAL__INFODIR}" -name "*${parts[1]}*"
         ;;
     tree)
         find "$INI__GENERAL__DATADIR" -maxdepth 1 -mindepth 1 -type d \
