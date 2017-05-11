@@ -17,6 +17,7 @@ the authors of those projects.
 # Installation
 1. `cd <INSTALL PATH>`
 1. `git clone --recursive https://github.com/ncsa/pdbkup.git`
+1. Update *PDBKUP_BASE* with value of *INSTALL_PATH* in file `bin/run.sh`
 1. Review settings in `conf/settings.ini` (see the Configuration section below)
 
 # Usage
