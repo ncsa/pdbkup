@@ -1,7 +1,6 @@
 # Project Specific Ignores
 DATA/
 INFO/
-dar_static
 test/
 
 # Byte-compiled / optimized / DLL files

@@ -25,7 +25,7 @@ filesonly=$outdir/filesonly
 
 # Find only Dirs
 # Save Dirsize + Dirname to a file
-# Pipe Dirnames to parallel to find all non-dirs children
+# Pipe Dirnames to parallel to find all non-dir children
 # Save Filesize + Filename to a file
 find "$srcdir" $maxdepth -type d ! -name $'*[\x1-\x1f]*' -printf '%s\0%p\n' \
 | tee $outfile \

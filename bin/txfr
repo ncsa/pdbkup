@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BKUP_BASE=/gpfs/fs0/DR
+[[ -z "$PDBKUP_BASE" ]] && exit 1
 
 DEBUG=0     #debug messages
 VERBOSE=0   #info messages
@@ -14,13 +14,11 @@ shift $((OPTIND-1))
 
 export BKUP_DEBUG=$DEBUG
 export BKUP_VERBOSE=$VERBOSE
-export BKUP_BASE
 
-cd $BKUP_BASE
-source lib/funcs.sh
-source lib/read_ini.sh
+source $PDBKUP_BASE/lib/funcs.sh
+source $PDBKUP_BASE/lib/read_ini.sh
 
-read_ini conf/settings.ini
+read_ini $PDBKUP_BASE/conf/settings.ini
 
 #
 # Get the filename for each filelist associated with a globus transfer
@@ -321,7 +319,7 @@ action=$1
 shift
 case $action in
     start*) 
-        exec bin/mk_new_txfr $*
+        exec $PDBKUP_BASE/bin/mk_new_txfr $*
         ;;
     stat*)
         for taskid in $( globus_taskids ); do

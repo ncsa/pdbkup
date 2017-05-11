@@ -1,13 +1,12 @@
 #!/bin/bash
 
+[[ -z "$PDBKUP_BASE" ]] && exit 1
+
 DEBUG=$BKUP_DEBUG
 VERBOSE=$BKUP_VERBOSE
 [[ $DEBUG -gt 0 ]] && set -x
 
-source lib/funcs.sh
-#source lib/read_ini.sh
-#read_ini conf/settings.ini
-#dump_ini
+source $PDBKUP_BASE/lib/funcs.sh
 
 [[ $# -ne 1 ]] && die "Must specify absolute path to bkup info dir."
 ARGS_BKUPINFODIR=$1
@@ -47,9 +46,7 @@ END {
 outfn=$ARGS_BKUPINFODIR/gnuplot.png
 datafn=$ARGS_BKUPINFODIR/gnuplot.data
 
-#if [[ ! -f $datafn ]]; then
-    get_data $ARGS_BKUPINFODIR $datafn
-#fi
+get_data $ARGS_BKUPINFODIR $datafn
 
 if [[ -s $datafn ]]; then
 gnuplot <<ENDHERE

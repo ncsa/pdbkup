@@ -1,11 +1,13 @@
 #!/bin/bash
 
+[[ -z "$PDBKUP_BASE" ]] && exit 1
+
 [[ $BKUP_DEBUG -gt 0 ]] && set -x
 
-source lib/funcs.sh
-source lib/read_ini.sh
+source $PDBKUP_BASE/lib/funcs.sh
+source $PDBKUP_BASE/lib/read_ini.sh
 
-read_ini conf/settings.ini
+read_ini $PDBKUP_BASE/conf/settings.ini
 dump_ini
 
 # VERIFY DAR COMMAND
@@ -80,14 +82,16 @@ for key in "${dirkeys[@]}"; do
     # If prev == current, then unset prev
     [[ "$prev_bkupdir" == "$infodir" ]] && unset prev_bkupdir
 
-    ###
-    #
     # DEBUG - unset prev_bkupdir to force a full
+    #######
+    #####
+    ###
     #
     unset prev_bkupdir
     #
-    #
     ###
+    #####
+    #######
 
     if [[ -n "$prev_bkupdir" ]]; then
         # There was a previous backup, do incremental
@@ -102,7 +106,7 @@ for key in "${dirkeys[@]}"; do
         # Don't recreate filelist if it already exists
         [[ -s $allfileslist ]] || {
             log "Starting scandir $snapdir $infodir"
-            bin/scandir.bash $snapdir $infodir
+            $PDBKUP_BASE/bin/scandir.bash $snapdir $infodir
         }
     fi
 
@@ -123,7 +127,7 @@ for key in "${dirkeys[@]}"; do
         pyverbose=
         [[ $BKUP_DEBUG -gt 0 ]] && pydebug='-d'
         [[ $BKUP_VERBOSE -gt 0 ]] && pyverbose='-v'
-        python3 bin/split_filelist.py \
+        python3 $PDBKUP_BASE/bin/split_filelist.py \
             --size_max $maxsize \
             --numfiles_max $maxfiles \
             --outdir $infodir \
@@ -154,7 +158,6 @@ for key in "${dirkeys[@]}"; do
         num=$( printf "%04d" $iter )
 
         # dar naming scheme
-        #fn_base="${timestamp}_${key}_${bkuptype}_${num}"
         fn_base="${key}_${timestamp}_${bkuptype}_${num}"
 
         # rename input filelist to match dar naming scheme
@@ -163,9 +166,9 @@ for key in "${dirkeys[@]}"; do
         mv $REPLY $input_file
 
         darbase="$dar_workdir/${fn_base}.dar"
-        darfile="$darbase.1.dar"
+        darfile="${darbase}.1.dar"
         catbase="$dar_workdir/${fn_base}.cat"
-        catfile="$catbase.1.dar"
+        catfile="${catbase}.1.dar"
         optfile="$infodir/${fn_base}.dcf"
         infofile="$infodir/${fn_base}.ini"
         logfile="$infodir/${fn_base}.log"
@@ -252,7 +255,7 @@ QNAME="${dburl}"
 DBURLTABLE="${dburltable}"
 $PARALLEL -j $INI__PARALLEL__MAX_PROCS --sqlworker "\$DBURLTABLE" bash
 sleep 2
-echo "bash $BKUP_BASE/run.sh startworker" | at now + 1 min
+echo "bash $PDBKUP_BASE/bin/run.sh bkup startworker" | at now + 1 min
 ENDHERE
 
         log "SQLWORKER CMD FILE $parallel_sqlworker_cmdfile"

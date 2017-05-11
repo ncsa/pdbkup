@@ -1,13 +1,15 @@
 #!/bin/bash
 
+[[ -z "$PDBKUP_BASE" ]] && exit 1
+
 DEBUG=$BKUP_DEBUG
 VERBOSE=$BKUP_VERBOSE
 [[ $DEBUG -gt 0 ]] && set -x
 
-source lib/funcs.sh
-source lib/read_ini.sh
+source $PDBKUP_BASE/lib/funcs.sh
+source $PDBKUP_BASE/lib/read_ini.sh
 
-read_ini conf/settings.ini
+read_ini $PDBKUP_BASE/conf/settings.ini
 dump_ini
 
 
