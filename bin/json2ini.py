@@ -13,12 +13,14 @@ import tempfile
 import os
 
 def insert_into_cfg( data, cfg ):
+    valid_types = ( str, int, float, bool, type( None ) )
     cfg[ 'JSON' ] = {}
     for k,v in data.items():
-        try:
-            cfg[ 'JSON' ][ k ] = str( v )
-        except ( TypeError ) as e:
-            pass
+        if isinstance( v, valid_types ):
+            try:
+                cfg[ 'JSON' ][ k ] = str( v )
+            except ( TypeError ) as e:
+                pass
 
 data = json.load(sys.stdin)
 cfg = configparser.ConfigParser()

@@ -110,6 +110,19 @@ function get_all_vars_matching_prefix {
 }
 
 
+#
+# Create a variable name that is safe for export
+# Useful to create a prefix to be passed to the function "read_ini"
+# PARAMS:
+#   pfx - String - prefix to attach to beginning of cleaned up varname
+#   val - String - value to clean up for varname
+#
+function safe_varname() {
+    [[ $BKUP_DEBUG -gt 0 ]] && set -x
+    echo -n "$1$2" | tr -cd 'A-Za-z0-9_'
+}
+
+
 
 ###
 ### ARCHIVE RELATED FUNCTIONS
@@ -554,30 +567,49 @@ function check_or_update_proxy() {
     die 'check_or_update_proxy: Error validating proxy'
 }
 
-#
-# Wrapper for globus hosted CLI (via ssh)
-#
-function gossh() {
-    [[ $BKUP_DEBUG -gt 0 ]] && set -x
-    check_or_update_proxy
-    $(gosudo) gsissh cli.globusonline.org $* <&0
-}
+##
+## Wrapper for globus hosted CLI (via ssh)
+##
+#function gossh() {
+#    [[ $BKUP_DEBUG -gt 0 ]] && set -x
+#    check_or_update_proxy
+#    $(gosudo) gsissh cli.globusonline.org $* <&0
+#}
 
 
 #
 # Ensure endpoint is activated
 # PARAMS:
-#   endopintname - String - a valid globus endpoint name
+#   endpoint_id - String - a valid globus endpoint name
+#   min_hours - Integer - (Optional) refresh proxy if less than X hours remain
+#   refresh_hours - Integer - (Optional) make new proxy valid for X hours
 # OUTPUT:
 #   None
 #
 # TODO - replce with Python CLI (when certificate support is available)
 function endpoint_activate() {
-    #gossh endpoint-activate -g "$1" ||
-    check_or_update_proxy
-    proxy_file=$( $(gosudo) grid-proxy-info -path )
-    ${INI__GOBUS__CLI} endpoint activate --deletgate-proxy "$proxy_file" $1
-    die "Unable to activte endpoint '$1'"
+    local endpoint_id=$1
+    local min_hours=$2
+    local refresh_hours=$3
+    [[ -z $min_hours ]] && min_hours=24
+    [[ -z $refresh_hours ]] && refresh_hours=264
+    check_or_update_proxy $min_hours $refresh_hours
+    local min_secs=$( bc <<< "$min_hours * 3600" )
+    local proxy_file=$( $(gosudo) grid-proxy-info -path )
+    # check for current activation
+    local safe_endpoint_id=$( safe_varname "EPcheck1" "$endpoint_id" )
+    local tmpfn=$( ${INI__GLOBUS__CLI} endpoint show -F json $endpoint_id \
+    | $PDBKUP_BASE/bin/json2ini.py )
+    read_ini -p $safe_endpoint_id $tmpfn
+    local refname=${safe_endpoint_id}__JSON__expires_in
+    if [[ ${!refname} -lt $min_secs ]]; then
+        # endpoint activation is expired or nearing expiration, renew it
+        ${INI__GLOBUS__CLI} endpoint activate \
+            --proxy-lifetime $refresh_hours \
+            --delegate-proxy "$proxy_file" \
+            $endpoint_id \
+            || die "Unable to activte endpoint '$endpoint_id'"
+    fi
 }
 
 

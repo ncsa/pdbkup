@@ -54,7 +54,7 @@ function is_globus_task_complete() {
     local retval=1
     local simple_tid refname taskstatus
     go_task_details $taskid
-    simple_tid=$( safe_varname $taskid )
+    simple_tid=$( safe_varname taskid $taskid )
     refname="${simple_tid}__JSON__status";
     taskstatus="${!refname}"
     case "$taskstatus" in
@@ -89,15 +89,6 @@ function filelist2total_bytes() {
 }
 
 
-#
-# Helper function to create variables for export
-#
-function safe_varname() {
-    [[ $BKUP_DEBUG -gt 0 ]] && set -x
-    echo -n "taskid$1" | tr -cd 'A-Za-z0-9_'
-}
-
-
 # Retrieve details for a globus task
 # PARAMS:
 #   taskid - String - Globus TaskID
@@ -108,9 +99,7 @@ function safe_varname() {
 function go_task_details() {
     globus=${INI__GLOBUS__CLI}
     local taskid=$1
-    local taskvarname=$( safe_varname $taskid )
-    shift
-    local keys_csv=$( ( IFS=,; echo "$*" ) )
+    local taskvarname=$( safe_varname taskid $taskid )
     tmpfn=$( $globus task show -F json $taskid \
     | $PDBKUP_BASE/bin/json2ini.py )
     cat $tmpfn
@@ -131,11 +120,10 @@ function cleanup_txfr_src_files () {
     local taskid=$1
     local ok_dir="${INI__GENERAL__DATADIR}/${INI__TXFR__ENDDIR_OUTBOUND}"
     local fail_dir="${INI__GENERAL__DATADIR}/${INI__TXFR__ERRDIR_OUTBOUND}"
-    gossh details -t $taskid \
-    | awk -f "$PDBKUP_BASE/lib/parse_go_subtask_details.awk" \
-    | >/dev/null tee \
-        >( grep '^SUCCEEDED' | while read rv fn; do mv "$fn" "$ok_dir/"; done ) \
-        >( grep -v '^SUCCEEDED' | while read rv fn; do mv "$fn" "$fail_dir/"; done )
+    ${INI__GLOBUS__CLI} task show -F json -t $taskid \
+    | $PDBKUP_BASE/bin/cleanup_txfr_files.py \
+      --okdir=$ok_dir \
+      --faildir=$fail_dir 
 }
 
 
@@ -148,13 +136,14 @@ function cleanup_txfr_src_files () {
 # PARAMS: none
 #
 function do_clean() {
-    ok_dir="${INI__GENERAL__DATADIR}/${INI__TXFR__ENDDIR_OUTBOUND}"
-    fail_dir="${INI__GENERAL__DATADIR}/${INI__TXFR__ERRDIR_OUTBOUND}"
+    local ok_dir="${INI__GENERAL__DATADIR}/${INI__TXFR__ENDDIR_OUTBOUND}"
+    local fail_dir="${INI__GENERAL__DATADIR}/${INI__TXFR__ERRDIR_OUTBOUND}"
+    local taskfile taskid simple_tid refname taskstatus
     for taskfile in $( globus_task_files ); do
         taskid=$( globus_taskfile2taskid "$taskfile" )
         if is_globus_task_complete "$taskid" ; then
             cleanup_txfr_src_files $taskid || die "CLEAN: Fatal error"
-            simple_tid=$( safe_varname $taskid )
+            simple_tid=$( safe_varname taskid $taskid )
             refname="${simple_tid}__status"; 
             taskstatus="${!refname}"
             case $taskstatus in
@@ -191,7 +180,7 @@ function do_status() {
         local taskfn=$( globus_task_files | grep "$taskid" )
         local total_bytes=$( filelist2total_bytes $taskfn )
         go_task_details $taskid
-        local taskvarname=$( safe_varname $taskid )
+        local taskvarname=$( safe_varname taskid $taskid )
         local cur_bytes total_files cur_files BPS varref
         varref=${taskvarname}__JSON__bytes_transferred;          cur_bytes=${!varref}
         varref=${taskvarname}__JSON__files;                      total_files=${!varref}
@@ -223,9 +212,11 @@ function update_credentials() {
     check_or_update_proxy 24 72
     local taskid key endpoint varref taskvarname
     declare -a endpoint_list
+    #echo "\n\n\n>>> DEBUG DEBUG DEBUG DEBUG DEBUG <<<\n\n\n"
+    #for taskid in 8eef5870-2f75-11e7-bca5-22000b9a448b; do
     for taskid in $( globus_taskids ); do
         go_task_details $taskid
-        taskvarname=$( safe_varname $taskid )
+        taskvarname=$( safe_varname taskid $taskid )
         for key in source_endpoint_id destination_endpoint_id; do
             varref=${taskvarname}__JSON__$key
             log "Found endpoint: ${!varref}"
@@ -282,7 +273,7 @@ case $action in
         ;;
     details)
         for taskid in $( globus_taskids ); do
-            gossh details $taskid
+            ${INI__GLOBUS__CLI} task show $taskid
         done
         ;;
     ls) 
@@ -307,9 +298,6 @@ case $action in
         ;;
     cancel)
         warn "CANCEL - not implemented yet"
-        ;;
-    gocli)
-        gossh "$*"
         ;;
     test)
         export BKUP_DEBUG=1

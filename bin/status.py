@@ -154,7 +154,7 @@ def printenv( name ):
 
 
 def load_cfg():
-    cfg_fn = '{0}/conf/settings.ini'.format( os.environ[ 'BKUP_BASE' ] )
+    cfg_fn = '{0}/conf/settings.ini'.format( os.environ[ 'PDBKUP_BASE' ] )
     cfg = configparser.ConfigParser()
     cfg.optionxform = lambda option: option
     cfg.read( cfg_fn )

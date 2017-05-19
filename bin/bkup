@@ -47,12 +47,17 @@ function sanitize() {
     if [[ $# -lt 1 ]]; then
         die "Missing bkupdir"
     fi
-    local infodir=$1
+    local infodir=$( readlink -e "$1" )
+    [[ -n "$infodir" ]] || die "No such file or directory: '$1'. Parameter must be an infodir"
+    [[ -d "$infodir" ]] || die "Not a directory '$infodir'. Parameter must be an infodir"
     local -a parts=( $( echo $infodir | bkupinfodir2key_ts ) )
+    local key=${parts[0]}
     local ts=${parts[1]}
+    [[ -n "$key" ]] || die "Error getting dirkey from infodir"
+    [[ -n "$ts" ]] || die "Error getting timestamp from infodir"
     set -x
-    find "$INI__GENERAL__DATADIR" -name "*$ts*" -delete
-    find $infodir -type f ! -name 'allfileslist' -delete
+    find "$INI__GENERAL__DATADIR" -name "*${key}*${ts}*" -delete
+    find "$infodir" -type f ! -name 'allfileslist' -delete
     set +x
 }
 
