@@ -87,7 +87,7 @@ function update_ini {
     local val="$4"
     [[ -f "$fn" ]] || touch "$fn"
     [[ -w "$fn" ]] || die "update_ini: file '$fn' is not writeable"
-    $BKUP_BASE/lib/crudini --set "$fn" "$sec" "$key" "$val"
+    $PDBKUP_BASE/lib/crudini --set "$fn" "$sec" "$key" "$val"
 }
 
 
@@ -532,8 +532,8 @@ function gosudo() {
 
 
 #
-# Check existing proxy has >12 hours remaining 
-# or make a new proxy valid for 24 hours
+# Check existing proxy has >24 hours remaining 
+# or make a new proxy valid for 264 hours (11 days)
 # PARAMS:
 #   min_hours - Integer - (Optional) refresh proxy if less than X hours remain
 #   refresh_hours - Integer - (Optional) make new proxy valid for X hours
@@ -544,8 +544,8 @@ function check_or_update_proxy() {
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local min_hours=$1
     local refresh_hours=$2
-    [[ -z $min_hours ]] && min_hours=12
-    [[ -z $refresh_hours ]] && refresh_hours=24
+    [[ -z $min_hours ]] && min_hours=24
+    [[ -z $refresh_hours ]] && refresh_hours=264
     &>/dev/null $(gosudo) grid-proxy-info -e -h $min_hours ||
     &>/dev/null $(gosudo) grid-proxy-init -hours $refresh_hours ||
     die 'check_or_update_proxy: Error during proxy-init'
@@ -555,7 +555,7 @@ function check_or_update_proxy() {
 }
 
 #
-# Wrapper for globus ssh cli
+# Wrapper for globus hosted CLI (via ssh)
 #
 function gossh() {
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
@@ -571,8 +571,12 @@ function gossh() {
 # OUTPUT:
 #   None
 #
+# TODO - replce with Python CLI (when certificate support is available)
 function endpoint_activate() {
-    gossh endpoint-activate -g "$1" ||
+    #gossh endpoint-activate -g "$1" ||
+    check_or_update_proxy
+    proxy_file=$( $(gosudo) grid-proxy-info -path )
+    ${INI__GOBUS__CLI} endpoint activate --deletgate-proxy "$proxy_file" $1
     die "Unable to activte endpoint '$1'"
 }
 
