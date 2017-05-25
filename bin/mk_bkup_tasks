@@ -182,7 +182,7 @@ for key in "${dirkeys[@]}"; do
 --on-fly-isolate "$catbase"
 --include-from-file "$input_file"
 --no-mount-points
---verbose
+--verbose=all
 ENDOPTS
 
         # CREATE BASH SCRIPT FOR DAR TASK
