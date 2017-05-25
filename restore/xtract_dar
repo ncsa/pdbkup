@@ -1,0 +1,95 @@
+#!/usr/bin/bash
+
+set -x
+
+DAR=/gpfs/fs0/DR/bin/dar_static
+PARALLEL=/usr/local/bin/parallel
+
+#Original source snapshot
+# get this from
+# grep 'fs-root' /gpfs/fs0/DR/INFO/HOME/TIMESTAMP/*.dcf
+FSROOT=/gpfs/fs0/home/.snapshots/home_20170524_0200
+
+#Where to extract dar files
+RESTOREROOT=/gpfs/fs0/RESTORETESTTGT
+
+#Where are the DAR files
+DOWNLOAD_DIR=/gpfs/fs0/DR/RESTORETESTSRC
+
+DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Oo )
+#DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Pp )
+
+# Clean destination directory
+find "$RESTOREROOT" -delete
+mkdir "$RESTOREROOT" || { 
+    echo "Error creating restore dir '$RESTOREROOT'"
+    exit 1
+}
+# Clean output directory
+find $DOWNLOAD_DIR -mindepth 1 ! -name '*.dar' -delete
+
+
+# Create cmd files for each dar extraction (so they can be run in parallel)
+alldars=( $( find $DOWNLOAD_DIR -name '*.dar.1.dar' ) )
+for darfile in "${alldars[@]}"; do
+    fnbase=$( basename $darfile '.dar.1.dar' )
+    darfilebase=$DOWNLOAD_DIR/${fnbase}.dar
+    logfile=${darfilebase}.restore.log
+    errfile=${darfilebase}.restore.err
+    cmdfile=${darfilebase}.restore.cmd
+    outfile=${cmdfile}.log
+    cat <<ENDHERE >$cmdfile
+#!/bin/bash
+start=\$( date '+%s' )
+echo "STARTTIME: \$start" > $outfile
+$DAR ${DAR_OPTS[@]} \\
+--extract $darfilebase \\
+--fs-root $RESTOREROOT \\
+1> $logfile \\
+2> $errfile
+end=\$( date '+%s' )
+echo "ENDTIME: \$end" >> $outfile
+echo "ELAPSED_SECONDS: \$SECONDS" >> $outfile
+ENDHERE
+
+done
+
+# Create sqlmaster task queue
+Qfile=$DOWNLOAD_DIR/joblog.queue
+sqlfile=$( echo $Qfile | sed -e 's/\//%2F/g' )
+dburl="sqlite3:///$sqlfile/tasks"
+find $DOWNLOAD_DIR -name '*.cmd' \
+| $PARALLEL --sqlmaster $dburl bash {}
+
+
+# Create sqlworker cmd script
+sqlworker_cmdfile=$DOWNLOAD_DIR/sqlworker.cmd
+cat <<ENDHERE >$sqlworker_cmdfile
+#!/bin/bash
+# Dont continue if active parallel or dar processes
+parcount=\$( pgrep -f parallel | wc -l )
+[[ \$parcount -ne 0 ]] && {
+    echo "Existing parallel processes found, exiting."
+    exit 1
+}
+darcount=\$( pgrep -f dar | wc -l )
+[[ \$darcount -ne 0 ]] && {
+    echo "Existing dar processes found, exiting."
+    exit 1
+}
+# Check parallel version
+pver=\$($PARALLEL --version | awk '/^GNU parallel [0-9]+/ {print \$3}')
+[[ \$pver -ge 20170222 ]] || {
+    echo Missing parallel or version too old
+    exit
+}
+$PARALLEL -j 4 --sqlworker $dburl bash
+ENDHERE
+
+set +x 
+echo Invoke workers using ...
+echo "ssh <WORKER_HOST> 'echo \"bash $sqlworker_cmdfile\" | at now'"
+
+echo "Monitor progress using..."
+echo "sqlite3 -column -header $Qfile 'select Seq,Host,Starttime,JobRuntime,Exitval from tasks;'"
+

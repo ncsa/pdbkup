@@ -1,0 +1,38 @@
+#!/usr/bin/bash
+
+set -x
+
+#Original source snapshot
+# get this from
+# grep 'fs-root' /gpfs/fs0/DR/INFO/HOME/TIMESTAMP/*.dcf
+FSROOT=/gpfs/fs0/home/.snapshots/home_20170519_0200
+
+#Where to extract dar files
+RESTOREROOT=/gpfs/fs0/RESTORETESTTGT
+
+#Where are the DAR files
+DOWNLOAD_DIR=/gpfs/fs0/DR/RESTORETESTSRC
+
+# Verify DAR to SOURCE
+
+#single-threaded
+#RSYNCOUT="$DOWNLOAD_DIR/rsync_compare.out"
+#rsync -n -avHAXi $FSROOT/ $RESTOREROOT/ >"$RSYNCOUT"
+#diffcount=$( wc -l "$RSYNCOUT" | cut -d ' ' -f1 )
+#[[ $diffcount -gt 5 ]] && { echo "Differences found: see file '$RSYNCOUT'"
+#} || { echo "No differences found!"
+#}
+
+#parallel
+rsync_opts='-nilptgoHAX'
+#RSYNCLOGBASE="$DOWNLOAD_DIR/rsync_compare.out"
+RSYNCLOGBASE="/root/rsync_compare.out"
+# clean up any existing rsync log files
+rm ${RSYNCLOGBASE}*
+# compare top level
+find "$FSROOT" -mindepth 1 -maxdepth 1 -print0 \
+| parallel -0 -j1 "rsync $rsync_opts $FSROOT/{} $RESTOREROOT/{} >>${RSYNCLOGBASE}.."
+# compare each element in first sub level below top
+rsync_opts='-niaHAX'
+find "$FSROOT/" -mindepth 1 -maxdepth 1 -type d -name 'aloftus' -printf "%f\0" \
+| parallel -0 -j16 "rsync $rsync_opts $FSROOT/{}/ $RESTOREROOT/{}/ >${RSYNCLOGBASE}.{}"
