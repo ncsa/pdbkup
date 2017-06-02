@@ -72,13 +72,12 @@ function dump_ini {
 ### INI FILE RELATED FUNCTIONS
 ###
 
-#
-# PARAMS:
-#   fn  = String - (REQUIRED) - filename
-#   sec = String - (REQUIRED) - section
-#   key = String - (REQUIRED) - key
-#   val = String - (REQUIRED) - val
 function update_ini {
+    # PARAMS:
+    #   fn  = String - (REQUIRED) - filename
+    #   sec = String - (REQUIRED) - section
+    #   key = String - (REQUIRED) - key
+    #   val = String - (REQUIRED) - val
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -ne 4 ]] && die "update_ini: Expected 4 parameters, got '$#'"
     local fn="$1"
@@ -91,13 +90,10 @@ function update_ini {
 }
 
 
-#
-# function get_all_vars_matching_prefix {
-#
-# PARAMS:
-#   pfx  = String - (REQUIRED) - prefix to match
-#   keep = Int    - (OPTIONAL) - keep prefix (0 - Default) or strip (1)
 function get_all_vars_matching_prefix {
+    # PARAMS:
+    #   pfx  = String - (REQUIRED) - prefix to match
+    #   keep = Int    - (OPTIONAL) - keep prefix (0 - Default) or strip (1)
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -ne 2 ]] && die "update_ini: Expected 2 parameters, got '$#'"
     local pfx=$1
@@ -110,14 +106,13 @@ function get_all_vars_matching_prefix {
 }
 
 
-#
-# Create a variable name that is safe for export
-# Useful to create a prefix to be passed to the function "read_ini"
-# PARAMS:
-#   pfx - String - prefix to attach to beginning of cleaned up varname
-#   val - String - value to clean up for varname
-#
 function safe_varname() {
+    # Create a variable name that is safe for export
+    # Useful to create a prefix to be passed to the function "read_ini"
+    # PARAMS:
+    #   pfx - String - prefix to attach to beginning of cleaned up varname
+    #   val - String - value to clean up for varname
+    #
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     echo -n "$1$2" | tr -cd 'A-Za-z0-9_'
 }
@@ -128,12 +123,9 @@ function safe_varname() {
 ### ARCHIVE RELATED FUNCTIONS
 ###
 
-#
-# function get_snap_base {
-#
-# PARAMS:
-#   ini_key = String - (REQUIRED) - key from ini file from DIRS section
 function get_snap_base {
+    # PARAMS:
+    #   ini_key = String - (REQUIRED) - key from ini file from DIRS section
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local key=$1
     [[ -z "$key" ]] && die "get_snap_base; got empty key"
@@ -146,12 +138,9 @@ function get_snap_base {
 }
 
 
-#
-# function get_last_snapdir {
-#
-# PARAMS:
-#   ini_key = String - (REQUIRED) - key from ini file from DIRS section
 function get_last_snapdir {
+    # PARAMS:
+    #   ini_key = String - (REQUIRED) - key from ini file from DIRS section
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     key=$1
     [[ -z "$key" ]] && die "get_last_snapdir; got empty key"
@@ -160,12 +149,9 @@ function get_last_snapdir {
     find "$snapbase" -mindepth 1 -maxdepth 1 | sort -r | head -1
 }
 
-#
-# function get_last_bkupdir {
-#
-# PARAMS:
-#   ini_key = String - (REQUIRED) - key from ini file from DIRS section
 function get_last_bkupdir {
+    # PARAMS:
+    #   ini_key = String - (REQUIRED) - key from ini file from DIRS section
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local key=$1
     local infodir=$INI__GENERAL__INFODIR/$key
@@ -178,12 +164,9 @@ function get_last_bkupdir {
 }
 
 
-#
-# function snapdir2timestamp {
-#
-# PARAMS:
-#   snapdir = String - (REQUIRED) - snapdir absolute path
 function snapdir2timestamp {
+    # PARAMS:
+    #   snapdir = String - (REQUIRED) - snapdir absolute path
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local snapdir=$1
     [[ -z "$snapdir" ]] && die "snapdir2timestamp; snapdir cant be empty"
@@ -195,15 +178,12 @@ function snapdir2timestamp {
 }
 
 
-#
-# function timestamp2snapdir {
-#
-# PARAMS:
-#   ini_key = String - (REQUIRED) - key from ini file from DIRS section
-#   timestamp = String - (REQUIRED) - unix epoch time
-# OUTPUT:
-#   absolute path to matching snapdir
 function timestamp2snapdir {
+    # PARAMS:
+    #   ini_key = String - (REQUIRED) - key from ini file from DIRS section
+    #   timestamp = String - (REQUIRED) - unix epoch time
+    # OUTPUT:
+    #   absolute path to matching snapdir
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local key=$1
     local ts=$2
@@ -218,24 +198,18 @@ function timestamp2snapdir {
 }
 
 
-#
-# function bkupinfodir2key_ts() {
-#
-# PARAMS:
-#   path = String - (REQUIRED) - absolute path to backupinfodir
-# OUTPUT:
-#   String - space separated string of KEY TIMESTAMP
 function bkupinfodir2key_ts() {
+    # PARAMS:
+    #   path = String - (REQUIRED) - absolute path to backupinfodir
+    # OUTPUT:
+    #   String - space separated string of KEY TIMESTAMP
     awk '{c=split( $1, parts, "/"); ts=parts[c]; key=parts[c-1]; print key,ts}'
 }
 
 
-#
-# Fill out workflow dirs for a new work area
-#
-# PARAMS:
-#   dir = String - (REQUIRED) - directory to populate
 function mk_datadirs {
+    # PARAMS:
+    #   dir = String - (REQUIRED) - directory to populate
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local dir="$1"
     [[ -d "$dir" ]] || die "mk_datadirs: dir '$dir' doesn't exist or is not a directory"
@@ -256,14 +230,13 @@ function mk_datadirs {
 }
 
 
-#
-# Attempt to extract DIRKEY and TIMESTAMP from a filename
-# Can take multiple files as input
-#
-# PARAMS:
-#   fullpath - String - path to file
-#
 function filename2key_ts() {
+    # Attempt to extract DIRKEY and TIMESTAMP from a filename
+    # Can take multiple files as input
+    #
+    # PARAMS:
+    #   fullpath - String - path to file
+    #
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -lt 1 ]] && die "filename2key_ts: Expected >=1 parameter, got '$#'"
     for fullpath; do
@@ -274,26 +247,20 @@ function filename2key_ts() {
 }
 
 
-
-
 ###
 ### GNU PARALLEL RELATED FUNCTIONS
 ###
 
 
-#
-# Build parallel DBURL
-#
-# (see also: man sql)
-# vendor://[[user][:password]@][host][:port]/[database]
-#
-# NOTE: This does not include a table name
-#
-# PARAMS:
-#   pfx - String (optional) - prefix to be prepended to DBNAME
-#                             (useful for sqlite3 and csv to make unique files)
-#   
 function mk_dburl {
+    # Build parallel DBURL
+    # (see also: man sql)
+    # vendor://[[user][:password]@][host][:port]/[database]
+    # NOTE: This does not include a table name
+    #
+    # PARAMS:
+    #   pfx - String (optional) - prefix to be prepended to DBNAME
+    #                             (useful for sqlite3 and csv to make unique files)
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -ne 1 ]] && die "mk_dburl: Expected 1 parameter, got '$#'"
     local pfx=$1
@@ -316,15 +283,14 @@ ${INI__PARALLEL__DB_PORT:+:$INI__PARALLEL__DB_PORT}\
 }
 
 
-#
-# Convert a dburl to a filename
-#
-# PARAMS:
-#   dburl - String - dburl formatted appropriatly for GNU SQL, same as output from mk_dburl
-# OUTPUT:
-#   String - full path to filename (for sqlite3 and csv db types), null otherwise
-#
 function dburl2filename() {
+    # Convert a dburl to a filename
+    #
+    # PARAMS:
+    #   dburl - String - dburl formatted appropriatly for GNU SQL, same as output from mk_dburl
+    # OUTPUT:
+    #   String - full path to filename (for sqlite3 and csv db types), null otherwise
+    #
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -ne 1 ]] && die "mk_dburl: Expected 1 parameter, got '$#'"
     if [[ "$dburl" != sqlite3* ]] && [[ "$dburl" != csv* ]]; then
@@ -338,44 +304,21 @@ function dburl2filename() {
 }
 
 
-###
-### Build parallel DBURLTABLE
-###
-### (see also: man parallel)
-### vendor://[[user][:password]@][host][:port]/[database[/table]
-###
-### PARAMS:
-###   dburl - String - the DBURL part from mk_dburl
-###   pfx   - String (optional) - prefix to be prepended to table name
-###   
-##function mk_dburltable {
-##    [[ $BKUP_DEBUG -gt 0 ]] && set -x
-##    local dburl=$1
-##    local pfx=$2
-##    [[ -z "$dburl" ]] && die "mk_dburltable: missing dburl parameter"
-##    echo ${dburl}${INI__PARALLEL__DB_TABLE:+/$pfx$INI__PARALLEL__DB_TABLE}
-##}
-
-
-#
-# Get list of sqlworker filenames
-# 
-# PARAMS: None
-#
 function ls_sqlworker_cmdfiles() {
+    # Get list of sqlworker filenames
+    # 
+    # PARAMS: None
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     parallel_workdir="$INI__GENERAL__DATADIR/$INI__PARALLEL__WORKDIR"
     find "$parallel_workdir" -name '*.sqlworker.cmd'
 }
 
 
-#
-# Extract DBURL from sqlworker cmdfile
-#
-# PARAMS:
-#   sqlworkercmdfile - String - full path to sqlworker cmdfile
-#
 function dburl_from_sqlworkercmdfile() {
+    # Extract DBURL from sqlworker cmdfile
+    #
+    # PARAMS:
+    #   sqlworkercmdfile - String - full path to sqlworker cmdfile
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -lt 1 ]] && die "dburl_from_sqlworkercmdfile: Expected 1 parameter, got $#"
     for fn; do
@@ -387,17 +330,16 @@ function dburl_from_sqlworkercmdfile() {
 }
 
 
-#
-# Count of rows with exit val matching input value
-#
-# PARAMS:
-#   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
-#   value  - Integer - value for which to match with exitval in DB
-#   compar - String (OPTIONAL) - numerical comparison operator
-#                                (one of =, <, >, <=, >=)
-#                                Default: "="
-#
 function db_exitval_count() {
+    # Count of rows with exit val matching input value
+    #
+    # PARAMS:
+    #   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
+    #   value  - Integer - value for which to match with exitval in DB
+    #   compar - String (OPTIONAL) - numerical comparison operator
+    #                                (one of =, <, >, <=, >=)
+    #                                Default: "="
+    #
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -lt 2 ]] && die "db_exitval_count: Expected 2 parameters, got $#"
     local dburl="$1"
@@ -411,13 +353,11 @@ function db_exitval_count() {
 }
 
 
-#
-# Print number of tasks that are ready to run (not started, not reserved)
-#
-# PARAMS:
-#   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
-#
 function num_ready_tasks() {
+    # Print number of tasks that are ready to run (not started, not reserved)
+    #
+    # PARAMS:
+    #   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -ne 1 ]] && die "num_ready_tasks: Expected 1 parameter, got $#"
     local dburl="$1"
@@ -425,13 +365,11 @@ function num_ready_tasks() {
 }
 
 
-#
-# Print number of tasks that are already started
-#
-# PARAMS:
-#   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
-#
 function num_active_tasks() {
+    # Print number of tasks that are already started
+    #
+    # PARAMS:
+    #   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -ne 1 ]] && die "num_active_tasks: Expected 1 parameter, got $#"
     local dburl="$1"
@@ -439,13 +377,11 @@ function num_active_tasks() {
 }
 
 
-#
-# Print number of tasks that completed successfully
-#
-# PARAMS:
-#   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
-#
 function num_successful_tasks() {
+    # Print number of tasks that completed successfully
+    #
+    # PARAMS:
+    #   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -ne 1 ]] && die "num_successful_tasks: Expected 1 parameter, got $#"
     local dburl="$1"
@@ -453,13 +389,11 @@ function num_successful_tasks() {
 }
 
 
-#
-# Print number of tasks that failed
-#
-# PARAMS:
-#   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
-#
 function num_failed_tasks() {
+    # Print number of tasks that failed
+    #
+    # PARAMS:
+    #   dburl  - String - dburl from mk_dburl suitable for use with GNU sql command
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     [[ $# -ne 1 ]] && die "num_failed_tasks: Expected 1 parameter, got $#"
     local dburl="$1"
@@ -467,14 +401,12 @@ function num_failed_tasks() {
 }
 
 
-#
-# Return the absolute path to the sqlworker.cmd file 
-# for the currently active queue
-# or the next queue (based on oldest mtime)
-# 
-# PARAMS: None
-#
 function next_worker_cmdfile() {
+    # Return the absolute path to the sqlworker.cmd file 
+    # for the currently active queue
+    # or the next queue (based on oldest mtime)
+    # 
+    # PARAMS: None
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local parallel_workdir="$INI__GENERAL__DATADIR/$INI__PARALLEL__WORKDIR"
     # get list of worker files
@@ -529,31 +461,25 @@ function next_worker_cmdfile() {
 }
 
 
-
-
 ###
 ### TRANSFER RELATED FUNCTIONS
 ###
 
 
-#
-# Return sudo cmd string
-#
 function gosudo() {
+    # Return sudo cmd string
     echo "/usr/bin/sudo -u ${INI__GLOBUS__USERNAME} --"
 }
 
 
-#
-# Check existing proxy has >24 hours remaining 
-# or make a new proxy valid for 264 hours (11 days)
-# PARAMS:
-#   min_hours - Integer - (Optional) refresh proxy if less than X hours remain
-#   refresh_hours - Integer - (Optional) make new proxy valid for X hours
-# OUTPUT:
-#   None
-#
 function check_or_update_proxy() {
+    # Check existing proxy has >24 hours remaining 
+    # or make a new proxy valid for 264 hours (11 days)
+    # PARAMS:
+    #   min_hours - Integer - (Optional) refresh proxy if less than X hours remain
+    #   refresh_hours - Integer - (Optional) make new proxy valid for X hours
+    # OUTPUT:
+    #   None
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local min_hours=$1
     local refresh_hours=$2
@@ -567,27 +493,17 @@ function check_or_update_proxy() {
     die 'check_or_update_proxy: Error validating proxy'
 }
 
-##
-## Wrapper for globus hosted CLI (via ssh)
-##
-#function gossh() {
-#    [[ $BKUP_DEBUG -gt 0 ]] && set -x
-#    check_or_update_proxy
-#    $(gosudo) gsissh cli.globusonline.org $* <&0
-#}
 
-
-#
-# Ensure endpoint is activated
-# PARAMS:
-#   endpoint_id - String - a valid globus endpoint name
-#   min_hours - Integer - (Optional) refresh proxy if less than X hours remain
-#   refresh_hours - Integer - (Optional) make new proxy valid for X hours
-# OUTPUT:
-#   None
-#
-# TODO - replce with Python CLI (when certificate support is available)
 function endpoint_activate() {
+    # Ensure endpoint is activated
+    # PARAMS:
+    #   endpoint_id - String - a valid globus endpoint name
+    #   min_hours - Integer - (Optional) refresh proxy if less than X hours remain
+    #   refresh_hours - Integer - (Optional) make new proxy valid for X hours
+    # OUTPUT:
+    #   None
+    #
+    # TODO - replce with Python CLI (when certificate support is available)
     local endpoint_id=$1
     local min_hours=$2
     local refresh_hours=$3
@@ -613,14 +529,12 @@ function endpoint_activate() {
 }
 
 
-#
-# Remove duplicate slashes AND urlencode non-alphanumeric characters
-# PARAMS:
-#   path - String - filepath, does not need to be a valid local path
-# OUTPUT:
-#   String
-#  
 function urlencode() {
+    # Remove duplicate slashes AND urlencode non-alphanumeric characters
+    # PARAMS:
+    #   path - String - filepath, does not need to be a valid local path
+    # OUTPUT:
+    #   String
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     echo "$1" | sed 's#//*#/#g' | xargs -d '\n' urlencode
 }
