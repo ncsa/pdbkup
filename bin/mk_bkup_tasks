@@ -23,21 +23,34 @@ PARALLEL=$INI__PARALLEL__CMD
 [[ -x "$PARALLEL" ]] || die "parallel cmd '$PARALLEL' is not executable"
 
 # GET DIRECTORY BACKUP KEYS (essentially, unique key for each dir to be backed up)
+declare -a keylist
 if [[ -n "$1" ]] ; then #allow for cmdline parameter
     if [[ -d "$1" ]] ; then # cmdline ARG is a bkupinfodir path 
         arg_bkupinfodir="$1"
         bkupinfodir_parts=( $( bkupinfodir2key_ts <<< "$arg_bkupinfodir"  ) )
-        dirkeys=( ${bkupinfodir_parts[0]} )
+        keylist=( ${bkupinfodir_parts[0]} )
     else # ARG must a DIRKEY, check to ensure it is a valid DIRKEY
         varname="INI__DIRS__$1"
         if [[ " ${INI__ALL_VARS[@]} " =~ " ${varname} " ]] ; then
-            dirkeys=( "$1" )
+            keylist=( "$1" )
         else
             die "cmdline arg '$1' is neither a bkup_info_dir nor a valid DIRKEY"
         fi
     fi
 else
-    dirkeys=( $( get_all_vars_matching_prefix INI__DIRS__ 1 ) )
+    keylist=( $( get_all_vars_matching_prefix INI__DIRS__ 1 ) )
+fi
+# exclude "disabled" keys
+declare -a dirkeys
+for key in "${keylist[@]}"; do
+    refname="INI__DIRS__${key}"
+    value="${!refname}"
+    if [[ "$value" == "enabled" ]] ; then
+        dirkeys="$key"
+    fi
+done
+if [[ ${#dirkeys[@]} -lt 1 ]]; then
+    clean_exit "No dirs are enabled for backup"
 fi
 
 
@@ -51,9 +64,11 @@ dar_errdir="$INI__GENERAL__DATADIR/$INI__DAR__ERRDIR"
 # LOOP OVER EACH key-path PAIR
 for key in "${dirkeys[@]}"; do
     # DETERMINE PATHS AND FILENAMES
-    pathvar=INI__DIRS__$key
-    path=${!pathvar}
-    [[ "${path:0:1}" != "/" ]] && die "Backup dir path '$path' must be an absolute path"
+    snapref=INI__${key}__SNAPDIR
+    snapbase=${!snapref}
+    [[ "${snapbase:0:1}" != "/" ]] && die "Snap dir '$snapbase' must be an absolute path"
+    [[ -d "$snapbase" ]] || die "No directory found for snapdir '$snapbase'"
+
     # Get most recent snap
     # if BKUPINFODIR was passed on cmdline, use existing value from that dir
     if [[ -n "$arg_bkupinfodir" ]] ; then
@@ -63,16 +78,23 @@ for key in "${dirkeys[@]}"; do
         snapdir=$( get_last_snapdir $key )
         timestamp=$( snapdir2timestamp "$snapdir" )
     fi
-    dumpvars key path snapdir timestamp dar_workdir
     [[ -z "$snapdir" ]] && die "Cant find snapdir for key='$key'"
     [[ -z "$timestamp" ]] && die "Cant create timestamp from snapdir='$snapdir'"
+    dumpvars key snapbase snapdir timestamp dar_workdir
+    
+    # Check for added path below snapdir
+    fs_root="$snapdir"
+    pathref="INI__${key}__PATH"
+    [[ -n "${!pathref}" ]] && fs_root="$snapdir/${!pathref}"
+    [[ -d "$fs_root" ]] || die "No directory found for fs-root '$fs_root'"
+    dumpvars fs_root
 
     # Get last backup info
     prev_bkupdir=$( get_last_bkupdir $key )
     dumpvars prev_bkupdir
 
     # Create new backup info dir
-    infodir="$INI__GENERAL__INFODIR/${key}/$timestamp"
+    infodir="$INI__GENERAL__INFODIR/$key/$timestamp"
     [[ -d $infodir ]] || mkdir -p $infodir
 
     # Create backup filelist
@@ -105,8 +127,8 @@ for key in "${dirkeys[@]}"; do
         bkuptype="FULL"
         # Don't recreate filelist if it already exists
         [[ -s $allfileslist ]] || {
-            log "Starting scandir $snapdir $infodir"
-            $PDBKUP_BASE/bin/scandir.bash $snapdir $infodir
+            log "Starting scandir $fs_root $infodir"
+            $PDBKUP_BASE/bin/scandir.bash $fs_root $infodir
         }
     fi
 
@@ -136,7 +158,7 @@ for key in "${dirkeys[@]}"; do
             $pydebug \
             $pyverbose \
             $allfileslist \
-        | tee "$infodir/runtime.02.binpack" \
+        | tee "$infodir/02.binpack.runtime" \
         || die "Error during split filelist"
     fi
 
@@ -178,7 +200,7 @@ for key in "${dirkeys[@]}"; do
         # CREATE DAR OPTIONS FILE
         cat <<ENDOPTS >"$optfile"
 --create "$darbase"
---fs-root "$snapdir"
+--fs-root "$fs_root"
 --on-fly-isolate "$catbase"
 --include-from-file "$input_file"
 --no-mount-points
@@ -201,16 +223,18 @@ ENDOPTS
             echo 'fi'
             echo '### SAVE METADATA'
             echo "update_ini \"$infofile\" 'GENERAL' 'SEQUENCE_NUM' \"$num\""
+            echo "update_ini \"$infofile\" 'GENERAL' 'SNAPDIR'      \"$snapdir\""
             echo "update_ini \"$infofile\" 'DAR' 'HOSTNAME' \"\$(hostname)\""
-            echo "update_ini \"$infofile\" 'DAR' 'DARBASE' \"$darbase\""
-            echo "update_ini \"$infofile\" 'DAR' 'DARFILE' \"$darfile\""
-            echo "update_ini \"$infofile\" 'DAR' 'CATBASE' \"$catbase\""
-            echo "update_ini \"$infofile\" 'DAR' 'CATFILE' \"$catfile\""
-            echo "update_ini \"$infofile\" 'DAR' 'OPTFILE' \"$optfile\""
-            echo "update_ini \"$infofile\" 'DAR' 'LOGFILE' \"$logfile\""
-            echo "update_ini \"$infofile\" 'DAR' 'ERRFILE' \"$errfile\""
-            echo "update_ini \"$infofile\" 'DAR' 'CMDFILE' \"$cmdfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'DARBASE'  \"$darbase\""
+            echo "update_ini \"$infofile\" 'DAR' 'DARFILE'  \"$darfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'CATBASE'  \"$catbase\""
+            echo "update_ini \"$infofile\" 'DAR' 'CATFILE'  \"$catfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'OPTFILE'  \"$optfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'LOGFILE'  \"$logfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'ERRFILE'  \"$errfile\""
+            echo "update_ini \"$infofile\" 'DAR' 'CMDFILE'  \"$cmdfile\""
             echo "update_ini \"$infofile\" 'DAR' 'FILELIST' \"$input_file\""
+            echo "update_ini \"$infofile\" 'DAR' 'FS_ROOT'  \"$fs_root\""
             echo '### START DAR'
             echo 'start_time=$( date "+%s" )'
             echo "update_ini \"$infofile\" 'DAR' 'START' \$start_time"
@@ -237,6 +261,11 @@ ENDOPTS
 
     done #END | while read; do
 
+    # TODO - create cmdfile to tar up infodir
+    # TODO - add tar cmdfile to parallel_joblist
+    # TODO - tar cmdfile should sleep until all previous tasks have completed 
+    #        successfully
+
     #ADD CMD FILES TO WORK QUEUE (ie: PARALLEL SQLMASTER DB)
     dburl=$( mk_dburl "$parallel_pfx" )
     dburltable="${dburl}/$INI__PARALLEL__DB_TABLE"
@@ -262,6 +291,22 @@ ENDHERE
 
     fi
     rm -f "$parallel_joblist"
+
+    # Copy supporting files for restoration into infodir
+    # TODO - create restore cmd file to be copied into infodir
+    #        restore.cmd can be generic and use values from ini files
+    #        present in infodir
+    filelist=( $PDBKUP_BASE/lib/read_ini.sh \
+               $PDBKUP_BASE/lib/funcs.sh \
+               $PDBKUP_BASE/lib/crudini \
+               $PDBKUP_BASE/conf/settings.ini \
+               $PDBKUP_BASE/restore/xtract_dar \
+               $PDBKUP_BASE/restore/verify_restore \
+               $DAR )
+    for fn in "${filelist[@]}"; do
+        cp "$fn" "$infodir"
+    done
+
 
 done #END for key in "${dirkeys[@]}"; do
 

@@ -123,19 +123,19 @@ function safe_varname() {
 ### ARCHIVE RELATED FUNCTIONS
 ###
 
-function get_snap_base {
-    # PARAMS:
-    #   ini_key = String - (REQUIRED) - key from ini file from DIRS section
-    [[ $BKUP_DEBUG -gt 0 ]] && set -x
-    local key=$1
-    [[ -z "$key" ]] && die "get_snap_base; got empty key"
-    local snapdn="${INI__DEFAULTS__SNAPDIR}"
-    local refname=INI__${key}__SNAPDIR
-    [[ -n "${!refname}" ]] && snapdn="${!refname}"
-    local pathref=INI__DIRS__$key
-    local snapdir=${!pathref}/${snapdn}
-    [[ -d $snapdir ]] && echo $snapdir
-}
+##function get_snap_base {
+##    # PARAMS:
+##    #   ini_key = String - (REQUIRED) - key from ini file from DIRS section
+##    [[ $BKUP_DEBUG -gt 0 ]] && set -x
+##    local key=$1
+##    [[ -z "$key" ]] && die "get_snap_base; got empty key"
+##    local snapdn="${INI__DEFAULTS__SNAPDIR}"
+##    local refname=INI__${key}__SNAPDIR
+##    [[ -n "${!refname}" ]] && snapdn="${!refname}"
+##    local pathref=INI__DIRS__$key
+##    local snapdir=${!pathref}/${snapdn}
+##    [[ -d $snapdir ]] && echo $snapdir
+##}
 
 
 function get_last_snapdir {
@@ -144,7 +144,9 @@ function get_last_snapdir {
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     key=$1
     [[ -z "$key" ]] && die "get_last_snapdir; got empty key"
-    snapbase=$( get_snap_base $key )
+    #snapbase=$( get_snap_base $key )
+    local snapbase_ref="INI__${key}__SNAPDIR"
+    local snapbase="${!snapbase_ref}"
     [[ -d "$snapbase" ]] || die "Cant find snapbase '$snapbase'"
     find "$snapbase" -mindepth 1 -maxdepth 1 | sort -r | head -1
 }
@@ -154,8 +156,8 @@ function get_last_bkupdir {
     #   ini_key = String - (REQUIRED) - key from ini file from DIRS section
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local key=$1
-    local infodir=$INI__GENERAL__INFODIR/$key
     [[ -z "$key" ]] && die "get_last_bkupdir; got empty key"
+    local infodir=$INI__GENERAL__INFODIR/$key
     [[ -d $infodir ]] || return
     find $infodir -mindepth 2 -maxdepth 2 -type f \
         -name 'filelist.filelist' -printf '%h' \
@@ -189,7 +191,9 @@ function timestamp2snapdir {
     local ts=$2
     [[ -z "$key" ]] && die "timestamp2snapdir; key cant be empty"
     [[ -z "$ts" ]] && die "timestamp2snapdir; timestamp cant be empty"
-    local snapbase=$( get_snap_base $key )
+    #local snapbase=$( get_snap_base $key )
+    local snapbase_ref="INI__${key}__SNAPDIR"
+    local snapbase="${!snapbase_ref}"
     local date_fmt="${INI__DEFAULTS__SNAPDIR_DATE_FORMAT}"
     local refname=INI__${key}__SNAPDIR_DATE_FORMAT
     [[ -n "${!refname}" ]] && date_fmt="${!refname}"
