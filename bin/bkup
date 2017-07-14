@@ -36,9 +36,9 @@ function latest_bkupdir() {
 }
 
 
-# Input: String - "pathname ending in a timestamp"
-# Output: String - "pathname date time"
 function add_datetime() {
+    # Input: String - "pathname ending in a timestamp"
+    # Output: String - "pathname date time"
     awk '{c=split( $1, parts, "/" ); dt=strftime( "%F %T", parts[c] ); printf("%s %s\n",$0,dt);}'
 }
 
