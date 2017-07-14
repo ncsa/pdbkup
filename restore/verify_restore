@@ -1,10 +1,5 @@
 #!/usr/bin/bash
 
-function die() {
-    echo "ERROR: $*"
-    exit 99
-}
-
 function dumpvars() {
     for vname; do
         echo "$vname => '${!vname}'"
@@ -14,6 +9,7 @@ function dumpvars() {
 PGM=$( basename $0 )
 INFODIR=$( dirname $0 )
 source $INFODIR/read_ini.sh
+source $INFODIR/funcs.sh
 
 PARALLEL=$( which parallel )
 [[ -z "$PARALLEL" ]] && die "Unable to find 'parallel'"

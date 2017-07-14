@@ -34,26 +34,25 @@ if [[ $# -lt 1 ]] ; then
 fi
 
 # Check for clean restore directory
-tgtsize=$( find "$RESTOREROOT" -maxdepth 1 | wc -l )
-if [[ $tgtsize -gt 1 ]] ; then
-    echo "Restore directory is not empty. Purge contents of restore directory?"
-    select yn in Yes No; do
-        case $yn in
-            Yes ) break;;
-            * ) exit;;
-        esac
-    done
+if [[ -d "$RESTOREROOT" ]] ; then 
+    linkcount=$( stat --printf='%h' "$RESTOREROOT" )
+    if [[ $linkcount -gt 2 ]] ; then
+        echo "Restore directory is not empty. Purge contents of restore directory?"
+        select yn in Yes No; do
+            case $yn in
+                Yes ) break;;
+                * ) exit;;
+            esac
+        done
+    fi
+    # TODO - make this parallel to reduce runtime
+    find "$RESTOREROOT" -delete
 fi
-find "$RESTOREROOT" -delete
 mkdir "$RESTOREROOT" || die "Error creating restore dir '$RESTOREROOT'"
 crudini --set restore.ini RESTORE ROOT "$RESTOREROOT"
 
-# Get fsroot
-FSROOT=$( grep FS_ROOT $BASE/*.ini | head -1 | awk '{print $NF}' )
-[[ -d "$FSROOT" ]] || die "No dir found for FSROOT='$FSROOT'"
 
-
-## Clean output directory
+## Clean up any previous restore attempts
 rm -f $BASE/*.restore.{log,err,cmd,cmd.log,queue,sqlworker.cmd}
 
 
@@ -120,4 +119,3 @@ echo "ssh <WORKER_HOST> 'echo \"bash $sqlworker_cmdfile\" | at now'"
 
 echo "Monitor progress using..."
 echo "sqlite3 -column -header $Qfile 'select Seq,Host,Starttime,JobRuntime,Exitval from tasks;'"
-
