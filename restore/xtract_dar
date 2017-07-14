@@ -2,8 +2,10 @@
 
 set -x
 
-PGM=$( basename $0 )
-BASE=$( dirname $0 )
+DN=$( dirname $0 )
+BASE=$( readlink -e "$DN" )
+[[ -z $BASE ]] && exit 1
+[[ -d $BASE ]] || exit 1
 
 source $BASE/funcs.sh
 source $BASE/read_ini.sh
@@ -23,7 +25,9 @@ DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Pp )
 
 #Where to extract dar files
 RESTOREROOT=/gpfs/fs0/RESTORETESTTGT
-if [[ $# -lt 1 ]] ; then
+if [[ $# -eq 1 ]] ; then
+    RESTOREROOT="$1"
+else
     echo "No restore path specified. Using default value: $RESTOREROOT"
     select yn in Yes No; do
         case $yn in
