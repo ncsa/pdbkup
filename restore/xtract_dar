@@ -2,48 +2,76 @@
 
 set -x
 
-DAR=/gpfs/fs0/DR/bin/dar_static
-PARALLEL=/usr/local/bin/parallel
+PGM=$( basename $0 )
+BASE=$( dirname $0 )
 
-#Original source snapshot
-# get this from
-# grep 'fs-root' /gpfs/fs0/DR/INFO/HOME/TIMESTAMP/*.dcf
-FSROOT=/gpfs/fs0/home/.snapshots/home_20170524_0200
+source $BASE/funcs.sh
+source $BASE/read_ini.sh
+source $BASE/crudini
+
+PARALLEL=$( which parallel )
+[[ -z "$PARALLEL" ]] && die "Unable to find 'parallel'"
+[[ -x "$PARALLEL" ]] || die "Parallel program, 'parallel', is not executable"
+
+DAR=$( which dar )
+[[ -z "$DAR" ]] && DAR=$BASE/dar
+[[ -z "$DAR" ]] && die "Unable to find 'dar' program"
+[[ -x "$DAR" ]] || die "Dar binary '$DAR' is not executable"
+
+#DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Oo )
+DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Pp )
 
 #Where to extract dar files
 RESTOREROOT=/gpfs/fs0/RESTORETESTTGT
+if [[ $# -lt 1 ]] ; then
+    echo "No restore path specified. Using default value: $RESTOREROOT"
+    select yn in Yes No; do
+        case $yn in
+            Yes ) break;;
+            * ) exit;;
+        esac
+    done
+fi
 
-#Where are the DAR files
-DOWNLOAD_DIR=/gpfs/fs0/DR/RESTORETESTSRC
-
-DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Oo )
-#DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Pp )
-
-# Clean destination directory
+# Check for clean restore directory
+tgtsize=$( find "$RESTOREROOT" -maxdepth 1 | wc -l )
+if [[ $tgtsize -gt 1 ]] ; then
+    echo "Restore directory is not empty. Purge contents of restore directory?"
+    select yn in Yes No; do
+        case $yn in
+            Yes ) break;;
+            * ) exit;;
+        esac
+    done
+fi
 find "$RESTOREROOT" -delete
-mkdir "$RESTOREROOT" || { 
-    echo "Error creating restore dir '$RESTOREROOT'"
-    exit 1
-}
-# Clean output directory
-find $DOWNLOAD_DIR -mindepth 1 ! -name '*.dar' -delete
+mkdir "$RESTOREROOT" || die "Error creating restore dir '$RESTOREROOT'"
+crudini --set restore.ini RESTORE ROOT "$RESTOREROOT"
+
+# Get fsroot
+FSROOT=$( grep FS_ROOT $BASE/*.ini | head -1 | awk '{print $NF}' )
+[[ -d "$FSROOT" ]] || die "No dir found for FSROOT='$FSROOT'"
+
+
+## Clean output directory
+rm -f $BASE/*.restore.{log,err,cmd,cmd.log,queue,sqlworker.cmd}
 
 
 # Create cmd files for each dar extraction (so they can be run in parallel)
-alldars=( $( find $DOWNLOAD_DIR -name '*.dar.1.dar' ) )
+alldars=( $( find $BASE -name '*.dar.1.dar' ) )
 for darfile in "${alldars[@]}"; do
     fnbase=$( basename $darfile '.dar.1.dar' )
-    darfilebase=$DOWNLOAD_DIR/${fnbase}.dar
-    logfile=${darfilebase}.restore.log
-    errfile=${darfilebase}.restore.err
-    cmdfile=${darfilebase}.restore.cmd
+    darbase=$BASE/${fnbase}.dar
+    logfile=${darbase}.restore.log
+    errfile=${darbase}.restore.err
+    cmdfile=${darbase}.restore.cmd
     outfile=${cmdfile}.log
     cat <<ENDHERE >$cmdfile
 #!/bin/bash
 start=\$( date '+%s' )
 echo "STARTTIME: \$start" > $outfile
 $DAR ${DAR_OPTS[@]} \\
---extract $darfilebase \\
+--extract $darbase \\
 --fs-root $RESTOREROOT \\
 1> $logfile \\
 2> $errfile
@@ -55,15 +83,15 @@ ENDHERE
 done
 
 # Create sqlmaster task queue
-Qfile=$DOWNLOAD_DIR/joblog.queue
+Qfile=$BASE/restore.queue
 sqlfile=$( echo $Qfile | sed -e 's/\//%2F/g' )
 dburl="sqlite3:///$sqlfile/tasks"
-find $DOWNLOAD_DIR -name '*.cmd' \
+find $BASE -name '*restore.cmd' \
 | $PARALLEL --sqlmaster $dburl bash {}
 
 
 # Create sqlworker cmd script
-sqlworker_cmdfile=$DOWNLOAD_DIR/sqlworker.cmd
+sqlworker_cmdfile=$BASE/restore.sqlworker.cmd
 cat <<ENDHERE >$sqlworker_cmdfile
 #!/bin/bash
 # Dont continue if active parallel or dar processes
