@@ -1,0 +1,86 @@
+#!/usr/bin/bash
+
+PGM=$( basename $0 )
+INFODIR=$( dirname $0 )
+MAXTHREADS=16
+source $INFODIR/read_ini.sh
+source $INFODIR/funcs.sh
+
+PARALLEL=$( which parallel )
+[[ -z "$PARALLEL" ]] && die "Unable to find 'parallel'"
+[[ -x "$PARALLEL" ]] || die "Parallel program, 'parallel', is not executable"
+
+# Get Original Source
+first_dar_ini=$( ls "$INFODIR"/*0001.ini )
+[[ -f "$first_dar_ini" ]] || die "Can't find first dar ini file"
+read_ini "$first_dar_ini" -p SRC
+[[ -z "${SRC__DAR__FS_ROOT}" ]] && die "Cound not find FS_ROOT in ini file '$first_dar_ini'"
+[[ -d "${SRC__DAR__FS_ROOT}" ]] || die "FS_ROOT '${SRC__DAR__FS_ROOT}' is not a valid directory"
+FSROOT="${SRC__DAR__FS_ROOT}"
+
+#for vname in FSROOT INFODIR; do 
+#    echo "$vname => '${!vname}'"
+#done
+
+
+basenames=( $( find $INFODIR -maxdepth 1 -name '*.cat.1.dar' \
+               | parallel "basename {} '.cat.1.dar'" ) )
+
+###
+echo Extract xml from dar catalog
+START=$SECONDS
+parallel ${MAXTHREADS:+-j $MAXTHREADS} \
+"[[ -s {}.xml ]] || dar -Q -Txml -as -l {}.cat >{}.xml" \
+::: "${basenames[@]}"
+END=$SECONDS
+ELAPSED=$( bc <<< "$END - $START" )
+echo Elapsed seconds: $ELAPSED
+
+
+
+###
+echo Create sorted list of files actually archived
+START=$SECONDS
+parallel ${MAXTHREADS:+-j $MAXTHREADS} \
+"[[ -s {}.xml.sorted ]] || $INFODIR/dar_parse_xml.py -f ${FSROOT} {}.xml | sort >{}.xml.sorted" \
+::: "${basenames[@]}"
+END=$SECONDS
+ELAPSED=$( bc <<< "$END - $START" )
+echo Elapsed seconds: $ELAPSED
+
+
+###
+echo Sort original filelist
+START=$SECONDS
+parallel ${MAXTHREADS:+-j $MAXTHREADS} \
+"[[ -s {}.filelist.sorted ]] || sort -o {}.filelist.sorted {}.filelist " \
+::: "${basenames[@]}"
+END=$SECONDS
+ELAPSED=$( bc <<< "$END - $START" )
+echo Elapsed seconds: $ELAPSED
+
+
+###
+echo Diff sorted filelists
+START=$SECONDS
+parallel ${MAXTHREADS:+-j $MAXTHREADS} \
+"diff --new-line-format='' --unchanged-line-format='' {}.filelist.sorted {}.xml.sorted >{}.diff1" \
+::: "${basenames[@]}"
+END=$SECONDS
+ELAPSED=$( bc <<< "$END - $START" )
+echo Elapsed seconds: $ELAPSED
+
+
+###
+echo Ignore dirs in diff output
+START=$SECONDS
+for basename in "${basenames[@]}"; do
+    infile=${basename}.diff1
+    outfile=${basename}.diff
+    parallel -a "$infile" "[[ -d {} ]] || echo {}" >"$outfile"
+done
+END=$SECONDS
+ELAPSED=$( bc <<< "$END - $START" )
+echo Elapsed seconds: $ELAPSED
+
+ls -l *.diff

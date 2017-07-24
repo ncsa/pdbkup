@@ -300,8 +300,10 @@ ENDHERE
                $PDBKUP_BASE/lib/funcs.sh \
                $PDBKUP_BASE/lib/crudini \
                $PDBKUP_BASE/conf/settings.ini \
-               $PDBKUP_BASE/restore/xtract_dar \
-               $PDBKUP_BASE/restore/verify_restore \
+               $PDBKUP_BASE/bin/xtract_dar \
+               $PDBKUP_BASE/bin/verify_restore \
+               $PDBKUP_BASE/bin/verify_bkup \
+               $PDBKUP_BASE/bin/dar_parse_xml.py \
                $DAR )
     for fn in "${filelist[@]}"; do
         cp "$fn" "$infodir"
