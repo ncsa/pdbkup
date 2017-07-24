@@ -131,6 +131,9 @@ case $action in
         cmdfile="$workdir/${pfx}.sqlworker.cmd"
         [[ -f "$cmdfile" ]] || clean_exit "Backup already completed"
         dburl=$( dburl_from_sqlworkercmdfile "$cmdfile" )
+        echo "HOSTS and JOB STATUS COUNT"
+        sql -p '-column' "$dburl" "select Host,Exitval,count(*) from tasks group by Host,Exitval;"
+        echo
         num_ready=$( num_ready_tasks "$dburl" )
         num_active=$( num_active_tasks "$dburl" )
         num_done=$( num_successful_tasks "$dburl" )
