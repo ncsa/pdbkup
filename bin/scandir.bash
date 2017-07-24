@@ -21,19 +21,22 @@ outdir="$2"
 #maxdepth='-maxdepth 3'
 
 outfile=$outdir/allfileslist
-filesonly=$outdir/filesonly
+emptydirs=$outdir/emptydirs
+dirsonly=$outdir/dirsonly
 
 # Find only Dirs
-# Save Dirsize + Dirname to a file
+# Save empty dirs to a file
 # Pipe Dirnames to parallel to find all non-dir children
 # Save Filesize + Filename to a file
-find "$srcdir" $maxdepth -type d ! -name $'*[\x1-\x1f]*' -printf '%s\0%p\n' \
-| tee $outfile \
+#| tee <( grep '^2\0' | cut -d '' -f 2 > $emptydirs ) \
+find "$srcdir" $maxdepth -type d ! -name $'*[\x1-\x1f]*' -printf '%n\0%p\n' \
+| tee $dirsonly \
 | cut -d '' -f 2 \
 | parallel -d '\n' --joblog $outdir/mk_filelist.joblog \
-    find '{}' -maxdepth 1 ! -type d ! -name "\$'*[\\x1-\\x1f]*'" -printf '%s\\0%p\\n' >> $filesonly
+    find '{}' -maxdepth 1 \\\( -type f -o -type l \\\) ! -name "\$'*[\\x1-\\x1f]*'" -printf '%s\\0%p\\n' >> $outfile
 echo "Filesystem scan, elapsed seconds: $SECONDS"
 
-cat "$filesonly" >> "$outfile"
+#cat "$emptydirs" >> "$outfile"
+#parallel -a $dirsonly "grep '^2\0' | cut -d '' -f 2 > $emptydirs
 
-rm -f "$filesonly"
+#rm -f "$dirsonly"
