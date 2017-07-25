@@ -3,8 +3,9 @@ Parallel Distributed Backup
 
 # Dependencies
 * [GNU Parallel](https://www.gnu.org/software/parallel/)
-* [DAR]( http://dar.linux.free.fr/)
-* Requires that the filesystem to be backed up implements snapshots and that
+* [DAR](http://dar.linux.free.fr/)
+* [Globus CLI](https://github.com/globus/globus-cli)
+* The filesystem to be backed up implements snapshots AND
   snapshots are actively being produced.
 ### Automatically included dependencies
 There are some other git projects this code makes use of.  They are included as
@@ -21,7 +22,56 @@ the authors of those projects.
 1. Review settings in `conf/settings.ini` (see the Configuration section below)
 
 # Usage
-**TODO**
+## Create backups
+```
+# SCAN FILESYSTEM, CREATE FILELIST, CREATE PARALLEL JOBLIST
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup init
+ 
+# START WORKERS ON MULTIPLE NODES
+[root@adm01 ~]# xdsh backup01,test[09-10] /gpfs/fs0/DR/pdbkup/bin/run.sh bkup startworker
+ 
+# SEE WHAT WORKERS ARE DOING
+[root@adm01 ~]# xdsh backup01,test[09-10] /gpfs/fs0/DR/pdbkup/bin/run.sh bkup ps
+ 
+# CHECK OVERALL PROGRESS
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup status 
+ 
+# LIST CURRENT AND HISTORICAL BACKUPS
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup ls
+ 
+# CHECK PROGRESS OF PARALLEL TASKS
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup dbstatus
+ 
+# GET USAGE SYNOPSIS
+[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup
+```
+
+## Transfer backups into long term storage
+```
+# CREATE NEW TRANSFER TASK CONTAINING ALL FILES READY TO TRANSFER
+[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr startnew
+ 
+# MONITOR ACTIVE TRANSFERS
+[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr ls
+ 
+# RENEW ENDPOINT CREDENTIALS (if needed)
+[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr update-credentials
+
+# VIEW TXFR USAGE SYNOPSIS
+[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr
+```
+
+## Cleanup
+```
+# PURGE OLD FILES (only successfully transferred files)
+[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr clean
+ 
+# CLEAN UP (TASK QUEUE) DATABASES
+[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup dbclean
+ 
+# PURGE OLD FILES NO LONGER NEEDED (ARCHIVES TRANSFERRED TO LONG TERM STORAGE)
+[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup purge
+```
 
 # Configuration
 All configuration is managed through the single file `config/settings.ini`.
@@ -52,6 +102,8 @@ state or status of each backup as well as information necessary for restores.
     a logical structure for the archive files.
 * USERNAME
   * Access globus as this user
+* CLI
+  * Path to local `globus` command
 
 ## PARALLEL
 GNU Parallel uses a database for a task queue.  This section defines how to
