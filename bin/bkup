@@ -24,6 +24,8 @@ dirkeys=( $( get_all_vars_matching_prefix INI__DIRS__ 1 ) )
 
 function all_bkup_dirs() {
     for d in "${dirkeys[@]}"; do
+        dirpath="$INI__GENERAL__INFODIR/$d"
+        [[ -d $dirpath ]] || continue
         find "$INI__GENERAL__INFODIR/$d" -mindepth 1 -maxdepth 1 -type d | sort
     done
 }
