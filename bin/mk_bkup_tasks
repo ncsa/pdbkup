@@ -304,6 +304,7 @@ ENDHERE
                $PDBKUP_BASE/bin/verify_restore \
                $PDBKUP_BASE/bin/verify_bkup \
                $PDBKUP_BASE/bin/dar_parse_xml.py \
+               $PDBKUP_BASE/README.md  \
                $DAR )
     for fn in "${filelist[@]}"; do
         cp "$fn" "$infodir"
