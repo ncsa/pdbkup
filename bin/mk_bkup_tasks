@@ -104,11 +104,11 @@ for key in "${dirkeys[@]}"; do
     # If prev == current, then unset prev
     [[ "$prev_bkupdir" == "$infodir" ]] && unset prev_bkupdir
 
-    # DEBUG - unset prev_bkupdir to force a full
     #######
     #####
     ###
     #
+    # DEBUG - unset prev_bkupdir to force a full
     unset prev_bkupdir
     #
     ###
@@ -225,6 +225,7 @@ ENDOPTS
             echo "update_ini \"$infofile\" 'GENERAL' 'SEQUENCE_NUM' \"$num\""
             echo "update_ini \"$infofile\" 'GENERAL' 'SNAPDIR'      \"$snapdir\""
             echo "update_ini \"$infofile\" 'DAR' 'HOSTNAME' \"\$(hostname)\""
+            echo "update_ini \"$infofile\" 'DAR' 'FNBASE'   \"$fn_base\""
             echo "update_ini \"$infofile\" 'DAR' 'DARBASE'  \"$darbase\""
             echo "update_ini \"$infofile\" 'DAR' 'DARFILE'  \"$darfile\""
             echo "update_ini \"$infofile\" 'DAR' 'CATBASE'  \"$catbase\""
@@ -234,7 +235,7 @@ ENDOPTS
             echo "update_ini \"$infofile\" 'DAR' 'ERRFILE'  \"$errfile\""
             echo "update_ini \"$infofile\" 'DAR' 'CMDFILE'  \"$cmdfile\""
             echo "update_ini \"$infofile\" 'DAR' 'FILELIST' \"$input_file\""
-            echo "update_ini \"$infofile\" 'DAR' 'FS_ROOT'  \"$fs_root\""
+            echo "update_ini \"$infofile\" 'DAR' 'FSROOT'   \"$fs_root\""
             echo '### START DAR'
             echo 'start_time=$( date "+%s" )'
             echo "update_ini \"$infofile\" 'DAR' 'START' \$start_time"
@@ -252,8 +253,9 @@ ENDOPTS
             echo 'else'
             echo "  mv \"$darfile\" \"$dar_errdir\""
             echo "  rm -f \"$catfile\""
+            echo '  exit $dar_exitcode'
             echo 'fi'
-            echo 'exit $dar_exitcode'
+            echo "$PDBKUP_BASE/bin/verify_bkup \"$infofile\""
         ) >$cmdfile
 
         # Add cmdfile to joblist so later can be added to the work queue
@@ -292,10 +294,7 @@ ENDHERE
     fi
     rm -f "$parallel_joblist"
 
-    # Copy supporting files for restoration into infodir
-    # TODO - create restore cmd file to be copied into infodir
-    #        restore.cmd can be generic and use values from ini files
-    #        present in infodir
+    # Copy supporting files for verification and restoration into infodir
     filelist=( $PDBKUP_BASE/lib/read_ini.sh \
                $PDBKUP_BASE/lib/funcs.sh \
                $PDBKUP_BASE/lib/crudini \

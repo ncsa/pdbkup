@@ -1,86 +1,70 @@
 #!/usr/bin/bash
 
-PGM=$( basename $0 )
-INFODIR=$( dirname $0 )
-MAXTHREADS=16
+[[ $# -eq 1 ]] || {
+    echo "ERROR: Missing INIFILE on cmdline"
+    exit 1
+}
+INIFILE="$1"
+INFODIR=$( dirname "$INIFILE" )
 source $INFODIR/read_ini.sh
 source $INFODIR/funcs.sh
 
+# Ensure parallel is installed
 PARALLEL=$( which parallel )
 [[ -z "$PARALLEL" ]] && die "Unable to find 'parallel'"
 [[ -x "$PARALLEL" ]] || die "Parallel program, 'parallel', is not executable"
 
-# Get Original Source
-first_dar_ini=$( ls "$INFODIR"/*0001.ini )
-[[ -f "$first_dar_ini" ]] || die "Can't find first dar ini file"
-read_ini "$first_dar_ini" -p SRC
-[[ -z "${SRC__DAR__FS_ROOT}" ]] && die "Cound not find FS_ROOT in ini file '$first_dar_ini'"
-[[ -d "${SRC__DAR__FS_ROOT}" ]] || die "FS_ROOT '${SRC__DAR__FS_ROOT}' is not a valid directory"
-FSROOT="${SRC__DAR__FS_ROOT}"
+# Get INI settings
+read_ini "$INIFILE"
+[[ -z "${INI__DAR__FSROOT}" ]] && die "Cound not find FSROOT in ini file '$first_dar_ini'"
+[[ -d "${INI__DAR__FSROOT}" ]] || die "FSROOT '${INI__DAR__FSROOT}' is not a valid directory"
 
-#for vname in FSROOT INFODIR; do 
-#    echo "$vname => '${!vname}'"
+# Create necessary filepaths
+CATALOGUE="$INFODIR"/$( basename "$INI__DAR__CATBASE" '.1.dar' )
+
+# Create output filenames
+XMLOUT="$INFODIR/${INI__DAR__FNBASE}.xml"
+XMLSORTED="$INFODIR/${INI__DAR__FNBASE}.xml.sorted"
+ORIGSORTED="$INFODIR/${INI__DAR__FNBASE}.filelist.sorted"
+DIFFRAW="$INFODIR/${INI__DAR__FNBASE}.diffraw"
+DIFFOUT="$INFODIR/${INI__DAR__FNBASE}.diff"
+
+#for i in INIFILE INFODIR PARALLEL INI__DAR__FSROOT INI__DAR__CATBASE CATALOGUE XMLOUT XMLSORTED ORIGSORTED DIFFRAW DIFFOUT; do
+#    printf '%20s %s\n' "$i" "${!i}"
 #done
+#exit
 
-
-basenames=( $( find $INFODIR -maxdepth 1 -name '*.cat.1.dar' \
-               | parallel "basename {} '.cat.1.dar'" ) )
-
-###
-echo Extract xml from dar catalog
-START=$SECONDS
-parallel ${MAXTHREADS:+-j $MAXTHREADS} \
-"[[ -s {}.xml ]] || dar -Q -Txml -as -l {}.cat >{}.xml" \
-::: "${basenames[@]}"
-END=$SECONDS
-ELAPSED=$( bc <<< "$END - $START" )
-echo Elapsed seconds: $ELAPSED
-
-
-
-###
-echo Create sorted list of files actually archived
-START=$SECONDS
-parallel ${MAXTHREADS:+-j $MAXTHREADS} \
-"[[ -s {}.xml.sorted ]] || $INFODIR/dar_parse_xml.py -f ${FSROOT} {}.xml | sort >{}.xml.sorted" \
-::: "${basenames[@]}"
-END=$SECONDS
-ELAPSED=$( bc <<< "$END - $START" )
-echo Elapsed seconds: $ELAPSED
-
-
-###
-echo Sort original filelist
-START=$SECONDS
-parallel ${MAXTHREADS:+-j $MAXTHREADS} \
-"[[ -s {}.filelist.sorted ]] || sort -o {}.filelist.sorted {}.filelist " \
-::: "${basenames[@]}"
-END=$SECONDS
-ELAPSED=$( bc <<< "$END - $START" )
-echo Elapsed seconds: $ELAPSED
-
-
-###
-echo Diff sorted filelists
-START=$SECONDS
-parallel ${MAXTHREADS:+-j $MAXTHREADS} \
-"diff --new-line-format='' --unchanged-line-format='' {}.filelist.sorted {}.xml.sorted >{}.diff1" \
-::: "${basenames[@]}"
-END=$SECONDS
-ELAPSED=$( bc <<< "$END - $START" )
-echo Elapsed seconds: $ELAPSED
-
-
-###
-echo Ignore dirs in diff output
-START=$SECONDS
-for basename in "${basenames[@]}"; do
-    infile=${basename}.diff1
-    outfile=${basename}.diff
-    parallel -a "$infile" "[[ -d {} ]] || echo {}" >"$outfile"
+# Regenerate everything if INIFILE is newer than output files
+varnamelist=( XMLOUT XMLSORTED ORIGSORTED DIFFRAW DIFFOUT )
+force_redo=0
+for refname in "${varnamelist[@]}"; do
+    outfn="${!refname}"
 done
-END=$SECONDS
-ELAPSED=$( bc <<< "$END - $START" )
-echo Elapsed seconds: $ELAPSED
+if [[ $force_redo -ne 0 ]] ; then
+    for refname in "${varnamelist[@]}"; do rm -f "${!refname}"; done
+fi
 
-ls -l *.diff
+
+# Extract xml from dar catalog
+[[ -s "$XMLOUT" ]] || dar -Q -Txml -as -l "${CATALOGUE}" >"$XMLOUT"
+
+
+### Create sorted list of files actually archived
+[[ -s "$XMLSORTED" ]] || \
+"$INFODIR"/dar_parse_xml.py -f "$INI__DAR__FSROOT" "$XMLOUT" \
+| sort >"$XMLSORTED"
+
+
+### Sort original filelist
+[[ -s "$ORIGSORTED" ]] || sort -o "$ORIGSORTED" "$INI__DAR__FILELIST"
+
+
+### Diff sorted filelists
+diff --new-line-format='' --unchanged-line-format='' "$ORIGSORTED" "$XMLSORTED" >"$DIFFRAW"
+
+
+### Ignore dirs in diff output
+parallel -a "$DIFFRAW" '[[ -d {} ]] || echo {}' >"$DIFFOUT"
+
+### Exit non-zero if DIFFOUT has any contents
+[[ ! -s "$DIFFOUT" ]] 
