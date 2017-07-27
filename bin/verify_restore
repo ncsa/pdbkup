@@ -19,8 +19,8 @@ PARALLEL=$( which parallel )
 first_dar_ini=$( ls "$INFODIR"/*0001.ini )
 [[ -f "$first_dar_ini" ]] || die "Can't find first dar ini file"
 read_ini "$first_dar_ini" -p SRC
-[[ -z "${SRC__FS_ROOT}" ]] && die "Cound not find FS_ROOT in ini file '$first_dar_ini'"
-[[ -d "${SRC__FS_ROOT}" ]] || die "FS_ROOT '${SRC__FS_ROOT}' is not a valid directory"
+[[ -z "${SRC__DAR__FSROOT}" ]] && die "Cound not find FSROOT in ini file '$first_dar_ini'"
+[[ -d "${SRC__DAR__FSROOT}" ]] || die "FSROOT '${SRC__DAR__FSROOT}' is not a valid directory"
 
 # Get Restore Root
 fn_restore_ini=$( ls "$INFODIR"/restore.ini )
@@ -31,7 +31,7 @@ read_ini "$fn_restore_ini" -p TGT
 
 RSYNCLOGBASE="$INFODIR/rsync_compare.out"
 
-dumpvars SRC__FS_ROOT TGT__RESTORE__ROOT INFODIR RSYNCLOGBASE
+dumpvars SRC__DAR__FSROOT TGT__RESTORE__ROOT INFODIR RSYNCLOGBASE
 
 echo "Continue?"
 select yn in Yes No; do
@@ -47,7 +47,7 @@ rm ${RSYNCLOGBASE}*
 
 #single-threaded
 set -x
-rsync -navHAXi ${SRC__FS_ROOT}/ ${TGT__RESTORE__ROOT}/ >"$RSYNCLOGBASE"
+rsync -navHAXi ${SRC__DAR__FSROOT}/ ${TGT__RESTORE__ROOT}/ >"$RSYNCLOGBASE"
 set +x
 diffcount=$( wc -l "$RSYNCLOGBASE" | cut -d ' ' -f1 )
 [[ $diffcount -gt 5 ]] && { echo "Differences found: see file '$RSYNCLOGBASE'"
@@ -57,9 +57,9 @@ diffcount=$( wc -l "$RSYNCLOGBASE" | cut -d ' ' -f1 )
 ##parallel
 #rsync_opts='-nilptgoHAX'
 ##### compare top level
-####find "${SRC__FS_ROOT}" -mindepth 1 -maxdepth 1 -print0 \
-####| parallel -0 -j1 "rsync $rsync_opts ${SRC__FS_ROOT}/{} ${TGT__RESTORE__ROOT}/{} >>${RSYNCLOGBASE}.."
+####find "${SRC__DAR__FSROOT}" -mindepth 1 -maxdepth 1 -print0 \
+####| parallel -0 -j1 "rsync $rsync_opts ${SRC__DAR__FSROOT}/{} ${TGT__RESTORE__ROOT}/{} >>${RSYNCLOGBASE}.."
 ## compare each element in first sub level below top
 #rsync_opts='-niaHAX'
-#find "${SRC__FS_ROOT}/" -mindepth 1 -maxdepth 1 -type d -name 'aloftus' -printf "%f\0" \
-#| parallel -0 -j16 "rsync $rsync_opts ${SRC__FS_ROOT}/{}/ ${TGT__RESTORE__ROOT}/{}/ >${RSYNCLOGBASE}.{}"
+#find "${SRC__DAR__FSROOT}/" -mindepth 1 -maxdepth 1 -type d -name 'aloftus' -printf "%f\0" \
+#| parallel -0 -j16 "rsync $rsync_opts ${SRC__DAR__FSROOT}/{}/ ${TGT__RESTORE__ROOT}/{}/ >${RSYNCLOGBASE}.{}"
