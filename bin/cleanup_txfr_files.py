@@ -4,6 +4,7 @@ import argparse
 import sys
 import json
 import os
+import pathlib
 
 DESCRIPTION= ''' 
     Move successfully transfered files to OKDIR.
