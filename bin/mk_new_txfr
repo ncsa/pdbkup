@@ -41,8 +41,8 @@ find $srcdir -mindepth 1 -maxdepth 1 -type f -print \
     src_fn=$( basename $REPLY )
     read dir_key ts <<< "$( filename2key_ts '$src_fn' )"
     read dir_key ts <<< $( filename2key_ts $src_fn )
-    go_src=$( urlencode "$workdir/$src_fn" )
-    go_tgt=$( urlencode "$go_tgtdir/$dir_key/$ts/$src_fn" )
+    go_src="$workdir/$src_fn"
+    go_tgt="$go_tgtdir/$dir_key/$ts/$src_fn"
     echo "$go_src $go_tgt" >> $fn_filelist
     mv "$srcdir/$src_fn" "$workdir/."
 done
@@ -56,7 +56,6 @@ go_verbose=""
 [[ $VERBOSE -gt 0 ]] && go_verbose='-vv'
 go_debug=""
 [[ $DEBUG -gt 0 ]] && go_debug='--debug'
-#gossh transfer --taskid=$taskid <$fn_filelist
 <$fn_filelist ${INI__GLOBUS__CLI} transfer \
     ${INI__GLOBUS__ENDPOINT_LOCAL} \
     ${INI__GLOBUS__ENDPOINT_REMOTE} \
@@ -64,8 +63,13 @@ go_debug=""
     --label "$go_label" \
     --batch
 
+# UPDATE FILENAME WITH REAL TASKID
+sleep 5
+tmpfn=$( ${INI__GLOBUS__CLI} task list -F json --exact --filter-label "$go_label" \
+| $PDBKUP_BASE/bin/json2ini.py )
+read_ini -p GOSUBID "$tmpfn"
+real_taskid=$GOSUBID__JSON__task_id
+new_filelist=$workdir/${real_taskid}.filelist
+mv $fn_filelist $new_filelist
 
-## ADD LABEL TO THE TRANSFER
-#gossh modify --label "$go_label" $taskid
-
-${INI__GLOBUS__CLI} task list
+${INI__GLOBUS__CLI} task show $real_taskid
