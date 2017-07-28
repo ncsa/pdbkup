@@ -102,7 +102,7 @@ function go_task_details() {
     local taskvarname=$( safe_varname taskid $taskid )
     tmpfn=$( $globus task show -F json $taskid \
     | $PDBKUP_BASE/bin/json2ini.py )
-    cat $tmpfn
+    #cat $tmpfn
     read_ini -p ${taskvarname} $tmpfn
     rm -f $tmpfn
 }
@@ -144,7 +144,7 @@ function do_clean() {
         if is_globus_task_complete "$taskid" ; then
             cleanup_txfr_src_files $taskid || die "CLEAN: Fatal error"
             simple_tid=$( safe_varname taskid $taskid )
-            refname="${simple_tid}__status"; 
+            refname="${simple_tid}__JSON__status"; 
             taskstatus="${!refname}"
             case $taskstatus in
                 SUCCEEDED)
@@ -176,16 +176,27 @@ function do_status() {
     #   from mbits_sec, calculate EstimatedTimeRemaining
     local taskid
     for taskid; do
-        # get taskfile
-        local taskfn=$( globus_task_files | grep "$taskid" )
-        local total_bytes=$( filelist2total_bytes $taskfn )
         go_task_details $taskid
         local taskvarname=$( safe_varname taskid $taskid )
-        local cur_bytes total_files cur_files BPS varref
+        local cur_bytes total_files cur_files BPS varref taskstatus
         varref=${taskvarname}__JSON__bytes_transferred;          cur_bytes=${!varref}
         varref=${taskvarname}__JSON__files;                      total_files=${!varref}
         varref=${taskvarname}__JSON__files_transferred;          cur_files=${!varref}
         varref=${taskvarname}__JSON__effective_bytes_per_second; BPS=${!varref}
+        varref=${taskvarname}__JSON__status;                     taskstatus=${!varref}
+        local total_bytes
+        if [[ "$taskstatus" == "SUCCEEDED" ]]; then
+            total_bytes=$cur_bytes
+        elif [[ "$taskstatus" == "FAILED" ]]; then
+            echo "Transfer Failed. Check for errors and resolve or restart" >&2
+            exit
+        else
+            local taskfn=$( globus_task_files | grep "$taskid" )
+            local total_bytes=$( filelist2total_bytes $taskfn )
+        fi
+#        for v in taskfn total_bytes taskvarname cur_bytes total_files cur_files BPS ; do 
+#            echo "$v => ${!v}"
+#        done
         local MBS=$( bc <<< "scale=2; $BPS / 1048576" )
         local pct_bytes=$( bc <<< "scale=2; $cur_bytes/$total_bytes * 100" )
         local pct_files=$( bc <<< "scale=2; $cur_files/$total_files * 100" )
