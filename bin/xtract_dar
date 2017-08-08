@@ -20,8 +20,7 @@ DAR=$( which dar )
 [[ -z "$DAR" ]] && die "Unable to find 'dar' program"
 [[ -x "$DAR" ]] || die "Dar binary '$DAR' is not executable"
 
-#DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Oo )
-DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Pp )
+DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Oo )
 
 #Where to extract dar files
 RESTOREROOT=/gpfs/fs0/RESTORETESTTGT
