@@ -46,9 +46,7 @@ function add_datetime() {
 
 
 function sanitize() {
-    if [[ $# -lt 1 ]]; then
-        die "Missing bkupdir"
-    fi
+    [[ $# -lt 1 ]] && die "Missing bkupdir path"
     local infodir=$( readlink -e "$1" )
     [[ -n "$infodir" ]] || die "No such file or directory: '$1'. Parameter must be an infodir"
     [[ -d "$infodir" ]] || die "Not a directory '$infodir'. Parameter must be an infodir"
@@ -61,6 +59,116 @@ function sanitize() {
     find "$INI__GENERAL__DATADIR" -name "*${key}*${ts}*" -delete
     find "$infodir" -type f ! -name 'allfileslist' -delete
     set +x
+}
+
+
+function dbstatus() {
+    [[ $# -lt 1 ]] && die "Missing bkupdir path"
+    local parts=( $( bkupinfodir2key_ts <<< "$1" ) )
+    local workdir="$INI__GENERAL__DATADIR/$INI__PARALLEL__WORKDIR"
+    local pfx="${parts[0]}_${parts[1]}"
+    local cmdfile="$workdir/${pfx}.sqlworker.cmd"
+    [[ -f "$cmdfile" ]] || clean_exit "Backup already completed"
+    local dburl=$( dburl_from_sqlworkercmdfile "$cmdfile" )
+    echo "HOSTS and JOB STATUS COUNT"
+    sql -p '-column' "$dburl" "select Host,Exitval,count(*) from tasks group by Host,Exitval;"
+    echo
+    local num_ready=$( num_ready_tasks "$dburl" )
+    local num_active=$( num_active_tasks "$dburl" )
+    local num_done=$( num_successful_tasks "$dburl" )
+    local num_failed=$( num_failed_tasks "$dburl" )
+    local num_total
+    let "num_total = $num_ready + $num_active + $num_done + $num_failed"
+    local pct_ready=$( bc <<< "scale=2; $num_ready/$num_total * 100" )
+    local pct_active=$( bc <<< "scale=2; $num_active/$num_total * 100" )
+    local pct_done=$( bc <<< "scale=2; $num_done/$num_total * 100" )
+    local pct_failed=$( bc <<< "scale=2; $num_failed/$num_total * 100" )
+    printf "%10s: %5d  (%4.2f%%)\n" 'Failed' $num_failed $pct_failed
+    printf "%10s: %5d  (%4.2f%%)\n" 'Successful' $num_done $pct_done
+    printf "%10s: %5d  (%4.2f%%)\n" 'Active' $num_active $pct_active
+    printf "%10s: %5d  (%4.2f%%)\n" 'Pending' $num_ready $pct_ready
+    printf "%10s: %5d\n"       'Total' $num_total
+}
+
+
+function wrapup() {
+    ###
+    # For Completed Bkups
+    #   - cleanup sqlworker cmd and task queue files
+    #   - make archive of infodir
+    ###
+    ls_sqlworker_cmdfiles \
+    | while read sqlcmd_fn; do
+        # Get DBURL
+        dburl=$( dburl_from_sqlworkercmdfile "$sqlcmd_fn" )
+        debug "Found dburl '$dburl'"
+        ready_count=$( num_ready_tasks "$dburl" )
+        active_count=$( num_active_tasks "$dburl" )
+        failed_count=$( num_failed_tasks "$dburl" )
+        # If all tasks have completed
+        if [[ $ready_count == 0 && $active_count == 0 ]] ; then
+            debug "All tasks have completed"
+            # If all tasks successful
+            if [[ $failed_count -eq 0 ]]; then
+                debug "No failed tasks (all successful)"
+                # Determine key & timestamp
+                read key ts <<< $(filename2key_ts "$sqlcmd_fn" )
+                infodir="${INI__GENERAL__INFODIR}/${key}/${ts}"
+                # Move sqlworker file to relevant INFODIR
+                mv "$sqlcmd_fn" "$infodir"
+                # Move DB file to relevant INFODIR
+                dbfn=$( dburl2filename "$dburl" )
+                mv "$dbfn" "$infodir"
+                # Create archive of infodir to be shipped to Long Term Storage
+                errmsg="Error finalizing archive of infodir '$infodir'."
+                errmsg="$errmsg See '$infodir/wrapup.err' for more details."
+                mk_infodir_bkup $infodir || die "$errmsg"
+            else
+                warn "Failures reported in WORKER QUEUE \"$dburl\""
+            fi
+        fi
+    done
+}
+
+
+function mk_infodir_bkup() {
+    ###
+    # Make a dar backup archive of entire infodir and move to "ready_for_transfer" directory
+    # INPUT
+    #   - infodir - String - absolute path to infodir
+    ###
+    [[ $# -lt 1 ]] && die "Missing infodir path"
+    local infodir=$1
+    [[ -d $infodir ]] || die "Infodir path '$infodir' is not a directory"
+    local key ts
+    read key ts <<< $( bkupinfodir2key_ts <<< "$infodir" )
+    local darbasename="${key}_${ts}_INFO"
+    local darout="${INI__GENERAL__DATADIR}/${INI__DAR__WORKDIR}/$darbasename"
+    local darfn="${darout}.1.dar"
+    # Create dar archive
+    local logfile="$infodir/wrapup.log"
+    local errfile="$infodir/wrapup.err"
+    log "Creating dar archive: '$darbasename' ..."
+    local starttime=$SECONDS
+    local exitcode
+    ${INI__DAR__CMD} -Q -z -va \
+        -c "$darout" \
+        -R "$infodir" \
+        -X 'wrapup.*' \
+        1>"$logfile" \
+        2>"$errfile"
+    exitcode=$?
+    local endtime=$SECONDS
+    local elapsed=$( bc <<< "$endtime - $starttime" )
+    echo "Elapsed seconds: $elapsed"
+    # Check dar success and move archive as appropriate
+    local enddir="${INI__GENERAL__DATADIR}/${INI__DAR__ENDDIR}"
+    if [[ $exitcode -ne 0 ]]; then
+        enddir="${INI__GENERAL__DATADIR}/${INI__DAR__ERRDIR}"
+        warn "dar exited with non-zero exitcode '$exitcode'"
+    fi
+    mv "$darfn" "$enddir/"
+    return $exitcode
 }
 
 
@@ -77,7 +185,7 @@ Usage: $1 <CMD>
                   OPTIONAL: /path/to/existing/backup/infodir
                   DEFAULT: use latest backup infodir
     dbstatus    - Display progress of parallel tasks
-    dbclean     - Clean up database and related files for completed parallel jobs
+    wrapup      - Make dar of infodir and set it to move to long term storage
     ls          - list all known backups
     ps          - list all backup processes on the local node
     files       - list all files associated with a given backup
@@ -125,58 +233,11 @@ case $action in
         [[ $# -lt 1 ]] && d=$( latest_bkupdir )
         exec $PDBKUP_BASE/bin/status.py -a $d
         ;;
-    dbstat*)
-        [[ $# -lt 1 ]] && die "Missing bkupdir path"
-        parts=( $( bkupinfodir2key_ts <<< "$1" ) )
-        workdir="$INI__GENERAL__DATADIR/$INI__PARALLEL__WORKDIR"
-        pfx="${parts[0]}_${parts[1]}"
-        cmdfile="$workdir/${pfx}.sqlworker.cmd"
-        [[ -f "$cmdfile" ]] || clean_exit "Backup already completed"
-        dburl=$( dburl_from_sqlworkercmdfile "$cmdfile" )
-        echo "HOSTS and JOB STATUS COUNT"
-        sql -p '-column' "$dburl" "select Host,Exitval,count(*) from tasks group by Host,Exitval;"
-        echo
-        num_ready=$( num_ready_tasks "$dburl" )
-        num_active=$( num_active_tasks "$dburl" )
-        num_done=$( num_successful_tasks "$dburl" )
-        num_failed=$( num_failed_tasks "$dburl" )
-        let "num_total = $num_ready + $num_active + $num_done + $num_failed"
-        pct_ready=$( bc <<< "scale=2; $num_ready/$num_total * 100" )
-        pct_active=$( bc <<< "scale=2; $num_active/$num_total * 100" )
-        pct_done=$( bc <<< "scale=2; $num_done/$num_total * 100" )
-        pct_failed=$( bc <<< "scale=2; $num_failed/$num_total * 100" )
-        printf "%10s: %5d  (%4.2f%%)\n" 'Failed' $num_failed $pct_failed
-        printf "%10s: %5d  (%4.2f%%)\n" 'Successful' $num_done $pct_done
-        printf "%10s: %5d  (%4.2f%%)\n" 'Active' $num_active $pct_active
-        printf "%10s: %5d  (%4.2f%%)\n" 'Pending' $num_ready $pct_ready
-        printf "%10s: %5d\n"       'Total' $num_total
+    dbstatus)
+        dbstatus $*
         ;;
-    dbclean)
-        # Find sqlworker cmd files
-        ls_sqlworker_cmdfiles \
-        | while read fn; do
-            # Get DBURL
-            dburl=$( dburl_from_sqlworkercmdfile "$fn" )
-            # If all tasks have completed
-            ready_count=$( num_ready_tasks "$dburl" )
-            active_count=$( num_active_tasks "$dburl" )
-            if [[ $ready_count == 0 && $active_count == 0 ]] ; then
-                # Determine key & timestamp
-                read key ts <<< $(filename2key_ts "$fn" )
-                infodir="${INI__GENERAL__INFODIR}/${key}/${ts}"
-                # If all tasks successful
-                failed_count=$( num_failed_tasks "$dburl" )
-                if [[ $failed_count -eq 0 ]]; then
-                    # Move DB file to relevant INFODIR
-                    mv "$fn" "$infodir"
-                else
-                    warn "Failures reported in WORKER QUEUE \"$dburl\""
-                fi
-                # Move sqlworker file to relevant INFODIR
-                dbfn=$( dburl2filename "$dburl" )
-                mv "$dbfn" "$infodir"
-            fi
-        done
+    wrapup)
+        wrapup
         ;;
     errshow)
         warn "ERRSHOW NOT IMPLEMENTED YET"
@@ -212,9 +273,11 @@ case $action in
         find "${INI__GENERAL__DATADIR}/${INI__PURGE__SRCDIR}" -mindepth 1 -delete
         ;;
     stop)
+        touch $( gatekeeper_fn )
         pkill -f parallel
         ;;
     kill)
+        touch $( gatekeeper_fn )
         pkill -f parallel
         pkill -f dar
         ;;
