@@ -41,36 +41,62 @@ the authors of those projects.
  
 # CHECK PROGRESS OF PARALLEL TASKS
 [root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup dbstatus
+
+# PREPARE RESTORE INFO & LOGS FOR LONG TERM STORAGE
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup wrapup
  
 # GET USAGE SYNOPSIS
-[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup
 ```
 
 ## Transfer backups into long term storage
 ```
-# CREATE NEW TRANSFER TASK CONTAINING ALL FILES READY TO TRANSFER
-[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr startnew
+# START NEW TRANSFER TASK FOR ALL FILES READY TO TRANSFER
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr startnew
  
 # MONITOR ACTIVE TRANSFERS
-[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr ls
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr ls
  
 # RENEW ENDPOINT CREDENTIALS (if needed)
-[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr update-credentials
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr update-credentials
 
 # VIEW TXFR USAGE SYNOPSIS
-[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr
 ```
 
 ## Cleanup
 ```
-# PURGE OLD FILES (only successfully transferred files)
-[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr clean
+# CLEANUP COMPLETED TRANSFERS
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh txfr clean
  
-# CLEAN UP (TASK QUEUE) DATABASES
-[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup dbclean
- 
-# PURGE OLD FILES NO LONGER NEEDED (ARCHIVES TRANSFERRED TO LONG TERM STORAGE)
-[root@lsst-backup01 fs0]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup purge
+# REMOVE SUCCESSFULLY TRANSFERRED FILES
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup purge
+```
+
+## Investigate Errors
+```
+# LIST FILE COUNTS, FILES IN "ERROR" DIRECTORIES HAD PROBLEMS
+[root@lsst-backup01 ~]# /gpfs/fs0/DR/pdbkup/bin/run.sh bkup tree
+```
+
+## Restore from Long Term Storage
+```
+# TRANSFER FROM LONG TERM STORAGE
+# this must be an externally initiated and monitored process
+# Further steps assume files are transferred to a local filesystem at
+# $DR_LANDING_LOCATION
+
+# EXTRACT INFO ARCHIVE
+[root@lsst-backup01 ~]# cd $DR_LANDING_LOCATION
+[root@lsst-backup01 home]# dar -x $( basename $( ls *_INFO.1.dar ) '.1.dar' )
+
+# EXTRACT DR ARCHIVE CONTENTS
+[root@lsst-backup01 home]# ./xtract_dar
+
+# VERIFY RESTORED DATA
+# This is only possible as a test scenario.
+# Requires that the original snapshot is available to verify against.
+[root@lsst-backup01 home]# ./verify_restore
 ```
 
 # Configuration
