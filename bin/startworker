@@ -16,6 +16,10 @@ parcount=$( pgrep -f parallel | wc -l )
 darcount=$( pgrep -f dar | wc -l )
 [[ $darcount -ne 0 ]] && die "Existing dar processes found, exiting."
 
+# Stop if gatekeeper file is present
+gkfn=$( gatekeeper_fn )
+[[ -f $gkfn ]] && die "Refusing to start while kill file is present '$gkfn'"
+
 # Get a sqlworker cmdfile
 cmdfile=$( next_worker_cmdfile )
 echo "CMDFILE: $cmdfile"

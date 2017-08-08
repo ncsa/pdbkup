@@ -123,20 +123,6 @@ function safe_varname() {
 ### ARCHIVE RELATED FUNCTIONS
 ###
 
-##function get_snap_base {
-##    # PARAMS:
-##    #   ini_key = String - (REQUIRED) - key from ini file from DIRS section
-##    [[ $BKUP_DEBUG -gt 0 ]] && set -x
-##    local key=$1
-##    [[ -z "$key" ]] && die "get_snap_base; got empty key"
-##    local snapdn="${INI__DEFAULTS__SNAPDIR}"
-##    local refname=INI__${key}__SNAPDIR
-##    [[ -n "${!refname}" ]] && snapdn="${!refname}"
-##    local pathref=INI__DIRS__$key
-##    local snapdir=${!pathref}/${snapdn}
-##    [[ -d $snapdir ]] && echo $snapdir
-##}
-
 
 function get_last_snapdir {
     # PARAMS:
@@ -150,6 +136,7 @@ function get_last_snapdir {
     [[ -d "$snapbase" ]] || die "Cant find snapbase '$snapbase'"
     find "$snapbase" -mindepth 1 -maxdepth 1 | sort -r | head -1
 }
+
 
 function get_last_bkupdir {
     # PARAMS:
@@ -204,7 +191,7 @@ function timestamp2snapdir {
 
 function bkupinfodir2key_ts() {
     # PARAMS:
-    #   path = String - (REQUIRED) - absolute path to backupinfodir
+    #   <STDIN> = String - (REQUIRED) - absolute path to backupinfodir
     # OUTPUT:
     #   String - space separated string of KEY TIMESTAMP
     awk '{c=split( $1, parts, "/"); ts=parts[c]; key=parts[c-1]; print key,ts}'
@@ -248,6 +235,12 @@ function filename2key_ts() {
         | cut -d '.' -f 1 \
         | awk -F '_' '{print $1,$2}'
     done
+}
+
+
+function gatekeeper_fn() {
+    # Print the full path for a gatekeeper file for this node
+    echo "$INI__GENERAL__DATADIR/$INI__PARALLEL__WORKDIR}/gatekeeper.$(hostname)"
 }
 
 
