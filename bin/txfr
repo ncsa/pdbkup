@@ -82,8 +82,7 @@ function globus_taskfile2taskid() {
 function filelist2total_bytes() {
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     srcfn="$1"
-    awk '{split($1, parts, /\//); print parts[2]}' $srcfn \
-    | xargs urlencode -d \
+    awk '{print $1}' $srcfn \
     | xargs stat -c '%s' \
     | awk 'BEGIN {s=0}; {s+=$1}; END {print s}'
 }
@@ -201,16 +200,16 @@ function do_status() {
         local pct_bytes=$( bc <<< "scale=2; $cur_bytes/$total_bytes * 100" )
         local pct_files=$( bc <<< "scale=2; $cur_files/$total_files * 100" )
         local eta_hours=$( bc <<< "scale=2; ( $total_bytes - $cur_bytes ) / 1048576 / $MBS / 3600" )
-        echo total_bytes=$total_bytes
-        echo cur_bytes=$cur_bytes
-        echo total_files=$total_files
-        echo cur_files=$cur_files
-        echo MBS=$MBS
+#        echo total_bytes=$total_bytes
+#        echo cur_bytes=$cur_bytes
+#        echo total_files=$total_files
+#        echo cur_files=$cur_files
+#        echo MBS=$MBS
         local hdrfmt="%-37s %9s %9s %9s %9s\n"
         local datafmt="%-37s %9.2f %9.2f %9.2f %9.2f\n"
         printf "$hdrfmt" "" "Rate" "%complete" "%complete" "ETA"
         printf "$hdrfmt" "TaskID" "(MBS)" "(bytes)" "(files)" "(hours)"
-        printf "$datafmt" $taskid $pct_bytes $pct_files $eta_hours
+        printf "$datafmt" $taskid $MBS $pct_bytes $pct_files $eta_hours
     done
 }
 

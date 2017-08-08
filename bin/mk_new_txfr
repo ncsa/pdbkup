@@ -22,16 +22,16 @@ if [[ $numfiles -lt 1 ]] ; then
 fi
 
 
-# GENERATE TASKID
-taskid=$( ${INI__GLOBUS__CLI} task generate-submission-id )
-log "SUBMISSION ID: '$taskid'"
-grep -v '[0-9a-zA-Z-]' <<< "$taskid" \
-&& die "Invalid taskid: '$taskid'"
+# GENERATE SUBMISSION ID
+subm_id=$( ${INI__GLOBUS__CLI} task generate-submission-id )
+log "SUBMISSION ID: '$subm_id'"
+grep -v '[0-9a-zA-Z-]' <<< "$subm_id" \
+&& die "Invalid submission id: '$subm_id'"
 
 
 # BUILD FILELIST
 workdir=${INI__GENERAL__DATADIR}/${INI__TXFR__WORKDIR_OUTBOUND}
-fn_filelist=$workdir/${taskid}.filelist
+fn_filelist=$workdir/${subm_id}.filelist
 debug "WORKDIR: $workdir"
 debug "FN_FILELIST: $fn_filelist"
 :>| $fn_filelist #create empty file or truncate existing file
@@ -51,7 +51,7 @@ log "GO Filelist = $fn_filelist"
 # INITIATE TRANSFER
 endpoint_activate "${INI__GLOBUS__ENDPOINT_LOCAL}"
 endpoint_activate "${INI__GLOBUS__ENDPOINT_REMOTE}"
-go_label=$( echo "$fn_filelist" | sed -e 's/[^a-zA-Z0-9_,-]/__/g' )
+go_label="submission_id__$subm_id"
 go_verbose=""
 [[ $VERBOSE -gt 0 ]] && go_verbose='-vv'
 go_debug=""
@@ -59,17 +59,21 @@ go_debug=""
 <$fn_filelist ${INI__GLOBUS__CLI} transfer \
     ${INI__GLOBUS__ENDPOINT_LOCAL} \
     ${INI__GLOBUS__ENDPOINT_REMOTE} \
-    --submission-id $taskid \
+    --submission-id $subm_id \
     --label "$go_label" \
     --batch
 
 # UPDATE FILENAME WITH REAL TASKID
 sleep 5
 tmpfn=$( ${INI__GLOBUS__CLI} task list -F json --exact --filter-label "$go_label" \
-| $PDBKUP_BASE/bin/json2ini.py )
+| $PDBKUP_BASE/bin/json2ini.py -l0 )
 read_ini -p GOSUBID "$tmpfn"
 real_taskid=$GOSUBID__JSON__task_id
 new_filelist=$workdir/${real_taskid}.filelist
 mv $fn_filelist $new_filelist
+
+# UPDATE TASK LABEL WITH FILENAME PATH
+new_go_label=$( echo "$new_filelist" | sed -e 's/[^a-zA-Z0-9_,-]/__/g' )
+${INI__GLOBUS__CLI} task update --label "$new_go_label" $real_taskid
 
 ${INI__GLOBUS__CLI} task show $real_taskid
