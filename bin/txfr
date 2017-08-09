@@ -141,15 +141,19 @@ function do_clean() {
     for taskfile in $( globus_task_files ); do
         taskid=$( globus_taskfile2taskid "$taskfile" )
         if is_globus_task_complete "$taskid" ; then
+            log "Starting cleanup for taskid: '$taskid'..."
             cleanup_txfr_src_files $taskid || die "CLEAN: Fatal error"
+            log "Done"
             simple_tid=$( safe_varname taskid $taskid )
             refname="${simple_tid}__JSON__status"; 
             taskstatus="${!refname}"
             case $taskstatus in
                 SUCCEEDED)
+                    log "TaskID '$taskid' was successful. Cleaning transfer filelist."
                     mv "$taskfile" "$ok_dir/"
                     ;;
                 FAILED)
+                    log "TaskID '$taskid' had failures. Saving transfer filelist to '$fail_dir'"
                     mv "$taskfile" "$fail_dir/"
                     ;;
             esac
