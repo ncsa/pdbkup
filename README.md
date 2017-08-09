@@ -3,7 +3,7 @@ Parallel Distributed Backup
 
 # Dependencies
 * [GNU Parallel](https://www.gnu.org/software/parallel/)
-* [DAR](http://dar.linux.free.fr/)
+* [DAR](http://dar.linux.free.fr/) (version 2.5.12 or newer)
 * [Globus CLI](https://github.com/globus/globus-cli)
 * The filesystem to be backed up implements snapshots AND
   snapshots are actively being produced.
