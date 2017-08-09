@@ -28,7 +28,7 @@ class BkupDir( object ):
             return
         for x in self.path.iterdir():
             if x.is_file():
-                if x.suffix == '.ini':
+                if x.suffix == '.ini' and x.name != 'settings.ini':
                     self.filelist.append( x )
                 elif x.suffix == '.filelist':
                     self.num_expected_slices += 1
@@ -132,20 +132,13 @@ def histogram( intlist, title, x_key, x_numcols=20, max_height=80, tick='*' ):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument( 'bkupinfodir' )
-    parser.add_argument( '--dar_summary', action='store_true' )
-    parser.add_argument( '--dar_histogram', action='store_true' )
-    parser.add_argument( '--dar_filecountgraph', action='store_true' )
+    parser.add_argument( '-s', '--dar_summary', action='store_true' )
+    parser.add_argument( '-m', '--dar_histogram', action='store_true' )
     parser.add_argument( '-a', '--all', action='store_true' )
-#    default_opts = {
-#        'dar_summary': False,
-#        'dar_histogram': False,
-#    }
-#    parser.set_defaults( **default_opts )
     args = parser.parse_args()
     if args.all:
         args.dar_summary = True
         args.dar_histogram = True
-        args.dar_filecountgraph = True
     return args
 
 
@@ -168,14 +161,6 @@ def show_cfg( cfg ):
             print( '  {0}: {1}'.format( option, value ) )
 
 
-#def find_all_infodirs( cfg ):
-#    infodir_base = pathlib.Path( cfg[ 'GENERAL' ][ 'INFODIR' ] )
-#    subdirs = [ x for x in infodir_base.iterdir() if x.is_dir() ]
-#    datedirs = []
-#    for d in subdirs:
-#        datedirs.extend( [ x for x in d.iterdir() if x.is_dir() ] )
-#    return datedirs
-    
 def print_dar_summary( bkupdir ):
     print( 'Dar Slice Status' )
     sdata = bkupdir.dar_status()
@@ -201,9 +186,6 @@ def print_dar_summary( bkupdir ):
                 k=k.capitalize(), s=rdata[i], t=datetime.timedelta( seconds=rdata[i] ) ) )
 
 
-#def filecountgraph( bkupdir ):
-
-
 def run():
     cfg = load_cfg()
 #    show_cfg( cfg )
@@ -211,14 +193,6 @@ def run():
     infodir = pathlib.Path( args.bkupinfodir )
     if not infodir.is_dir():
         raise UserWarning( 'bkupinfodir is not a directory: {0}'.format( infodir ) )
-#    if args.bkupinfodir:
-#        infodir_base = pathlib.Path( cfg[ 'GENERAL' ][ 'INFODIR' ] )
-#        infodir = infodir_base / args.bkupinfodir
-#        if not infodir.is_dir():
-#            raise UserWarning( 'bkupinfodir is not a directory: {0}'.format( infodir ) )
-#    else:
-#        infodirs = find_all_infodirs( cfg )
-#        infodir = sorted( find_all_infodirs( cfg ) )[-1]
     print( 'Processing: {0}'.format( infodir ) )
     bkupdir = BkupDir( infodir )
     if args.dar_summary:
@@ -229,9 +203,6 @@ def run():
                    title = 'Dar Slice Elapsed Time',
                    x_key = 'Num Seconds',
                    max_height = 40 )
-
-#    if args.dar_filecountgraph:
-#        print( "FilecountGraph" )
 
 if __name__ == "__main__":
     run()

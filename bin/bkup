@@ -33,8 +33,10 @@ function all_bkup_dirs() {
 
 function latest_bkupdir() {
     for d in "${dirkeys[@]}"; do
-        find "$INI__GENERAL__INFODIR/$d" -mindepth 1 -maxdepth 1 -type d | sort -r | head -1
-    done
+        find "$INI__GENERAL__INFODIR/$d" -mindepth 1 -maxdepth 1 -type d
+    done \
+    | sort -r \
+    | head -1
 }
 
 
@@ -228,10 +230,10 @@ case $action in
             die "Declined, exiting without making changes."
         fi
         ;;
-    stat*)
+    status)
         d=$1
         [[ $# -lt 1 ]] && d=$( latest_bkupdir )
-        exec $PDBKUP_BASE/bin/status.py -a $d
+        exec $PDBKUP_BASE/bin/status.py -s $d
         ;;
     dbstatus)
         dbstatus $*
