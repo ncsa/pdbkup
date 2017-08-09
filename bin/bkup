@@ -40,15 +40,8 @@ function latest_bkupdir() {
 }
 
 
-function add_datetime() {
-    # Input: String - "pathname ending in a timestamp"
-    # Output: String - "pathname date time"
-    awk '{c=split( $1, parts, "/" ); dt=strftime( "%F %T", parts[c] ); printf("%s %s\n",$0,dt);}'
-}
-
-
 function sanitize() {
-    [[ $# -lt 1 ]] && die "Missing bkupdir path"
+    [[ $# -lt 1 ]] && die "sanitize: Missing bkupdir path"
     local infodir=$( readlink -e "$1" )
     [[ -n "$infodir" ]] || die "No such file or directory: '$1'. Parameter must be an infodir"
     [[ -d "$infodir" ]] || die "Not a directory '$infodir'. Parameter must be an infodir"
@@ -61,6 +54,91 @@ function sanitize() {
     find "$INI__GENERAL__DATADIR" -name "*${key}*${ts}*" -delete
     find "$infodir" -type f ! -name 'allfileslist' -delete
     set +x
+}
+
+
+function archive_status() {
+    # Input: String - full path to bkupinfo dir
+    # Output: String - IN-PROGRESS, COMPLETE, FAILURES-DETECTED
+    [[ $DEBUG -gt 0 ]] && set -x
+    [[ $# -lt 1 ]] && die "archive_status: Missing bkupdir path"
+    local infodir="$1"
+    local awktmp=$( mktemp )
+    echo '/^EXITCODE/ && /[1-9]/ {print}' > $awktmp
+    local archive_status=COMPLETE
+    local key timestamp
+    read key timestamp <<<$( echo "$infodir" | bkupinfodir2key_ts )
+    # Check for unstarted or in progress DARs
+    local dar_count=$( find $infodir -name "${key}*.dcf" | wc -l )
+    local completed_count=$( find $infodir -name "${key}*.ini" | parallel grep EXITCODE {} | wc -l )
+    if [[ $completed_count -lt $dar_count ]]; then
+        archive_status=IN-PROGRESS
+    else
+        # Check for DAR errors
+        local error_count=$( find $infodir -name "${key}*.ini" \
+        | parallel awk -f $awktmp \
+        | wc -l )
+        if [[ $error_count -gt 0 ]]; then
+            archive_status=FAILURES-DETECTED
+        fi
+    fi
+    echo $archive_status
+
+}
+
+
+function transfer_status() {
+    # Input: String - full path to bkupinfo dir
+    # Output: String - IN-PROGRESS, COMPLETE, FAILURES-DETECTED
+    [[ $DEBUG -gt 0 ]] && set -x
+    [[ $# -lt 1 ]] && die "transfer_status: Missing bkupdir path"
+    local infodir="$1"
+    local tstatus=COMPLETE
+    local key timestamp
+    read key timestamp <<<$( echo "$infodir" | bkupinfodir2key_ts )
+    # Check for files being transfered
+    local ready_dir="$INI__GENERAL__DATADIR/$INI__TXFR__SRCDIR_OUTBOUND"
+    local work_dir="$INI__GENERAL__DATADIR/$INI__TXFR__WORKDIR_OUTBOUND"
+    local err_dir="$INI__GENERAL__DATADIR/$INI__TXFR__ERRDIR_OUTBOUND"
+    local ready_count=$( find "$ready_dir" -name "${key}_${timestamp}*" | wc -l )
+    local working_count=$( find "$work_dir" -name "${key}_${timestamp}*" | wc -l )
+    local err_count=$( find "$err_dir" -name "${key}_${timestamp}*" | wc -l )
+    if [[ $ready_count -gt 0 || $working_count -gt 0 ]]; then
+        tstatus=IN-PROGRESS
+    elif [[ $err_count -gt 0 ]]; then
+        tstatus=FAILURES-DETECTED
+    fi
+    echo "$tstatus"
+}
+
+
+function do_ls_with_status() {
+    # List all backups by date and key including bkup snapdate and status
+    # Input: NONE
+    # Output: Column formatted output
+    [[ $DEBUG -gt 0 ]] && set -x
+    (   echo "BKUP_DIR DATE TIME STATUS"
+        all_bkup_dirs \
+        | sort -t '/' -k 7 \
+        | while read; do
+            local infodir="$REPLY"
+            local key timestamp
+            read key timestamp <<< $( echo "$infodir" | bkupinfodir2key_ts )
+            local sdate stime
+            read sdate stime <<< $( timestamp2datetime $timestamp )
+            local bkup_status arch_status txfr_status
+            arch_status=$( archive_status "$infodir" )
+            bkup_status="ARCHIVE($arch_status)"
+            if [[ $arch_status == COMPLETE ]]; then
+                txfr_status=$( transfer_status "$infodir" )
+                bkup_status="TRANSFER($txfr_status)"
+                if [[ $txfr_status == COMPLETE ]]; then
+                    bkup_status=COMPLETE
+                fi
+            fi
+            echo "$infodir $sdate $stime $bkup_status"
+        done
+    ) | column -t
 }
 
 
@@ -247,9 +325,7 @@ case $action in
         # Find errors in dar err files
         ;;
     ls) 
-        (   echo "BKUP_DIR DATE TIME"
-            all_bkup_dirs | add_datetime
-        ) | column -t
+        do_ls_with_status
         ;;
     ps)
         psopts=( -o pid,stat,time,command --sort stat  )

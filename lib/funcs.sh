@@ -153,6 +153,15 @@ function get_last_bkupdir {
 }
 
 
+function timestamp2datetime() {
+    # Input: String - "unix timestamp"
+    # Output: String - "date time"
+    [[ $DEBUG -gt 0 ]] && set -x
+    [[ $# -lt 1 ]] && die "timestamp2datetime: Missing timestamp"
+    echo "$1" | awk '{dt=strftime( "%F %T", $1 ); print dt}'
+}
+
+
 function snapdir2timestamp {
     # PARAMS:
     #   snapdir = String - (REQUIRED) - snapdir absolute path
