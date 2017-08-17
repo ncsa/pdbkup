@@ -6,6 +6,7 @@ Parallel Distributed Backup
 * [DAR](http://dar.linux.free.fr/) (version 2.5.12 or newer)
 * [Globus CLI](https://github.com/globus/globus-cli)
 * `lockfile-progs` pkg from EPEL repository
+* Python 3
 * The filesystem to be backed up implements snapshots AND
   snapshots are actively being produced.
 ### Automatically included dependencies
