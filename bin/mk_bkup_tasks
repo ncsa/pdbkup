@@ -126,7 +126,8 @@ for key in "${dirkeys[@]}"; do
         read foo prev_timestamp <<<$( echo "$prev_infodir" | bkupinfodir2key_ts )
         if [[ "$prev_timestamp" == "$timestamp" ]]; then
             # either new snapshot wasn't created
-            # or this is a re-process of last bkup (maybe it failed or was killed)
+            # or this is a re-process of last bkup
+            # (maybe it failed or was killed or already completed successfully)
             # Try to extract bkuptype from allfileslist filename
             all_fn=$( find "$infodir" -type f -name 'allfileslist.*' | head -1 )
             bkuptype="${all_fn##*.}"

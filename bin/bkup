@@ -118,15 +118,24 @@ function do_ls_with_status() {
     # Input: NONE
     # Output: Column formatted output
     [[ $DEBUG -gt 0 ]] && set -x
-    (   echo "BKUP_DIR DATE TIME STATUS"
+    (   echo "BKUP_DIR DATE TIME TYPE STATUS"
         all_bkup_dirs \
         | sort -t '/' -k 7 \
         | while read; do
+            # infodir
             local infodir="$REPLY"
+            # timestamp
             local key timestamp
             read key timestamp <<< $( echo "$infodir" | bkupinfodir2key_ts )
+            # snapshot date and time
             local sdate stime
             read sdate stime <<< $( timestamp2datetime $timestamp )
+            # bkup type
+            local bkup_type='FULL?'
+            local all_fn=$( find "$infodir" -type f -name 'allfileslist.*' | head -1 )
+            local btype="${all_fn##*.}"
+            [[ -n "$btype" ]] && bkup_type="$btype"
+            # status
             local bkup_status arch_status txfr_status
             arch_status=$( archive_status "$infodir" )
             bkup_status="ARCHIVE($arch_status)"
@@ -137,7 +146,7 @@ function do_ls_with_status() {
                     bkup_status=COMPLETE
                 fi
             fi
-            echo "$infodir $sdate $stime $bkup_status"
+            echo "$infodir $sdate $stime $bkup_type $bkup_status"
         done
     ) | column -t
 }
