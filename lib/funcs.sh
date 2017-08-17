@@ -146,8 +146,7 @@ function get_last_bkupdir {
     [[ -z "$key" ]] && die "get_last_bkupdir; got empty key"
     local infodir=$INI__GENERAL__INFODIR/$key
     [[ -d $infodir ]] || return
-    find $infodir -mindepth 2 -maxdepth 2 -type f \
-        -name 'filelist.filelist' -printf '%h' \
+    find $infodir -mindepth 1 -maxdepth 1 -type d \
     | sort -r \
     | head -1
 }

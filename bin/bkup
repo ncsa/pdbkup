@@ -8,6 +8,7 @@ while getopts ":dv" opt; do
     case $opt in
     d) DEBUG=1; VERBOSE=1;;
     v) VERBOSE=1;;
+    f) BKUP_TYPE=FULL;;
     esac
 done
 shift $((OPTIND-1))
@@ -52,7 +53,7 @@ function sanitize() {
     [[ -n "$ts" ]] || die "Error getting timestamp from infodir"
     set -x
     find "$INI__GENERAL__DATADIR" -name "*${key}*${ts}*" -delete
-    find "$infodir" -type f ! -name 'allfileslist' -delete
+    find "$infodir" -type f ! -name 'allfileslist.????' -delete
     set +x
 }
 
@@ -255,21 +256,29 @@ function mk_infodir_bkup() {
 function usage() {
     cat <<ENDHERE
 
-Usage: $1 <CMD>
+Usage: $1 [OPTIONS] <CMD>
+
+  where OPTIONS is any of:
+    -v   verbose
+    -d   debug (implies verbose as well)
+    -f   force a full backup (otherwise, first bkup is a full, rest are incremental)
+
   where CMD is one of:
     init        - initialize backups for the newest snapshot
-                  OPTIONAL: /path/to/existing/backup/infodir
+                  OPTIONAL PARAMETER(s): DIRKEY1 [DIRKEY2 ...]
+                  OPTIONAL PARAMETER: /path/to/existing/backup/infodir
                   DEFAULT: use latest snapshot
     startworker - start processing parallel jobs on a worker
     status      - report on a specific backup
-                  OPTIONAL: /path/to/existing/backup/infodir
+                  OPTIONAL PARAMETER: /path/to/existing/backup/infodir
                   DEFAULT: use latest backup infodir
     dbstatus    - Display progress of parallel tasks
+                  REQUIRED PARAMETER: /path/to/existing/backup/infodir
     wrapup      - Make dar of infodir and set it to move to long term storage
     ls          - list all known backups
     ps          - list all backup processes on the local node
     files       - list all files associated with a given backup
-                  OPTIONAL: /path/to/existing/backup/infodir
+                  OPTIONAL PARAMETER: /path/to/existing/backup/infodir
                   DEFAULT: use latest backup infodir
     tree        - List file counts in dir tree rooted at "$INI__GENERAL__DATADIR"
     plotdar     - Create gnuplot of dar slice creation times vs filesiszes
@@ -278,6 +287,7 @@ Usage: $1 <CMD>
     kill        - Stop ALL backup processes
     sanitize    - *caution* delete all files from specified backup
                   (use to allow init to rerun on a dir without re-scanning filesystem)
+                  REQUIRED PARAMETER: /path/to/existing/backup/infodir
     reset       - *caution* delete entire backup tree
 
 ENDHERE
@@ -289,7 +299,7 @@ action=$1
 shift
 case $action in
     init) 
-        exec $PDBKUP_BASE/bin/mk_bkup_tasks $*
+        PDBKUP_TYPE=$BKUP_TYPE $PDBKUP_BASE/bin/mk_bkup_tasks $*
         ;;
     startworker)
         exec $PDBKUP_BASE/bin/startworker

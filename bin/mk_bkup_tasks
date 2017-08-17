@@ -30,6 +30,7 @@ if [[ -n "$1" ]] ; then #allow for cmdline parameter
         bkupinfodir_parts=( $( bkupinfodir2key_ts <<< "$arg_bkupinfodir"  ) )
         keylist=( ${bkupinfodir_parts[0]} )
     else # ARG must a DIRKEY, check to ensure it is a valid DIRKEY
+        # TODO - consume all cmdline args, check each to make sure it's a valid key
         varname="INI__DIRS__$1"
         if [[ " ${INI__ALL_VARS[@]} " =~ " ${varname} " ]] ; then
             keylist=( "$1" )
@@ -46,13 +47,12 @@ for key in "${keylist[@]}"; do
     refname="INI__DIRS__${key}"
     value="${!refname}"
     if [[ "$value" == "enabled" ]] ; then
-        dirkeys="$key"
+        dirkeys+=( "$key" )
     fi
 done
 if [[ ${#dirkeys[@]} -lt 1 ]]; then
     clean_exit "No dirs are enabled for backup"
 fi
-
 
 # MAKE COMMON DIRECTORIES
 mkdir -p "$INI__GENERAL__DATADIR" || die "Unable to made datadir_base '$INI__GENERAL__DATADIR'"
@@ -60,6 +60,7 @@ mk_datadirs "$INI__GENERAL__DATADIR"
 dar_workdir="$INI__GENERAL__DATADIR/$INI__DAR__WORKDIR"
 dar_enddir="$INI__GENERAL__DATADIR/$INI__DAR__ENDDIR"
 dar_errdir="$INI__GENERAL__DATADIR/$INI__DAR__ERRDIR"
+dumpvars dar_workdir dar_enddir dar_errdir
 
 # LOOP OVER EACH key-path PAIR
 for key in "${dirkeys[@]}"; do
@@ -80,57 +81,76 @@ for key in "${dirkeys[@]}"; do
     fi
     [[ -z "$snapdir" ]] && die "Cant find snapdir for key='$key'"
     [[ -z "$timestamp" ]] && die "Cant create timestamp from snapdir='$snapdir'"
-    dumpvars key snapbase snapdir timestamp dar_workdir
     
     # Check for added path below snapdir
     fs_root="$snapdir"
     pathref="INI__${key}__PATH"
     [[ -n "${!pathref}" ]] && fs_root="$snapdir/${!pathref}"
     [[ -d "$fs_root" ]] || die "No directory found for fs-root '$fs_root'"
-    dumpvars fs_root
+
+    # Determine infodir and filelist paths
+    infodir="$INI__GENERAL__INFODIR/$key/$timestamp"
 
     # Get last backup info
-    prev_bkupdir=$( get_last_bkupdir $key )
-    dumpvars prev_bkupdir
+    prev_infodir=$( get_last_bkupdir $key )
+    dumpvars key snapbase snapdir timestamp fs_root prev_infodir infodir allfileslist
 
     # Create new backup info dir
-    infodir="$INI__GENERAL__INFODIR/$key/$timestamp"
     [[ -d $infodir ]] || mkdir -p $infodir
 
-    # Create backup filelist
-    allfileslist=$infodir/allfileslist
-    dumpvars infodir allfileslist
+    # Stop if lockfile exists for prev_infodir OR current infodir
+    lockfile-check "$prev_infodir" && {
+        warn "Lockfile exists for key '$key' on prev_infodir '$prev_infodir'"
+        warn "Skipping key '$key'"
+        continue
+    }
+    lockfile-create "$infodir" || {
+        warn "Unable to get lock file for infodir '$infodir'"
+        warn "Skipping key '$key'"
+    }
+    # Lockfile creation was successful, now keep touching the lockfile till we exit
+    # NOTE: if the program dies or something kills it, 
+    # the lockfile toucher process should die too (?how?) (?why?)
+    lockfile-touch "$infodir" &
+    LOCKFILEBADGER="$!"
 
-    # If prev == current, then unset prev
-    [[ "$prev_bkupdir" == "$infodir" ]] && unset prev_bkupdir
-
-    #######
-    #####
-    ###
-    #
-    # DEBUG - unset prev_bkupdir to force a full
-    unset prev_bkupdir
-    #
-    ###
-    #####
-    #######
-
-    if [[ -n "$prev_bkupdir" ]]; then
-        # There was a previous backup, do incremental
-        
-        # Get snap diff filelist
-        die "****NOT IMPLEMENTED YET get_snapdiff"
-        bkuptype="INCR"
-
-    else
-        # This is the first backup, do a full
+    # Allow environment variable to take precedence
+    if [[ "$PDBKUP_TYPE" == "FULL" ]]; then
         bkuptype="FULL"
-        # Don't recreate filelist if it already exists
-        [[ -s $allfileslist ]] || {
-            log "Starting scandir $fs_root $infodir"
-            $PDBKUP_BASE/bin/scandir.bash $fs_root $infodir
-        }
+        prev_timestamp=
+    elif [[ -z "$prev_infodir" ]]; then
+        # prev_infodir doesn't exist, then this is the first backup
+        bkuptype="FULL"
+        prev_timestamp=
+    else
+        read foo prev_timestamp <<<$( echo "$prev_infodir" | bkupinfodir2key_ts )
+        if [[ "$prev_timestamp" == "$timestamp" ]]; then
+            # either new snapshot wasn't created
+            # or this is a re-process of last bkup (maybe it failed or was killed)
+            # Try to extract bkuptype from allfileslist filename
+            all_fn=$( find "$infodir" -type f -name 'allfileslist.*' | head -1 )
+            bkuptype="${all_fn##*.}"
+            if [[ "$bkuptype" == "FULL" ]]; then
+                prev_timestamp=
+            elif [[ "$bkuptype" != "INCR" ]]; then
+                die "Unable to get valid bkuptype from prev_infodir '$prev_infodir'"
+            fi
+        elif [[ $prev_timestamp -gt $timestamp ]]; then
+            die "Prev_timestamp '$prev_timestamp' cannot be greater than current timestamp '$timestamp'"
+        else
+            bkuptype="INCR"
+        fi
     fi
+
+    allfileslist="$infodir/allfileslist.$bkuptype"
+
+    # Scan filesystem to create master filelist
+    # Don't recreate filelist if it already exists
+    [[ -s $allfileslist ]] || {
+        log "Starting scandir $fs_root $infodir $prev_timestamp"
+        $PDBKUP_BASE/bin/scandir.bash $fs_root $infodir $prev_timestamp
+        mv "$infodir/scandir.out" "$allfileslist"
+    }
 
     # Split allfileslist into smaller filelists
     filelist_count=$( find "$infodir" -mindepth 1 -maxdepth 1 -type f \
@@ -159,7 +179,7 @@ for key in "${dirkeys[@]}"; do
             $pyverbose \
             $allfileslist \
         | tee "$infodir/02.binpack.runtime" \
-        || die "Error during split filelist"
+        || die "Error during split filelist: '$allfileslist'"
     fi
 
     # CYCLE THROUGH CHILD FILELISTS
@@ -263,11 +283,6 @@ ENDOPTS
 
     done #END | while read; do
 
-    # TODO - create cmdfile to tar up infodir
-    # TODO - add tar cmdfile to parallel_joblist
-    # TODO - tar cmdfile should sleep until all previous tasks have completed 
-    #        successfully
-
     #ADD CMD FILES TO WORK QUEUE (ie: PARALLEL SQLMASTER DB)
     dburl=$( mk_dburl "$parallel_pfx" )
     dburltable="${dburl}/$INI__PARALLEL__DB_TABLE"
@@ -309,6 +324,8 @@ ENDHERE
         cp "$fn" "$infodir"
     done
 
+    kill "$LOCKFILEBADGER"
+    lockfile-remove $infodir
 
 done #END for key in "${dirkeys[@]}"; do
 
