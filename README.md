@@ -5,6 +5,7 @@ Parallel Distributed Backup
 * [GNU Parallel](https://www.gnu.org/software/parallel/)
 * [DAR](http://dar.linux.free.fr/) (version 2.5.12 or newer)
 * [Globus CLI](https://github.com/globus/globus-cli)
+* `lockfile-progs` pkg from EPEL repository
 * The filesystem to be backed up implements snapshots AND
   snapshots are actively being produced.
 ### Automatically included dependencies
@@ -177,18 +178,14 @@ No need to change anything in this section.
 These are defaults that apply to the DIRS that will be backed up. Most often,
 all the dirs to be backed up are all part of the same filesystem or same type
 of filesystem, so it suffices to set relevant settings in one place.
-* SNAPDIR
-  * Name of snapdir, relative to the DIR path
 * SNAPDIR_DATE_FORMAT
   * If each snapshot has a date as part of it's name, specify that format here
   * Syntax is same as used by the `date` command
 * ARCHIVE_MAX_SIZE
   * Size limit, in Bytes, of a single archive file
-* ARCHIVE_MAX_SIZE=536870912000
 * ARCHIVE_MAX_FILES 
   * maximum number of files in a single archive
-  * Adjust this based on median file size in the DIR
-  * so that archive files can reach ARCHIVE_MAX_SIZE
+  * Adjust this based on median file size in the DIR so that archive files can reach ARCHIVE_MAX_SIZE
   * Make this higher for filesystems with lots of small files
 
 Any of these defaults can be overridden on a per DIR basis by creating
@@ -196,8 +193,19 @@ a section matching the name of the KEY in the `DIRS` section and then put the
 new setting and value in that section.  It will apply only to that DIRKEY
 
 ## DIRS
-* Create a unique "key" for each filesystem that needs to be backed up
-* The value for each "key" is the absolute path to the mountpoint
+* Each key in [DIRS] is a DIRKEY
+* Create a new DIRKEY for each filesystem / mountpoint / directory to be backed up
+* Each DIRKEY must be set to one of:
+  * enabled  -> backups are enabled
+  * disabled -> do not perform new backups (reporting is still enabled)
+
+## The DIRKEY sections
+* Foreach entry in DIRS,
+  * Create a new section with name matching DIRKEY (from [DIRS] section)
+  * Assign SNAPDIR
+  * Assign PATH (PATH can be empty if backing up entire filesystem)
+    * Backups will start from SNAPDIR/date/PATH, where "date" is the most recent snapshot
+  * repeat any key from section [DEFAULTS] to override the default value
 
 There are additional comments and examples in the default `conf/settings.ini`
 file.
