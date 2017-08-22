@@ -155,6 +155,10 @@ if using sqlite3, then user, pass, host, port will be empty (likewise for csv).
   * Minimum required version of parallel.
   * Options `--sqlmaster` and `--sqlworker` are relatively new and don't work 
     well before Jan 2017.  Change this only at your own risk.
+* PATH = /usr/local/bin
+  * Update this if parallel was installed to a custom location
+  * NOTE: parallel also installs the `sql` command and expects it to be
+    accessible in the PATH
 
 For more information and for a list of valid strings for DB_VENDOR, see:
 * [GNU Parallel option --sqlmaster](https://www.gnu.org/software/parallel/man.html)

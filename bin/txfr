@@ -276,6 +276,7 @@ ENDHERE
 
 action=$1
 shift
+logger -t pdbkup "txfr $action"
 case $action in
     start*) 
         exec $PDBKUP_BASE/bin/mk_new_txfr $*

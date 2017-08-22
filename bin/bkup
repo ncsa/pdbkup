@@ -16,7 +16,6 @@ shift $((OPTIND-1))
 export BKUP_DEBUG=$DEBUG
 export BKUP_VERBOSE=$VERBOSE
 
-#cd $PDBKUP_BASE
 source $PDBKUP_BASE/lib/funcs.sh
 source $PDBKUP_BASE/lib/read_ini.sh
 
@@ -306,6 +305,7 @@ ENDHERE
 
 action=$1
 shift
+logger -t pdbkup "bkup $action"
 case $action in
     init) 
         PDBKUP_TYPE=$BKUP_TYPE $PDBKUP_BASE/bin/mk_bkup_tasks $*
