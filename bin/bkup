@@ -330,7 +330,7 @@ case $action in
     status)
         d=$1
         [[ $# -lt 1 ]] && d=$( latest_bkupdir )
-        exec $PDBKUP_BASE/bin/status.py -s $d
+        exec $PDBKUP_BASE/bin/status.py -j -s $d
         ;;
     dbstatus)
         dbstatus $*

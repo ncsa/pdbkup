@@ -14,6 +14,7 @@ class BkupDir( object ):
     def __init__( self, path ):
         self.path = path
         self.filelist = []
+        self.scandir_joblog = None
         self.num_expected_slices = 0
         self.slices = {}
         self._is_loaded = False
@@ -39,6 +40,7 @@ class BkupDir( object ):
             c.optionxform = lambda option: option
             c.read( str( f ) )
             self.slices[ name ] = c
+        self.scandir_joblog = pathlib.Path( self.path / 'scandir.joblog' )
         self._is_loaded = True
 
     def reload( self ):
@@ -94,6 +96,26 @@ class BkupDir( object ):
         nt = collections.namedtuple( 'DarRuntime', 'total_runtime' )
         return nt( runtime )
 
+    def scandir_runtime( self ):
+        """ Total runtime for scandir task
+            Returns: datetime.timedelta
+        """
+        min_start = datetime.datetime.now()
+        max_end = datetime.datetime.fromtimestamp( 0 )
+        with self.scandir_joblog.open() as f:
+            for line in f.readlines():
+                parts = line.split()
+                if parts[0].startswith( 'Seq' ):
+                    continue
+                starttime = datetime.datetime.fromtimestamp( float( parts[2] ) )
+                endtime = starttime + datetime.timedelta( seconds=float( parts[3] ) )
+                if starttime < min_start:
+                    min_start = starttime
+                if endtime > max_end:
+                    max_end = endtime
+        diff = max_end - min_start
+        return diff
+
 
 def histogram( intlist, title, x_key, x_numcols=20, max_height=80, tick='*' ):
     if len( intlist ) < 1:
@@ -132,11 +154,13 @@ def histogram( intlist, title, x_key, x_numcols=20, max_height=80, tick='*' ):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument( 'bkupinfodir' )
+    parser.add_argument( '-j', '--scandir_summary', action='store_true' )
     parser.add_argument( '-s', '--dar_summary', action='store_true' )
     parser.add_argument( '-m', '--dar_histogram', action='store_true' )
     parser.add_argument( '-a', '--all', action='store_true' )
     args = parser.parse_args()
     if args.all:
+        args.scandir_summary = True
         args.dar_summary = True
         args.dar_histogram = True
     return args
@@ -159,6 +183,11 @@ def show_cfg( cfg ):
         print( '{0}:'.format( section ) )
         for ( option, value ) in opts.items():
             print( '  {0}: {1}'.format( option, value ) )
+
+
+def print_scandir_summary( bkupdir ):
+    diff = bkupdir.scandir_runtime()
+    print( 'Scandir Runtime: {} ({})'.format( diff.total_seconds(), diff ) )
 
 
 def print_dar_summary( bkupdir ):
@@ -195,6 +224,9 @@ def run():
         raise UserWarning( 'bkupinfodir is not a directory: {0}'.format( infodir ) )
     print( 'Processing: {0}'.format( infodir ) )
     bkupdir = BkupDir( infodir )
+    if args.scandir_summary:
+        print_scandir_summary( bkupdir )
+
     if args.dar_summary:
         print_dar_summary( bkupdir )
 
