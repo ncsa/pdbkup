@@ -5,6 +5,10 @@ Parallel Distributed Backup
 * [GNU Parallel](https://www.gnu.org/software/parallel/)
 * [DAR](http://dar.linux.free.fr/) (version 2.5.12 or newer)
 * [Globus CLI](https://github.com/globus/globus-cli)
+  * Note: Be sure to install the optional `globus-cli[delegate-proxy]` package.
+    * This is necessary to activate gridftp endpoints using an x509 certificate
+      proxy, which is needed until gridftp supports OAuth natively.
+  * See also: [Globus CLI Changelog](https://docs.globus.org/cli/reference/changelog/), Version 1.1.1
 * `lockfile-progs` pkg from EPEL repository
 * Python 3
 * The filesystem to be backed up implements snapshots AND
