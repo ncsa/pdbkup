@@ -22,9 +22,9 @@ gkfn=$( gatekeeper_fn )
 
 # Get a sqlworker cmdfile
 cmdfile=$( next_worker_cmdfile )
-echo "CMDFILE: $cmdfile"
+debug "STARTWORKER: using cmdfile '$cmdfile'"
 if [[ "${#cmdfile}" -gt 0 ]] ; then
-    echo "bash $cmdfile" | at now
+    echo "bash $cmdfile" | at now 2>&1 | sed -e '/^job [0-9]\+ at /d'
 else
-    warn "Nothing to do"
+    debug "STARTWORKER: Nothing to do"
 fi

@@ -302,7 +302,9 @@ QNAME="${dburl}"
 DBURLTABLE="${dburltable}"
 $PARALLEL -j $INI__PARALLEL__MAX_PROCS --sqlworker "\$DBURLTABLE" bash
 sleep 2
-echo "bash $PDBKUP_BASE/bin/run.sh bkup startworker" | at now + 1 min
+echo "bash $PDBKUP_BASE/bin/run.sh bkup startworker" \\
+| at now + 1 min 2>&1 \\
+| sed -e '/^job [0-9]\+ at /d'
 ENDHERE
 
         log "SQLWORKER CMD FILE $parallel_sqlworker_cmdfile"
