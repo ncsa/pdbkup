@@ -63,27 +63,29 @@ function archive_status() {
     [[ $DEBUG -gt 0 ]] && set -x
     [[ $# -lt 1 ]] && die "archive_status: Missing bkupdir path"
     local infodir="$1"
-    local awktmp=$( mktemp )
-    echo '/^EXITCODE/ && /[1-9]/ {print}' > $awktmp
-    local archive_status=COMPLETE
+    local archive_status=UNKNOWN
     local key timestamp
     read key timestamp <<<$( echo "$infodir" | bkupinfodir2key_ts )
     # Check for unstarted or in progress DARs
     local dar_count=$( find $infodir -name "${key}*.dcf" | wc -l )
     local completed_count=$( find $infodir -name "${key}*.ini" | parallel grep EXITCODE {} | wc -l )
-    if [[ $completed_count -lt $dar_count ]]; then
+    # Check for dar errors
+    local awktmp=$( mktemp )
+    echo '/^EXITCODE/ && /[1-9]/ {print}' > $awktmp
+    local error_count=$( find $infodir -name "${key}*.ini" \
+    | parallel awk -f $awktmp \
+    | wc -l )
+    rm -f $awktmp
+    if [[ $dar_count -lt 1 ]]; then
+        archive_status=EMPTY
+    elif [[ $completed_count -lt $dar_count ]]; then
         archive_status=IN-PROGRESS
-    else
-        # Check for DAR errors
-        local error_count=$( find $infodir -name "${key}*.ini" \
-        | parallel awk -f $awktmp \
-        | wc -l )
-        if [[ $error_count -gt 0 ]]; then
-            archive_status=FAILURES-DETECTED
-        fi
+    elif [[ $error_count -gt 0 ]]; then
+        archive_status=FAILURES-DETECTED
+    elif [[ $completed_count -eq $dar_count ]]; then
+        archive_status=COMPLETE
     fi
     echo $archive_status
-
 }
 
 
@@ -93,7 +95,7 @@ function transfer_status() {
     [[ $DEBUG -gt 0 ]] && set -x
     [[ $# -lt 1 ]] && die "transfer_status: Missing bkupdir path"
     local infodir="$1"
-    local tstatus=COMPLETE
+    local tstatus=UNKNOWN
     local key timestamp
     read key timestamp <<<$( echo "$infodir" | bkupinfodir2key_ts )
     # Check for files being transfered
@@ -103,10 +105,19 @@ function transfer_status() {
     local ready_count=$( find "$ready_dir" -name "${key}_${timestamp}*" | wc -l )
     local working_count=$( find "$work_dir" -name "${key}_${timestamp}*" | wc -l )
     local err_count=$( find "$err_dir" -name "${key}_${timestamp}*" | wc -l )
-    if [[ $ready_count -gt 0 || $working_count -gt 0 ]]; then
-        tstatus=IN-PROGRESS
-    elif [[ $err_count -gt 0 ]]; then
+    if [[ $err_count -gt 0 ]]; then
         tstatus=FAILURES-DETECTED
+    elif [[ $working_count -gt 0 ]]; then
+        tstatus=IN-PROGRESS
+    elif [[ $ready_count -gt 0 ]]; then
+        tstatus=PENDING
+    else 
+        local go_tgtdir="${INI__GLOBUS__ENDPOINT_REMOTE}:$INI__GLOBUS__BASEDIR_REMOTE/$key/$timestamp"
+        local info_fn="${key}_${timestamp}_INFO.1.dar"
+        local fcount=$( $INI__GLOBUS__CLI ls "$go_tgtdir" 2>/dev/null \
+        | grep "$info_fn" \
+        | wc -l )
+        [[ $fcount -eq 1 ]] && tstatus=COMPLETE
     fi
     echo "$tstatus"
 }
@@ -123,6 +134,7 @@ function do_ls_with_status() {
         | while read; do
             # infodir
             local infodir="$REPLY"
+            debug "do_ls_with_status: checking '$infodir'"
             # timestamp
             local key timestamp
             read key timestamp <<< $( echo "$infodir" | bkupinfodir2key_ts )
@@ -135,15 +147,25 @@ function do_ls_with_status() {
             local btype="${all_fn##*.}"
             [[ -n "$btype" ]] && bkup_type="$btype"
             # status
-            local bkup_status arch_status txfr_status
-            arch_status=$( archive_status "$infodir" )
-            bkup_status="ARCHIVE($arch_status)"
-            if [[ $arch_status == COMPLETE ]]; then
-                txfr_status=$( transfer_status "$infodir" )
-                bkup_status="TRANSFER($txfr_status)"
-                if [[ $txfr_status == COMPLETE ]]; then
-                    bkup_status=COMPLETE
+            local status_file="$infodir/last_status"
+            local last_status=UNKNOWN
+            [[ -f "$status_file" ]] && last_status=$( head -1 "$status_file" )
+            debug "do_ls_with_status: last_status = '$infodir'"
+            local bkup_status="$last_status"
+            if [[ "$bkup_status" == *'FAIL'* ]]; then
+                debug "do_ls_with_status: bkup status '$bkup_status' matches FAIL, doing nothing"
+            elif [[ "$bkup_status" != 'COMPLETE' ]]; then
+                local arch_status txfr_status
+                arch_status=$( archive_status "$infodir" )
+                bkup_status="ARCHIVE($arch_status)"
+                if [[ $arch_status == COMPLETE ]]; then
+                    txfr_status=$( transfer_status "$infodir" )
+                    bkup_status="TRANSFER($txfr_status)"
+                    if [[ $txfr_status == COMPLETE ]]; then
+                        bkup_status=COMPLETE
+                    fi
                 fi
+                echo "$bkup_status" > "$status_file"
             fi
             echo "$infodir $sdate $stime $bkup_type $bkup_status"
         done
@@ -249,7 +271,7 @@ function mk_infodir_bkup() {
     exitcode=$?
     local endtime=$SECONDS
     local elapsed=$( bc <<< "$endtime - $starttime" )
-    echo "Elapsed seconds: $elapsed"
+    log "Elapsed seconds: $elapsed"
     # Check dar success and move archive as appropriate
     local enddir="${INI__GENERAL__DATADIR}/${INI__DAR__ENDDIR}"
     if [[ $exitcode -ne 0 ]]; then
@@ -327,10 +349,10 @@ case $action in
             die "Declined, exiting without making changes."
         fi
         ;;
-    status)
+    summary)
         d=$1
         [[ $# -lt 1 ]] && d=$( latest_bkupdir )
-        exec $PDBKUP_BASE/bin/status.py -j -s $d
+        exec $PDBKUP_BASE/bin/summary.py -j -s $d
         ;;
     dbstatus)
         dbstatus $*
