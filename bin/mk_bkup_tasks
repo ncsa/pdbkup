@@ -107,6 +107,7 @@ for key in "${dirkeys[@]}"; do
     lockfile-create "$infodir" || {
         warn "Unable to get lock file for infodir '$infodir'"
         warn "Skipping key '$key'"
+        continue
     }
     # Lockfile creation was successful, now keep touching the lockfile till we exit
     # NOTE: if the program dies or something kills it, 
