@@ -76,4 +76,4 @@ mv $fn_filelist $new_filelist
 new_go_label=$( echo "$new_filelist" | sed -e 's/[^a-zA-Z0-9_,-]/__/g' )
 ${INI__GLOBUS__CLI} task update --label "$new_go_label" $real_taskid
 
-${INI__GLOBUS__CLI} task show $real_taskid
+[[ $DEBUG -gt 0 ]] && ${INI__GLOBUS__CLI} task show $real_taskid
