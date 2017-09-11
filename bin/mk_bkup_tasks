@@ -116,6 +116,7 @@ for key in "${dirkeys[@]}"; do
     LOCKFILEBADGER="$!"
 
     # Allow environment variable to take precedence
+    prev_timestamp=
     if [[ "$PDBKUP_TYPE" == "FULL" ]]; then
         bkuptype="FULL"
         prev_timestamp=

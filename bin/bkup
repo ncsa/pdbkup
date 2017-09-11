@@ -3,12 +3,12 @@
 [[ -z "$PDBKUP_BASE" ]] && exit 1
 
 DEBUG=0     #debug messages
-VERBOSE=1   #info messages
-while getopts ":dv" opt; do
+VERBOSE=0   #info messages
+while getopts ":dvf" opt; do
     case $opt in
     d) DEBUG=1; VERBOSE=1;;
     v) VERBOSE=1;;
-    f) BKUP_TYPE=FULL;;
+    f) export PDBKUP_TYPE=FULL;;
     esac
 done
 shift $((OPTIND-1))
@@ -330,7 +330,9 @@ shift
 logger -t pdbkup "bkup $action"
 case $action in
     init) 
-        PDBKUP_TYPE=$BKUP_TYPE $PDBKUP_BASE/bin/mk_bkup_tasks $*
+        set -x
+        $PDBKUP_BASE/bin/mk_bkup_tasks $*
+        set +x
         ;;
     startworker)
         exec $PDBKUP_BASE/bin/startworker

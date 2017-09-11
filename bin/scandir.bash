@@ -27,13 +27,13 @@ timestamp=$( echo "$3" | tr -cd '[0-9]' )
 outfile=$outdir/scandir.out
 joblog=$outdir/scandir.joblog
 emptydirs=$outdir/emptydirs
-dirsonly=$outdir/dirsonly
 
 # Find only Dirs
 # Save empty dirs to a file
 # Pipe Dirnames to parallel to find all non-dir children
 # Save Filesize + Filename to a file
-find "$srcdir" $maxdepth -type d ! -name $'*[\x1-\x1f]*' -newerct "@$timestamp" -printf '%n\0%p\n' \
+set -x 
+find "$srcdir" $maxdepth -type d ! -name $'*[\x1-\x1f]*' -printf '%n\0%p\n' \
 | tee >( grep -Pa '^2\x0' > $emptydirs ) \
 | cut -d '' -f 2 \
 | parallel -d '\n' --joblog $joblog \
