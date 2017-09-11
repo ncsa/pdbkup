@@ -32,7 +32,6 @@ emptydirs=$outdir/emptydirs
 # Save empty dirs to a file
 # Pipe Dirnames to parallel to find all non-dir children
 # Save Filesize + Filename to a file
-set -x 
 find "$srcdir" $maxdepth -type d ! -name $'*[\x1-\x1f]*' -printf '%n\0%p\n' \
 | tee >( grep -Pa '^2\x0' > $emptydirs ) \
 | cut -d '' -f 2 \

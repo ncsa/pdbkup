@@ -330,9 +330,7 @@ shift
 logger -t pdbkup "bkup $action"
 case $action in
     init) 
-        set -x
         $PDBKUP_BASE/bin/mk_bkup_tasks $*
-        set +x
         ;;
     startworker)
         exec $PDBKUP_BASE/bin/startworker
