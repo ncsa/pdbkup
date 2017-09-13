@@ -45,9 +45,8 @@ function sanitize() {
     local infodir=$( readlink -e "$1" )
     [[ -n "$infodir" ]] || die "No such file or directory: '$1'. Parameter must be an infodir"
     [[ -d "$infodir" ]] || die "Not a directory '$infodir'. Parameter must be an infodir"
-    local -a parts=( $( echo $infodir | bkupinfodir2key_ts ) )
-    local key=${parts[0]}
-    local ts=${parts[1]}
+    local key ts
+    read key ts <<<$( bkupinfodir2key_ts <<< "$infodir" )
     [[ -n "$key" ]] || die "Error getting dirkey from infodir"
     [[ -n "$ts" ]] || die "Error getting timestamp from infodir"
     set -x
@@ -65,7 +64,7 @@ function archive_status() {
     local infodir="$1"
     local archive_status=UNKNOWN
     local key timestamp
-    read key timestamp <<<$( echo "$infodir" | bkupinfodir2key_ts )
+    read key timestamp <<<$( bkupinfodir2key_ts <<< "$infodir" )
     # Check for unstarted or in progress DARs
     local dar_count=$( find $infodir -name "${key}*.dcf" | wc -l )
     local completed_count=$( find $infodir -name "${key}*.ini" | parallel grep EXITCODE {} | wc -l )
@@ -97,7 +96,7 @@ function transfer_status() {
     local infodir="$1"
     local tstatus=UNKNOWN
     local key timestamp
-    read key timestamp <<<$( echo "$infodir" | bkupinfodir2key_ts )
+    read key timestamp <<<$( bkupinfodir2key_ts <<< "$infodir" )
     # Check for files being transfered
     local ready_dir="$INI__GENERAL__DATADIR/$INI__TXFR__SRCDIR_OUTBOUND"
     local work_dir="$INI__GENERAL__DATADIR/$INI__TXFR__WORKDIR_OUTBOUND"
@@ -137,7 +136,7 @@ function do_ls_with_status() {
             debug "do_ls_with_status: checking '$infodir'"
             # timestamp
             local key timestamp
-            read key timestamp <<< $( echo "$infodir" | bkupinfodir2key_ts )
+            read key timestamp <<< $( bkupinfodir2key_ts <<< "$infodir" )
             # snapshot date and time
             local sdate stime
             read sdate stime <<< $( timestamp2datetime $timestamp )

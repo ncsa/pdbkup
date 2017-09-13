@@ -125,7 +125,7 @@ for key in "${dirkeys[@]}"; do
         bkuptype="FULL"
         prev_timestamp=
     else
-        read foo prev_timestamp <<<$( echo "$prev_infodir" | bkupinfodir2key_ts )
+        read foo prev_timestamp <<<$( bkupinfodir2key_ts <<< "$prev_infodir" )
         if [[ "$prev_timestamp" == "$timestamp" ]]; then
             # either new snapshot wasn't created
             # or this is a re-process of last bkup
