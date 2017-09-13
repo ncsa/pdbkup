@@ -115,9 +115,15 @@ for key in "${dirkeys[@]}"; do
     lockfile-touch "$infodir" &
     LOCKFILEBADGER="$!"
 
-    # Allow environment variable to take precedence
+    # Determine backup type (FULL or INCREMENTAL)
     prev_timestamp=
-    if [[ "$PDBKUP_TYPE" == "FULL" ]]; then
+    last_full_timestamp=$( get_last_full_timestamp $key )
+    min_full_age=$( bc <<< "$timestamp - $INI__GENERAL__FULL_FREQUENCY" )
+    if [[ $last_full_timestamp -lt $min_full_age ]] ; then
+        bkuptype="FULL"
+        prev_timestamp=
+    elif [[ "$PDBKUP_TYPE" == "FULL" ]]; then
+        # Allow environment variable to take precedence
         bkuptype="FULL"
         prev_timestamp=
     elif [[ -z "$prev_infodir" ]]; then
