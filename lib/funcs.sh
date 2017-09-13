@@ -154,6 +154,25 @@ function get_last_bkupdir {
 }
 
 
+function get_last_full_timestamp {
+    # PARAMS:
+    #   ini_key = String - (REQUIRED) - key from ini file from DIRS section
+    [[ $BKUP_DEBUG -gt 0 ]] && set -x
+    local key=$1
+    [[ -z "$key" ]] && die "get_last_bkupdir; got empty key"
+    local infodir=$INI__GENERAL__INFODIR/$key
+    [[ -d $infodir ]] || return
+    local last_full_dirname=$( find $infodir -type f -name 'allfileslist.FULL' \
+    | sort \
+    | tail -1 \
+    | xargs -n1 dirname )
+    [[ -z "$last_full_dirname" ]] && return
+    local foo last_full_timestamp
+    read foo last_full_timestamp <<< $( bkupinfodir2key_ts <<< "$last_full_dirname" )
+    echo $last_full_timestamp
+}
+
+
 function timestamp2datetime() {
     # Input: String - "unix timestamp"
     # Output: String - "date time"
