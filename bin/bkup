@@ -66,22 +66,26 @@ function archive_status() {
     local key timestamp
     read key timestamp <<<$( bkupinfodir2key_ts <<< "$infodir" )
     # Check for unstarted or in progress DARs
-    local dar_count=$( find $infodir -name "${key}*.dcf" | wc -l )
-    local completed_count=$( find $infodir -name "${key}*.ini" | parallel grep EXITCODE {} | wc -l )
+    local dar_expected_count=$( find $infodir -name "${key}*.dcf" | wc -l )
+    local dar_exit_codes=( $( find $infodir -name "${key}*.ini" \
+        | parallel grep EXITCODE {} \
+        | tr -cd '[0-9\n]' \
+        | sort -nr ) )
+    local completed_count=${#dar_exit_codes[*]}
     # Check for dar errors
-    local awktmp=$( mktemp )
-    echo '/^EXITCODE/ && /[1-9]/ {print}' > $awktmp
-    local error_count=$( find $infodir -name "${key}*.ini" \
-    | parallel awk -f $awktmp \
-    | wc -l )
-    rm -f $awktmp
-    if [[ $dar_count -lt 1 ]]; then
+    local dar_max_error=${dar_exit_codes[0]}
+    local dar_errdir=$INI__GENERAL__DATADIR/$INI__DAR__ERRDIR
+    local dar_err_file_count=$( find $dar_errdir -name "${key}_${timestamp}*" \
+        | wc -l )
+    local error_status=$( echo "$dar_max_error
+        $dar_err_file_count" | sort -nr | head -1 )
+    if [[ $dar_expected_count -lt 1 ]]; then
         archive_status=EMPTY
-    elif [[ $completed_count -lt $dar_count ]]; then
+    elif [[ $completed_count -lt $dar_expected_count ]]; then
         archive_status=IN-PROGRESS
-    elif [[ $error_count -gt 0 ]]; then
+    elif [[ $error_status -gt 0 ]]; then
         archive_status=FAILURES-DETECTED
-    elif [[ $completed_count -eq $dar_count ]]; then
+    elif [[ $completed_count -eq $dar_expected_count ]]; then
         archive_status=COMPLETE
     fi
     echo $archive_status
@@ -149,7 +153,7 @@ function do_ls_with_status() {
             local status_file="$infodir/last_status"
             local last_status=UNKNOWN
             [[ -f "$status_file" ]] && last_status=$( head -1 "$status_file" )
-            debug "do_ls_with_status: last_status = '$infodir'"
+            debug "do_ls_with_status: last_status = '$last_status'"
             local bkup_status="$last_status"
             if [[ "$bkup_status" == *'FAIL'* ]]; then
                 debug "do_ls_with_status: bkup status '$bkup_status' matches FAIL, doing nothing"
@@ -180,7 +184,7 @@ function dbstatus() {
     local cmdfile="$workdir/${pfx}.sqlworker.cmd"
     [[ -f "$cmdfile" ]] || clean_exit "Backup already completed"
     local dburl=$( dburl_from_sqlworkercmdfile "$cmdfile" )
-    echo "HOSTS and JOB STATUS COUNT"
+    echo "HOSTS and JOB STATUS COUNT for $pfx"
     sql -p '-column' "$dburl" "select Host,Exitval,count(*) from tasks group by Host,Exitval;"
     echo
     local num_ready=$( num_ready_tasks "$dburl" )
