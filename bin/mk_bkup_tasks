@@ -62,8 +62,22 @@ dar_enddir="$INI__GENERAL__DATADIR/$INI__DAR__ENDDIR"
 dar_errdir="$INI__GENERAL__DATADIR/$INI__DAR__ERRDIR"
 dumpvars dar_workdir dar_enddir dar_errdir
 
+# LOCKFILEBADGER holds the pid of the lockfile-touch process
+# keeping a lockfile active while working in a bkup_infodir
+unset LOCKFILEBADGER
+unset LOCKFILENAME
 # LOOP OVER EACH key-path PAIR
 for key in "${dirkeys[@]}"; do
+    # Lockfile management
+    # If LOCKFILEBADGER is set, then something in the previous iteration of the loop
+    # went awry. Kill the badger process and remove the lockfile
+    if [[ -n $LOCKFILEBADGER ]] ; then
+        try_clean_unlock $LOCKFILEBADGER \
+        || die "Error unlocking \"$LOCKFILENAME\""
+        unset LOCKFILEBADGER
+        unset LOCKFILENAME
+    fi
+
     # DETERMINE PATHS AND FILENAMES
     snapref=INI__${key}__SNAPDIR
     snapbase=${!snapref}
@@ -95,9 +109,6 @@ for key in "${dirkeys[@]}"; do
     prev_infodir=$( get_last_bkupdir $key )
     dumpvars key snapbase snapdir timestamp fs_root prev_infodir infodir allfileslist
 
-    # Create new backup info dir
-    [[ -d $infodir ]] || mkdir -p $infodir
-
     # Stop if lockfile exists for prev_infodir OR current infodir
     lockfile-check "$prev_infodir" && {
         warn "Lockfile exists for key '$key' on prev_infodir '$prev_infodir'"
@@ -110,10 +121,15 @@ for key in "${dirkeys[@]}"; do
         continue
     }
     # Lockfile creation was successful, now keep touching the lockfile till we exit
+    # or the lockfile-touch process is killed
     # NOTE: if the program dies or something kills it, 
     # the lockfile toucher process should die too (?how?) (?why?)
     lockfile-touch "$infodir" &
     LOCKFILEBADGER="$!"
+    LOCKFILENAME="$infodir"
+
+    # Create new backup info dir
+    [[ -d $infodir ]] || mkdir -p $infodir
 
     # Determine backup type (FULL or INCREMENTAL)
     prev_timestamp=
@@ -335,8 +351,15 @@ ENDHERE
         cp "$fn" "$infodir"
     done
 
-    kill "$LOCKFILEBADGER"
-    lockfile-remove $infodir
+    # Lockfile management
+    if [[ -n $LOCKFILEBADGER ]] ; then
+        try_clean_unlock $LOCKFILEBADGER \
+        || die "Error unlocking \"$LOCKFILENAME\""
+        unset LOCKFILEBADGER
+        unset LOCKFILENAME
+    else
+        die "Unknown pid for lockfile, lockfilename='$LOCKFILENAME'"
+    fi
 
 done #END for key in "${dirkeys[@]}"; do
 
