@@ -384,7 +384,10 @@ case $action in
         find "${INI__GENERAL__INFODIR}" -name "*${parts[1]}*"
         ;;
     tree)
-        find "$INI__GENERAL__DATADIR" -maxdepth 1 -mindepth 1 -type d \
+        dir="$1"
+        [[ -z "$dir" ]] && dir="$INI__GENERAL__DATADIR"
+        [[ -d "$dir" ]] || die "Not a valid dir: '$dir'"
+        find "$dir" -maxdepth 1 -mindepth 1 -type d \
         | sort \
         | while read; do
             count=$( ls "$REPLY" | wc -l )
