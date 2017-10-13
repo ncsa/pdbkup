@@ -1,5 +1,5 @@
-source funcs_archive.sh
-source funcs_common.sh
-source funcs_ini.sh
-source funcs_parallel.sh
-source funcs_transfer.sh
+source $PDBKUP_BASE/lib/funcs_archive.sh
+source $PDBKUP_BASE/lib/funcs_common.sh
+source $PDBKUP_BASE/lib/funcs_ini.sh
+source $PDBKUP_BASE/lib/funcs_parallel.sh
+source $PDBKUP_BASE/lib/funcs_transfer.sh
