@@ -46,9 +46,7 @@ function endpoint_activate() {
     local refresh_hours=$3
     [[ -z $min_hours ]] && min_hours=24
     [[ -z $refresh_hours ]] && refresh_hours=264
-    check_or_update_proxy $min_hours $refresh_hours
     local min_secs=$( bc <<< "$min_hours * 3600" )
-    local proxy_file=$( $(gosudo) grid-proxy-info -path )
     # check for current activation
     local safe_endpoint_id=$( safe_varname "EPcheck1" "$endpoint_id" )
     local tmpfn=$( ${INI__GLOBUS__CLI} endpoint show -F json $endpoint_id \
@@ -57,6 +55,8 @@ function endpoint_activate() {
     local refname=${safe_endpoint_id}__JSON__expires_in
     if [[ ${!refname} -lt $min_secs ]]; then
         # endpoint activation is expired or nearing expiration, renew it
+        check_or_update_proxy $min_hours $refresh_hours
+        local proxy_file=$( $(gosudo) grid-proxy-info -path )
         ${INI__GLOBUS__CLI} endpoint activate \
             --proxy-lifetime $refresh_hours \
             --delegate-proxy "$proxy_file" \
