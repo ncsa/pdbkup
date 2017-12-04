@@ -72,10 +72,11 @@ for key in "${dirkeys[@]}"; do
     # If LOCKFILEBADGER is set, then something in the previous iteration of the loop
     # went awry. Kill the badger process and remove the lockfile
     if [[ -n $LOCKFILEBADGER ]] ; then
-        try_clean_unlock $LOCKFILEBADGER \
-        || die "Error unlocking \"$LOCKFILENAME\""
-        unset LOCKFILEBADGER
-        unset LOCKFILENAME
+#        try_clean_unlock $LOCKFILEBADGER \
+#        || die "Error unlocking \"$LOCKFILENAME\""
+#        unset LOCKFILEBADGER
+#        unset LOCKFILENAME
+        die "Previous lockfile was not cleaned up. (Lockfilebadger:'$LOCKFILEBADGER' Lockfilename: \"$LOCKFILENAME\") "
     fi
 
     # DETERMINE PATHS AND FILENAMES

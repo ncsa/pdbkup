@@ -314,24 +314,29 @@ case $action in
     cancel)
         warn "CANCEL - not implemented yet"
         ;;
+    globus)
+        $(gosudo) globus $*
+        ;;
     test)
         export BKUP_DEBUG=1
         export BKUP_VERBOSE=1
 #        go_task_details 8eef5870-2f75-11e7-bca5-22000b9a448b 
-        is_globus_task_complete 8eef5870-2f75-11e7-bca5-22000b9a448b && echo COMPLETE || echo INPROGRESS
-#        log "Destroy proxy info ..."
-#        $(gosudo) grid-proxy-destroy
-#        log "Check proxy info ..."
-#        $(gosudo) grid-proxy-info
+#        is_globus_task_complete 8eef5870-2f75-11e7-bca5-22000b9a448b && echo COMPLETE || echo INPROGRESS
+        log "Current grid proxy info ..."
+        $(gosudo) grid-proxy-info
+        log "Destroy proxy info ..."
+        $(gosudo) grid-proxy-destroy
+        log "Check proxy info ..."
+        $(gosudo) grid-proxy-info
 #        log ""
-#        log ""
-#        log "Globus details ..."
-#        gossh help
-#        check_or_update_proxy
-#        rc=$?
-#        log "Return value: $rc"
-#        log "Check proxy info ..."
-#        $(gosudo) grid-proxy-info
+##        log "Globus details ..."
+##        gossh help
+        log "Do proxy init ..."
+        check_or_update_proxy
+        rc=$?
+        log "Return value: $rc"
+        log "Check proxy info ..."
+        $(gosudo) grid-proxy-info
         ;;
     *)
         usage $(basename "$0")
