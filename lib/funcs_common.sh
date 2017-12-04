@@ -52,10 +52,15 @@ function try_clean_unlock() {
     local exitval=0
     [[ -n $pid ]] && {
         # get file that is locked
-        local lf=$( ps -o args= $pid | cut -d ' ' -f 1 --complement )
-        if [[ -f "$lf" ]] ; then
+        debug "Getting the file that is locked"
+        local dirname=$( ps -o args= $pid | cut -d ' ' -f 1 --complement )
+        local lockfile=${dirname}.lock
+        debug $lockfile
+        if [[ -f "$lockfile" ]] ; then
+            debug "Before kill $pid statement"
             kill $pid || exitval=$?
-            rm -f "$lf" || exitval=$?
+            debug "Going into if loop to execute lockfile-remove"
+            lockfile-remove "$dirname" || exitval=$?
         else
             exitval=99
         fi
