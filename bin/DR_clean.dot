@@ -1,0 +1,51 @@
+digraph DR_cleanup {
+    snapdir -> wrapup_0 [label="(0)PRESENT",color=green,fontcolor=green]
+    snapdir -> wrapup_1 [label="(1)ABSENT",color=red,fontcolor=red]
+
+    subgraph clusterL{
+        wrapup_0 -> Archive [label="(0)OK",color=green,fontcolor=green,style=dotted]
+        wrapup_0 -> TQ_01 [label="(1)ER",color=red,fontcolor=red,style=dotted]
+        wrapup_0 -> TQ_02 [label="(2)NA",color=blue,fontcolor=blue,style=dotted]
+
+        TQ_01 -> Attention [label="(0)OK",color=green,fontcolor=green]
+        TQ_01 -> Fix [label="(1)ER",color=red,fontcolor=red]
+        TQ_01 -> Undefined [label="(2)NA",color=blue,fontcolor=blue]
+
+        TQ_02 -> None [label="(0)OK",color=green,fontcolor=green]
+        TQ_02 -> Fix [label="(1)ER",color=red,fontcolor=red]
+        TQ_02 -> None [label="(2)NA",color=blue,fontcolor=blue]
+    }
+
+    subgraph clusterR{
+        wrapup_1 -> Archive [label="(0)OK",color=green,fontcolor=green,style=dotted]
+        wrapup_1 -> TQ_11 [label="(1)ER",color=red,fontcolor=red,style=dotted]
+        wrapup_1 -> TQ_12 [label="(2)NA",color=blue,fontcolor=blue,style=dotted]
+
+        TQ_11 -> Attention [label="(0)OK",color=green,fontcolor=green]
+        TQ_11 -> Fail [label="(1)ER",color=red,fontcolor=red]
+        TQ_11 -> Undefined [label="(2)NA",color=blue,fontcolor=blue]
+
+        TQ_12 -> None [label="(0)OK",color=green,fontcolor=green]
+        TQ_12 -> Fail [label="(1)ER",color=red,fontcolor=red]
+        TQ_12 -> Fail [label="(2)NA",color=blue,fontcolor=blue]
+    }
+
+    wrapup_0 [label="wrapup"]
+    wrapup_1 [label="wrapup"]
+    Archive [shape=box]
+    TQ_01 [label="Task Queue"]
+    TQ_02 [label="Task Queue"]
+    TQ_11 [label="Task Queue"]
+    TQ_12 [label="Task Queue"]
+    Attention [label="Needs Attention",shape=box]
+    Fix [label="Fix Failed Tasks",shape=box]
+    None [label="No Action", shape=box]
+    Fail [shape=box]
+    Undefined [shape=box]
+
+    /*
+    {rank=same; wrapup_0; wrapup_1}
+    {rank=same; TQ_01; TQ_02; TQ_11; TQ_12}
+    */
+    {rank=same; Archive; Attention; Fix; None; Fail; Undefined}
+}

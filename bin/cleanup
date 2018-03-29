@@ -1,0 +1,265 @@
+#!/bin/bash
+
+###
+#  Walk filesysem tree to find all bkupinfodir's
+#  For each bkupinfodir:
+#     Determine state
+#     Perform action (based on state diagram)
+#
+# State Diagram:
+#   DR_clean.dot 
+#   DR_clean.dot.svg
+###
+
+[[ -z "$PDBKUP_BASE" ]] && exit 1
+
+[[ $BKUP_DEBUG -gt 0 ]] && set -x
+
+[[ "$BKUP_NOOP" -eq 1 ]] && echo "Got NOOP"
+
+# Global Settings
+OK=0
+ERROR=1
+ABSENT=1
+OTHER=2
+
+# Set FORCEFAIL to blindly fail every in-progress DR image
+FORCEACTION='fail'
+
+# useful library functions
+source $PDBKUP_BASE/lib/funcs.sh
+source $PDBKUP_BASE/lib/read_ini.sh
+
+# Get Config Settings
+read_ini $PDBKUP_BASE/conf/settings.ini
+
+function snapdir_exists() {
+    # Return 0 if snapdir exists, non-zero otherwise
+    # Params:
+    #   key - String - bkup dir key
+    #   ts  - String - timestamp of snapshot for which bkup is based on
+    [[ "$BKUP_DEBUG" -gt 0 ]] && set -x
+    local key=$1
+    local ts=$2
+    [[ -z "$key" ]] && die "get_wrapup_status; key cant be empty"
+    [[ -z "$ts" ]] && die "get_wrapup_status; timestamp cant be empty"
+    snapdir=$( timestamp2snapdir "$key" "$ts" )
+    [[ -d "$snapdir" ]]
+}
+
+
+function get_wrapup_status() {
+    # Return 0 for OK, 1 for error, 2 for "No Status"
+    #     a. wrapup.err --> ERROR
+    #     b. wrapup.log --> OK
+    #     c. OTHER (wrap not attempted yet)
+    # Params: 
+    #   bkupdir - String - path to backup info dir
+    # If wrapup hasn't run, neither logfile nor errfile will be present
+    # Otherwise, both will be present, check errfile
+    [[ "$BKUP_DEBUG" -gt 0 ]] && set -x
+    local bkupdir=$1
+    local rc=$OTHER
+    [[ -z "$bkupdir" ]] && die "get_wrapup_status; parameter 'bkupdir' cant be empty"
+    local logfile="$bkupdir/wrapup.log"
+    local errfile="$bkupdir/wrapup.err"
+    if [[ -e "$logfile" ]] ; then
+        rc=$OK
+        # errfile will always have 2 lines on a successful run
+        # more lines indicates possibility of an error
+        local errcount=$( wc -l "$errfile" | cut -d' ' -f1 )
+        if [[ "$errcount" -gt 2 ]] ; then
+            rc=$ERROR
+        fi
+    fi
+    return $rc
+}
+
+
+function get_task_queue_status() {
+    # Return 0 for OK, 1 for error, 2 otherwise
+    #     a. task_queue doesn't exist                      --> ERROR
+    #     b. num_failed_tasks > 0                          --> ERROR
+    #     c. num_ready_tasks == 0 && num_active_tasks == 0 --> OK
+    #     d. else                                          --> INPROGRESS
+    # Params:
+    #   key - String - bkup dir key
+    #   ts  - String - timestamp of snapshot for which bkup is based on
+    [[ "$BKUP_DEBUG" -gt 0 ]] && set -x
+    local key="$1"
+    local ts="$2"
+    local rc=$OTHER
+    [[ -z "$key" ]] && die "get_task_queue_status; key cant be empty"
+    [[ -z "$ts" ]] && die "get_task_queue_status; timestamp cant be empty"
+    local queue=$( mk_dburl "${key}_${ts}" )
+    local ready_count=$( num_ready_tasks "$queue" )
+    # if ready_count is empty, there is a problem with the database, return immediately
+    [[ "${#ready_count}" -lt 1 ]] && return "$ERROR"
+    local active_count=$( num_active_tasks "$queue" )
+    local failed_count=$( num_failed_tasks "$queue" )
+    [[ "$ready_count" -eq 0 && "$active_count" -eq 0 ]] && rc="$OK"
+    [[ "$failed_count" -gt 0 ]] && rc="$ERROR"
+    return "$rc"
+}
+
+
+function archive() {
+    # Move a bkupinfodir to archive
+    # Params:
+    #   bkupinfodir - String - path to bkupinfodir
+    [[ "$BKUP_DEBUG" -gt 0 ]] && set -x
+    log "archive $*"
+    local bkupinfodir=$1
+    [[ -z "$bkupinfodir" ]] && die "archive; bkupinfodir cant be empty"
+    [[ "$BKUP_NOOP" -eq 1 ]] && warn "TESTING: archive '$bkupinfodir'"
+    local key ts
+    read key ts <<< $( echo "$bkupinfodir" | bkupinfodir2key_ts )
+    # halt if files remain to be transferred
+    filecount=$( \
+        find "$INI__GENERAL__DATADIR" -type f -name "*${key}_${ts}*" \
+        | wc -l
+    )
+    [[ "$filecount" -gt 0 ]] && { 
+        warn "Files remain to be transferred. Refusing to archive '$bkupinfodir'"
+        if [[ "$BKUP_NOOP" -eq 1 ]] ; then
+            warn "NOOP mode detected, so continuing anyway"
+        else
+            return
+        fi
+    }
+
+    # move (via tarpipe) bkupinfodir to INI__GENERAL__ANNALDIR
+    tgt="$INI__GENERAL__ANNALDIR"
+    tarpipe_in="/usr/bin/tar --create --file=- --remove-files $bkupinfodir"
+    tarpipe_out="/usr/bin/tar --extract --file=- --directory=$tgt"
+    if [[ "$BKUP_NOOP" -eq 1 ]] ; then
+        echo "$tarpipe_in | $tarpipe_out"
+    else
+        $tarpipe_in | $tarpipe_out
+    fi
+}
+
+
+function fix_failed_tasks() {
+    # Manipulate the task queue to allow previously failed tasks to re-run
+    # Params:
+    #   key - String - bkup dir key
+    #   ts  - String - timestamp of snapshot for which bkup is based on
+    [[ "$BKUP_DEBUG" -gt 0 ]] && set -x
+    log "fix_failed_tasks $*"
+    local key="$1"
+    local ts="$2"
+    [[ -z "$key" ]] && die "fix_failed_tasks; key cant be empty"
+    [[ -z "$ts" ]] && die "fix_failed_tasks; timestamp cant be empty"
+    warn "NOT IMPLEMENTED: fix_failed_tasks '$key' '$ts'"
+
+    # Update (previously failed) tasks in dburl to allow re-run
+#    local dburl=$( mk_dburl "${key}_${ts}" )
+    # update tasks set Exitval=-1000 where Exitval>0;
+}
+
+
+function fail() {
+    # Backup has failed and cannot be restarted.
+    # Perform cleanup actions and then archive this backup.
+    # Params:
+    #   bkupinfodir - String - path to bkupinfodir
+    #   reason - String - failure reason, recorded in "last_status" file
+    [[ "$BKUP_DEBUG" -gt 0 ]] && set -x
+    log "fail $*"
+    local bkupinfodir="$1"
+    [[ -z "$bkupinfodir" ]] && die "fail; bkupinfodir param cant be empty"
+    [[ -d "$bkupinfodir" ]] || die "fail; directory not found: bkupinfodir='$bkupinfodir'"
+    local reason="$2"
+    [[ -z "$reason" ]] && die "fail; reason cant be empty"
+
+    # Change behavior based on BKUP_NOOP state
+    local action=
+    local delcmd='delete'
+    if [[ "$BKUP_NOOP" -eq 1 ]] ; then
+        warn "TESTING: fail '$bkupinfodir'"
+        action='echo'
+        delcmd='print'
+    fi
+    local key ts
+    read key ts <<< $( echo "$bkupinfodir" | bkupinfodir2key_ts )
+
+    # Move relevant files from PARALLEL dir to bkupinfodir
+    local parallel_dir="$INI__GENERAL__DATADIR/$INI__PARALLEL__WORKDIR"
+    [[ "$BKUP_NOOP" -eq 1 ]] && warn "ABOUT TO MOVE:"
+    find "$parallel_dir" -type f -name "*${key}_${ts}*" \
+    -exec $action mv {} "$bkupinfodir/" \;
+
+    # Delete any related backup files from DATA dir
+    [[ "$BKUP_NOOP" -eq 1 ]] && warn "ABOUT TO DELETE:"
+    find "$INI__GENERAL__DATADIR" -type f -name "*${key}_${ts}*" -"$delcmd"
+
+    # Set last_status
+    echo "FAIL($reason)" > "$bkupinfodir/last_status"
+
+    # Archive $bkupinfodir
+    archive "$bkupinfodir"
+}
+
+
+###
+# Walk through each bkupdir (ie: KEY+TIMESTAMP )
+###
+# Use actual directories (instead of keys from conf file)
+# directory structure is INFODIR/KEY/TIMESTAMP
+dirlist=( $( find \
+    "$INI__GENERAL__INFODIR" -mindepth 2 -maxdepth 2 -type d -print \
+    | sort
+    ) )
+for bkupinfodir in "${dirlist[@]}"; do
+    read -r key ts <<<$( echo $bkupinfodir | bkupinfodir2key_ts )
+    log ">>>Processing '$bkupinfodir'..."
+
+    # Peform force action instead of letting checks happen below
+    if [[ -n "$FORCEACTION" ]] ; then
+        case "$FORCEACTION" in 
+            fail)
+                fail "$bkupinfodir" "FORCED-FAIL"
+                ;;
+            *)
+                die "Unknown force action: '$FORCEFAIL'"
+                ;;
+        esac
+        continue
+    fi
+
+    # Get statuses
+    get_wrapup_status "$bkupinfodir";   wrapup_status=$?
+    get_task_queue_status "$key" "$ts"; queue_status=$?
+    snapdir_exists "$key" "$ts";        snap_status=$?
+
+    # Process state
+    # where state = WRAPUP + QUEUE + SNAP
+    state="${wrapup_status}${queue_status}${snap_status}"
+
+    case "$state" in
+        0??)
+            archive "$bkupinfodir"
+            ;;
+        1??)
+            msg="needs attention - '$bkupinfodir'"
+            msg+=" (wrapup_status=$wrapup_status)"
+            msg+=" (queue_status=$queue_status)"
+            msg+=" (snapdir_status=$snap_status)"
+            warn "$msg"
+            ;;
+        20?|220)
+            : #no action
+            ;;
+        221|211)
+            fail "$bkupinfodir" "MISSING-SNAPSHOT"
+            ;;
+        210)
+            fix_failed_tasks "${key}" "${ts}"
+            ;;
+        *)
+            # Anything else is an error
+            die "Undefined state: wrapup=$wrapup_status queue=$queue_status snapdir=$snap_status"
+            ;;
+    esac
+done

@@ -31,6 +31,28 @@ function get_last_bkupdir {
 }
 
 
+function get_bkupdirs() {
+    [[ $DEBUG -gt 0 ]] && set -x
+    local key="$1"
+    [[ -z "$key" ]] && die "get_bkupdirs; missing or empty key"
+    dirpath="$INI__GENERAL__INFODIR/$key"
+    [[ -d $dirpath ]] || return
+    find "$dirpath" -mindepth 1 -maxdepth 1 -type d \
+    | sort
+}
+
+
+function get_old_bkupdirs() {
+    [[ $DEBUG -gt 0 ]] && set -x
+    local key="$1"
+    [[ -z "$key" ]] && die "get_bkupdirs; missing or empty key"
+    dirpath=$( readlink -e "$INI__GENERAL__ANNALDIR/${INI__GENERAL__INFODIR}/$key" )
+    [[ -d "$dirpath" ]] || return
+    find "$dirpath" -mindepth 1 -maxdepth 1 -type d \
+    | sort
+}
+
+
 function timestamp2datetime() {
     # Input: String - "unix timestamp"
     # Output: String - "date time"
@@ -127,7 +149,7 @@ function filename2key_ts() {
 
 function gatekeeper_fn() {
     # Print the full path for a gatekeeper file for this node
-    echo "$INI__GENERAL__DATADIR/$INI__PARALLEL__WORKDIR}/gatekeeper.$(hostname)"
+    echo "$INI__GENERAL__DATADIR/$INI__PARALLEL__WORKDIR/gatekeeper.$(hostname)"
 }
 
 

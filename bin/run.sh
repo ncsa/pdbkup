@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # all other scripts depend on this evironment variable to be set
-[[ -z "$PDBKUP_BASE" ]] && export PDBKUP_BASE=/gpfs/fs0/DR/pdbkup
+[[ -z "$PDBKUP_BASE" ]] && export PDBKUP_BASE=/lsst/DR/pdbkup
 
 # Ensure PATH includes path to parallel
 source $PDBKUP_BASE/lib/read_ini.sh

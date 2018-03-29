@@ -23,7 +23,7 @@ DAR=$( which dar )
 DAR_OPTS=( --no-warn=all -Q --verbose=all --overwriting-policy Oo )
 
 #Where to extract dar files
-RESTOREROOT=/gpfs/fs0/RESTORETESTTGT
+RESTOREROOT=/lsst/RESTORETESTTGT
 if [[ $# -eq 1 ]] ; then
     RESTOREROOT="$1"
 else

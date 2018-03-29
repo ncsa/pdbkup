@@ -4,34 +4,46 @@
 
 DEBUG=0     #debug messages
 VERBOSE=0   #info messages
-while getopts ":dvf" opt; do
+NOOP=0      #dry-run mode #TODO - undocumented, not supported everywhere
+while getopts ":dvfn" opt; do
     case $opt in
     d) DEBUG=1; VERBOSE=1;;
     v) VERBOSE=1;;
     f) export PDBKUP_TYPE=FULL;;
+    n) NOOP=1;;
     esac
 done
 shift $((OPTIND-1))
 
 export BKUP_DEBUG=$DEBUG
 export BKUP_VERBOSE=$VERBOSE
+export BKUP_NOOP=$NOOP
 
 source $PDBKUP_BASE/lib/funcs.sh
 source $PDBKUP_BASE/lib/read_ini.sh
 
 read_ini $PDBKUP_BASE/conf/settings.ini
-dirkeys=( $( get_all_vars_matching_prefix INI__DIRS__ 1 ) )
+
+
+function get_dir_keys() {
+    get_all_vars_matching_prefix INI__DIRS__ 1
+}
+
 
 function all_bkup_dirs() {
-    for d in "${dirkeys[@]}"; do
-        dirpath="$INI__GENERAL__INFODIR/$d"
-        [[ -d $dirpath ]] || continue
-        find "$INI__GENERAL__INFODIR/$d" -mindepth 1 -maxdepth 1 -type d | sort
+    local dirkeys=( $( get_dir_keys ) )
+    for k in "${dirkeys[@]}"; do
+#        dirpath="$INI__GENERAL__INFODIR/$k"
+#        [[ -d $dirpath ]] || continue
+#        find "$dirpath" -mindepth 1 -maxdepth 1 -type d | sort
+        get_old_bkupdirs "$k"
+        get_bkupdirs "$k"
     done
 }
 
 
 function latest_bkupdir() {
+    local dirkeys=( $( get_dir_keys ) )
     for d in "${dirkeys[@]}"; do
         find "$INI__GENERAL__INFODIR/$d" -mindepth 1 -maxdepth 1 -type d
     done \
@@ -79,12 +91,12 @@ function archive_status() {
         | wc -l )
     local error_status=$( echo "$dar_max_error
         $dar_err_file_count" | sort -nr | head -1 )
-    if [[ $dar_expected_count -lt 1 ]]; then
+    if [[ $error_status -gt 0 ]]; then
+        archive_status=FAILURES-DETECTED
+    elif [[ $dar_expected_count -lt 1 ]]; then
         archive_status=EMPTY
     elif [[ $completed_count -lt $dar_expected_count ]]; then
         archive_status=IN-PROGRESS
-    elif [[ $error_status -gt 0 ]]; then
-        archive_status=FAILURES-DETECTED
     elif [[ $completed_count -eq $dar_expected_count ]]; then
         archive_status=COMPLETE
     fi
@@ -131,9 +143,7 @@ function do_ls_with_status() {
     # Input: NONE
     # Output: Column formatted output
     [[ $DEBUG -gt 0 ]] && set -x
-    (   echo "BKUP_DIR DATE TIME TYPE STATUS"
-        all_bkup_dirs \
-        | sort -t '/' -k 7 \
+     (  all_bkup_dirs \
         | while read; do
             # infodir
             local infodir="$REPLY"
@@ -172,7 +182,10 @@ function do_ls_with_status() {
             fi
             echo "$infodir $sdate $stime $bkup_type $bkup_status"
         done
-    ) | column -t
+    ) \
+    | sort -k2,3 -k1,2 \
+    | ( echo "BKUP_DIR DATE TIME TYPE STATUS"; cat ) \
+    | column -t
 }
 
 
@@ -297,31 +310,33 @@ Usage: $1 [OPTIONS] <CMD>
     -f   force a full backup (otherwise, first bkup is a full, rest are incremental)
 
   where CMD is one of:
+    cleanup     - Find old, stuck, or otherwise errored bkup attempts and cleanup
+                  or notify for manual intervention
+    dbstatus    - Display progress of parallel tasks
+                  REQUIRED PARAMETER: /path/to/existing/backup/infodir
+    files       - list all files associated with a given backup
+                  OPTIONAL PARAMETER: /path/to/existing/backup/infodir
+                  DEFAULT: use latest backup infodir
     init        - initialize backups for the newest snapshot
                   OPTIONAL PARAMETER(s): DIRKEY1 [DIRKEY2 ...]
                   OPTIONAL PARAMETER: /path/to/existing/backup/infodir
                   DEFAULT: use latest snapshot
+    kill        - Stop ALL backup processes
+    ls          - list all known backups
+    plotdar     - Create gnuplot of dar slice creation times vs filesiszes
+    ps          - list all backup processes on the local node
+    purge       - Purge all files from old, completed processes (includes txfrs)
+    reset       - *caution* delete entire backup tree
+    sanitize    - *caution* delete all files from specified backup
+                  (use to allow init to rerun on a dir without re-scanning filesystem)
+                  REQUIRED PARAMETER: /path/to/existing/backup/infodir
     startworker - start processing parallel jobs on a worker
     status      - report on a specific backup
                   OPTIONAL PARAMETER: /path/to/existing/backup/infodir
                   DEFAULT: use latest backup infodir
-    dbstatus    - Display progress of parallel tasks
-                  REQUIRED PARAMETER: /path/to/existing/backup/infodir
-    wrapup      - Make dar of infodir and set it to move to long term storage
-    ls          - list all known backups
-    ps          - list all backup processes on the local node
-    files       - list all files associated with a given backup
-                  OPTIONAL PARAMETER: /path/to/existing/backup/infodir
-                  DEFAULT: use latest backup infodir
-    tree        - List file counts in dir tree rooted at "$INI__GENERAL__DATADIR"
-    plotdar     - Create gnuplot of dar slice creation times vs filesiszes
-    purge       - Purge all files from old, completed processes (includes txfrs)
     stop        - Stop the parallel process (allow subprocesses to complete)
-    kill        - Stop ALL backup processes
-    sanitize    - *caution* delete all files from specified backup
-                  (use to allow init to rerun on a dir without re-scanning filesystem)
-                  REQUIRED PARAMETER: /path/to/existing/backup/infodir
-    reset       - *caution* delete entire backup tree
+    tree        - List file counts in dir tree rooted at "$INI__GENERAL__DATADIR"
+    wrapup      - Make dar of infodir and set it to move to long term storage
 
 ENDHERE
 
@@ -332,14 +347,47 @@ action=$1
 shift
 logger -t pdbkup "bkup $action"
 case $action in
+    cleanup) 
+        $PDBKUP_BASE/bin/cleanup
+        ;;
+    dbstatus)
+        dbstatus $*
+        ;;
+    errshow)
+        warn "ERRSHOW NOT IMPLEMENTED YET"
+        # Find errors in joblogs
+        # Find errors in dar err files
+        ;;
+    files)
+        d=$1
+        [[ $# -lt 1 ]] && d=$( latest_bkupdir )
+        parts=( $( bkupinfodir2key_ts <<< "$d" ) )
+        find "${INI__GENERAL__DATADIR}" -name "*${parts[1]}*"
+        find "${INI__GENERAL__INFODIR}" -name "*${parts[1]}*"
+        ;;
+    ls) 
+        do_ls_with_status
+        ;;
+    ps)
+        psopts=( -o pid,stat,time,command --sort stat  )
+        pgrep -f dar | xargs -r ps "${psopts[@]}" 
+        pgrep -f parallel | xargs -r ps "${psopts[@]}"
+        ;;
     init) 
         $PDBKUP_BASE/bin/mk_bkup_tasks $*
         ;;
-    startworker)
-        exec $PDBKUP_BASE/bin/startworker
+    kill)
+        touch $( gatekeeper_fn )
+        pkill -f parallel
+        pkill -f dar
         ;;
-    sanitize) 
-        sanitize $*
+    plot*)
+        d=$1
+        [[ $# -lt 1 ]] && d=$( latest_bkupdir )
+        exec $PDBKUP_BASE/bin/$action $d
+        ;;
+    purge)
+        find "${INI__GENERAL__DATADIR}/${INI__PURGE__SRCDIR}" -mindepth 1 -delete
         ;;
     reset) 
         read -p "Delete ALL under $INI__GENERAL__DATADIR and $INI__GENERAL__INFODIR trees? "
@@ -352,36 +400,23 @@ case $action in
             die "Declined, exiting without making changes."
         fi
         ;;
+    resume)
+        rm -rf $( gatekeeper_fn )
+        ;;
+    sanitize) 
+        sanitize $*
+        ;;
+    startworker)
+        exec $PDBKUP_BASE/bin/startworker
+        ;;
+    stop)
+        touch $( gatekeeper_fn )
+        pkill -f parallel
+        ;;
     summary)
         d=$1
         [[ $# -lt 1 ]] && d=$( latest_bkupdir )
         exec $PDBKUP_BASE/bin/summary.py -j -s $d
-        ;;
-    dbstatus)
-        dbstatus $*
-        ;;
-    wrapup)
-        wrapup
-        ;;
-    errshow)
-        warn "ERRSHOW NOT IMPLEMENTED YET"
-        # Find errors in joblogs
-        # Find errors in dar err files
-        ;;
-    ls) 
-        do_ls_with_status
-        ;;
-    ps)
-        psopts=( -o pid,stat,time,command --sort stat  )
-        pgrep -f dar | xargs -r ps "${psopts[@]}" 
-        pgrep -f parallel | xargs -r ps "${psopts[@]}"
-        ;;
-    files)
-        d=$1
-        [[ $# -lt 1 ]] && d=$( latest_bkupdir )
-        parts=( $( bkupinfodir2key_ts <<< "$d" ) )
-        find "${INI__GENERAL__DATADIR}" -name "*${parts[1]}*"
-        find "${INI__GENERAL__INFODIR}" -name "*${parts[1]}*"
         ;;
     tree)
         dir="$1"
@@ -394,22 +429,8 @@ case $action in
             printf "%3d  %s\n" $count $REPLY
         done
         ;;
-    purge)
-        find "${INI__GENERAL__DATADIR}/${INI__PURGE__SRCDIR}" -mindepth 1 -delete
-        ;;
-    stop)
-        touch $( gatekeeper_fn )
-        pkill -f parallel
-        ;;
-    kill)
-        touch $( gatekeeper_fn )
-        pkill -f parallel
-        pkill -f dar
-        ;;
-    plot*)
-        d=$1
-        [[ $# -lt 1 ]] && d=$( latest_bkupdir )
-        exec $PDBKUP_BASE/bin/$action $d
+    wrapup)
+        wrapup
         ;;
     ini)
         export BKUP_DEBUG=1

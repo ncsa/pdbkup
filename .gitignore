@@ -1,6 +1,7 @@
 # Project Specific Ignores
 DATA/
 INFO/
+ANNALS/
 test/
 
 # Byte-compiled / optimized / DLL files
