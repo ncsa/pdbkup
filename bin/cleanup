@@ -24,7 +24,7 @@ ABSENT=1
 OTHER=2
 
 # Set FORCEFAIL to blindly fail every in-progress DR image
-FORCEACTION='fail'
+#FORCEACTION='fail'
 
 # useful library functions
 source $PDBKUP_BASE/lib/funcs.sh
@@ -154,7 +154,8 @@ function fix_failed_tasks() {
     warn "NOT IMPLEMENTED: fix_failed_tasks '$key' '$ts'"
 
     # Update (previously failed) tasks in dburl to allow re-run
-#    local dburl=$( mk_dburl "${key}_${ts}" )
+    local dburl=$( mk_dburl "${key}_${ts}" )
+    log "DBURL: $dburl"
     # update tasks set Exitval=-1000 where Exitval>0;
 }
 

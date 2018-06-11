@@ -47,20 +47,16 @@ function try_clean_unlock() {
     # EXITCODES:
     #          0 : success
     #   non-zero : error
-    [[ $BKUP_DEBUG -eq 1 ]] || return
+    [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local pid=$1
     local exitval=0
     [[ -n $pid ]] && {
         # get file that is locked
-        debug "Getting the file that is locked"
         local dirname=$( ps -o args= $pid | cut -d ' ' -f 1 --complement )
         local lockfile=${dirname}.lock
-        debug $lockfile
         if [[ -f "$lockfile" ]] ; then
-            debug "Before kill $pid statement"
-            kill $pid || exitval=$?
-            debug "Going into if loop to execute lockfile-remove"
-            lockfile-remove "$dirname" || exitval=$?
+            kill $pid \
+            && lockfile-remove "$dirname" || exitval=$?
         else
             exitval=99
         fi

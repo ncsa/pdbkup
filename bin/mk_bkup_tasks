@@ -105,10 +105,12 @@ for key in "${dirkeys[@]}"; do
 
     # Determine infodir and filelist paths
     infodir="$INI__GENERAL__INFODIR/$key/$timestamp"
-
+    infodir_parent="$INI__GENERAL__INFODIR/$key/$timestamp"
+    [[ -d $infodir_parent ]] || mkdir -p $infodir_parent
+    
     # Get last backup info
     prev_infodir=$( get_last_bkupdir $key )
-    dumpvars key snapbase snapdir timestamp fs_root prev_infodir infodir allfileslist
+    dumpvars key snapbase snapdir timestamp fs_root prev_infodir infodir
 
     # Stop if lockfile exists for prev_infodir OR current infodir
     lockfile-check "$prev_infodir" && {
@@ -116,6 +118,7 @@ for key in "${dirkeys[@]}"; do
         warn "Skipping key '$key'"
         continue
     }
+
     lockfile-create "$infodir" || {
         warn "Unable to get lock file for infodir '$infodir'"
         warn "Skipping key '$key'"
@@ -128,6 +131,8 @@ for key in "${dirkeys[@]}"; do
     lockfile-touch "$infodir" &
     LOCKFILEBADGER="$!"
     LOCKFILENAME="$infodir"
+    echo "Harathi printing $LOCKFILEBADGER"
+    echo "Harathi printing  $infodir"
 
     # Create new backup info dir
     [[ -d $infodir ]] || mkdir -p $infodir
@@ -193,8 +198,8 @@ for key in "${dirkeys[@]}"; do
         [[ -n "${!refname}" ]] && maxfiles="${!refname}"
         pydebug=
         pyverbose=
-        [[ $BKUP_DEBUG -gt 0 ]] && pydebug='-d'
-        [[ $BKUP_VERBOSE -gt 0 ]] && pyverbose='-v'
+#        [[ $BKUP_DEBUG -gt 0 ]] && pydebug='-d'
+#        [[ $BKUP_VERBOSE -gt 0 ]] && pyverbose='-v'
         python3 $PDBKUP_BASE/bin/split_filelist.py \
             --size_max $maxsize \
             --numfiles_max $maxfiles \

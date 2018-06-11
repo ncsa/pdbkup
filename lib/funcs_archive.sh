@@ -68,8 +68,10 @@ function snapdir2timestamp {
     [[ $BKUP_DEBUG -gt 0 ]] && set -x
     local snapdir=$1
     [[ -z "$snapdir" ]] && die "snapdir2timestamp; snapdir cant be empty"
-    local ts_str=$( basename $snapdir \
-    | tr '_' ' ' | tr -cd ' 0-9-' | xargs -I {} date -d {} '+%s' )
+    #local ts_str=$( basename $snapdir \
+    #| tr '_' ' ' | tr -cd ' 0-9-' | xargs -I {} date -d {} '+%s' )
+    ts_str=$( basename $snapdir \
+    | tr '_' ' ' | tr '-' ' ' | tr -cd ' 0-9-' | xargs -I {} date -d {} '+%s' )
     local rc=$?
     [[ $rc -ne 0 ]] && die "Unable to get date from snapdir '$snapdir'"
     echo "$ts_str"
@@ -164,7 +166,7 @@ function get_last_full_timestamp {
     local last_full_dirname=$( find $infodir -type f -name 'allfileslist.FULL' \
     | sort \
     | tail -1 \
-    | xargs -n1 dirname )
+    | xargs -r -n1 dirname )
     [[ -z "$last_full_dirname" ]] && return
     local foo last_full_timestamp
     read foo last_full_timestamp <<< $( bkupinfodir2key_ts <<< "$last_full_dirname" )
