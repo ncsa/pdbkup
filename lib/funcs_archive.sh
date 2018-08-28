@@ -144,7 +144,7 @@ function filename2key_ts() {
     for fullpath; do
         basename "$fullpath" \
         | cut -d '.' -f 1 \
-        | awk -F '_' '{print $1,$2}'
+        | awk -F '_INFO' '{a=match($1,/_[0-9]+/); k=substr($1,0,a-1); t=substr($1,a+1); print k,t}'
     done
 }
 

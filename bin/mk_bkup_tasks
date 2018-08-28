@@ -138,10 +138,13 @@ for key in "${dirkeys[@]}"; do
     [[ -d $infodir ]] || mkdir -p $infodir
 
     # Determine backup type (FULL or INCREMENTAL)
+    # Default bkuptype is INCR, do checks to see if it should be a FULL
     prev_timestamp=
     last_full_timestamp=$( get_last_full_timestamp $key )
     min_full_age=$( bc <<< "$timestamp - $INI__GENERAL__FULL_FREQUENCY" )
+    bkuptype="INCR" #default bkup type
     if [[ $last_full_timestamp -lt $min_full_age ]] ; then
+        # automatically a FULL, dont check anything else
         bkuptype="FULL"
         prev_timestamp=
     elif [[ "$PDBKUP_TYPE" == "FULL" ]]; then
@@ -153,23 +156,38 @@ for key in "${dirkeys[@]}"; do
         bkuptype="FULL"
         prev_timestamp=
     else
+        # Check for existing allfileslist and extract bkuptype from filename
+        # (note: bkuptype is the suffix of the allfileslist filename)
         read foo prev_timestamp <<<$( bkupinfodir2key_ts <<< "$prev_infodir" )
         if [[ "$prev_timestamp" == "$timestamp" ]]; then
             # either new snapshot wasn't created
             # or this is a re-process of last bkup
             # (maybe it failed or was killed or already completed successfully)
             # Try to extract bkuptype from allfileslist filename
+            echo "harathi printing InfoDIR: \"$infodir\""
             all_fn=$( find "$infodir" -type f -name 'allfileslist.*' | head -1 )
-            bkuptype="${all_fn##*.}"
-            if [[ "$bkuptype" == "FULL" ]]; then
-                prev_timestamp=
-            elif [[ "$bkuptype" != "INCR" ]]; then
-                die "Unable to get valid bkuptype from prev_infodir '$prev_infodir'"
+            if [[ -n $all_fn ]]; then
+                # Allfileslist file exists, check if bkuptype is FULL
+                echo "Harathi printing all_fn $all_fn"
+                bkuptype="${all_fn##*.}"
+                if [[ "$bkuptype" == "FULL" ]]; then
+                    echo "harathi printing bkup type \"$bkuptype\""
+                    prev_timestamp=
+                elif [[ "$bkuptype" != "INCR" ]]; then
+                    echo "Harathi printing  $bkuptype"
+                    die "Got invalid bkuptype '$bkuptype' from prev_infodir '$prev_infodir'"
+                fi
+#            else
+#                # all_fn file doesnt exist, bkuptype is INCR
+#                echo "Harathi all_fn is empty"
+#                bkuptype="INCR"
             fi
         elif [[ $prev_timestamp -gt $timestamp ]]; then
             die "Prev_timestamp '$prev_timestamp' cannot be greater than current timestamp '$timestamp'"
         else
-            bkuptype="INCR"
+            # Should neve get here unless there was a problem somewhere else
+            # such as prev_infodir is empty or invalid
+            die "prev_timestamp '$prev_timestamp' compares as less than today '$timestamp'"
         fi
     fi
 
