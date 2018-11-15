@@ -12,9 +12,9 @@ read_ini $PDBKUP_BASE/conf/settings.ini
 
 # Dont continue if active parallel or dar processes
 parcount=$( pgrep -f parallel | wc -l )
-[[ $parcount -ne 0 ]] && die "Existing parallel processes found, exiting."
+[[ $parcount -ne 0 ]] && log "Startworker:Existing parallel processes found, exiting."
 darcount=$( pgrep -f dar | wc -l )
-[[ $darcount -ne 0 ]] && die "Existing dar processes found, exiting."
+[[ $darcount -ne 0 ]] && log "Startworker:Existing dar processes found, exiting."
 
 # Stop if gatekeeper file is present
 gkfn=$( gatekeeper_fn )
